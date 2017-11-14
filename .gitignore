@@ -1,4 +1,6 @@
 ### node etc ###
+node_modules/
+bower_components/
 
 # Logs
 logs

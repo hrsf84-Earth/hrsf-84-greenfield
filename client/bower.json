@@ -1,0 +1,14 @@
+{
+  "name": "client",
+  "homepage": "https://github.com/hrsf84-Earth/hrsf84-greenfield",
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

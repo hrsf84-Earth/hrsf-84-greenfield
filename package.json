@@ -1,15 +1,18 @@
 {
-  "name": "",
-  "version": "",
+  "name": "inpulse",
+  "version": "1.0.0",
   "description": "",
   "author": "",
+  "main": "server/app.js",
   "license": "",
   "engines": {
     "node": ">=6.4.0"
   },
   "scripts": {
+    "start": "node server/app.js"
   },
   "dependencies": {
+    "express": "^4.16.2"
   },
   "devDependencies": {
     "babel-cli": "^6.7.5",
