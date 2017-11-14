@@ -6,7 +6,7 @@
   "main": "server/app.js",
   "license": "",
   "engines": {
-    "node": ">=6.4.0"
+    "node": "8.x.0"
   },
   "scripts": {
     "start": "node server/app.js", 
