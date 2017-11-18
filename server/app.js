@@ -8,7 +8,6 @@ app.use(function (req, res) {
   res.status(200).send('Hello Earth - Welcome To the Web')
 })
 
-//comment test for Heroku, 
-// more testing
-//3rd test
-//4th commit
+app.get('/', function(req, res) {
+  res.status(201).send('received the initial get from the Client, the photo from API will go here')
+})
