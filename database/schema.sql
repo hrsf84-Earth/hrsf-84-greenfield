@@ -11,20 +11,20 @@ CREATE TABLE Users (
   salt varchar(64) NOT NULL
 );
 CREATE TABLE Sessions (
-  id int NOT NULL AUTO_INCREMENT,
-  cookie_id varchar(64),
+  id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  cookieId varchar(64),
   userId INT,
   FOREIGN KEY (userId) REFERENCES Users(id)
 );
 CREATE TABLE Favorites (
-  id int NOT NULL AUTO_INCREMENT,
+  id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
   userId integer NOT NULL,
   photoId integer NOT NULL,
   FOREIGN KEY (userId) REFERENCES Users(id),
   FOREIGN KEY (photoId) REFERENCES Photos(id)
 );
 CREATE TABLE Photos (
-  id int NOT NULL AUTO_INCREMENT,
+  id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
   photo_Url varchar(120) UNIQUE,
   shared_count integer,
   category varchar(64)
