@@ -10,19 +10,16 @@ app.listen(port, () => {console.log ('listening to port: ', port)})
 // })
 app.use(express.static('./client/dist'))
 
-app.get('/', function(req, res) {
-  res.status(201).send('received the initial get from the Client, the photo from API will go here')
-})
 
 app.get('/photos', function(req, res){
 
   console.log('REQ QUERY', req.query);
-  unsplash.getPhotos(req.query, function(err, data){
+  unsplash.getPhotos('tigers', function(err, data){
     if(err){
       res.status(404).send('ERROR RETRIEVING PHOTOS');
     }
-    console.log(data);
-    res.send(data);
+    // console.log(data[0].urls.full);
+    res.send(data[1].urls.full);
 
   });
 
