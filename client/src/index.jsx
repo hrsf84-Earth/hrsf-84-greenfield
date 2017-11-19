@@ -37,9 +37,12 @@ class App extends React.Component {
 
 
   render () {
-    return (<div>
-      <h1 className='header' text-align="left">IMPULSE</h1>
-      <Login className='login' loginStatus={this.state.loginStatus}
+    return (
+    <div>
+      <h1 className='header'>IMPULSE</h1>
+      <Login 
+        className='login' 
+        loginStatus={this.state.loginStatus}
         />
       <Carousel className='carousel' currentPhoto={this.state.currentPhoto} />
     </div>)
