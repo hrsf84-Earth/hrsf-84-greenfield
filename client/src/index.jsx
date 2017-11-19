@@ -22,11 +22,12 @@ class App extends React.Component {
 
   componentDidMount() {
     $.ajax({
-      url: '/',
+      url: '/photos',
       success: (data) => {
         if (data) {
+          console.log(data)
           this.setState({
-            currentPhoto: data.body || {src: 'http://images2.fanpop.com/image/photos/13300000/Cute-Puppy-puppies-13379766-1280-800.jpg'}
+            currentPhoto: {src: data} || {src: 'http://images2.fanpop.com/image/photos/13300000/Cute-Puppy-puppies-13379766-1280-800.jpg'}
           })
         }
         console.log('setState for displaying a photo');
