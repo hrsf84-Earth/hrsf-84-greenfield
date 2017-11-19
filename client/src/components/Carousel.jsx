@@ -7,7 +7,10 @@ class Carousel extends React.Component {
   }
   render () {
     return (
-      <div>
+      <div className='carousel'>
+      <button>Left</button>
+        <img src={this.props.currentPhoto.src} ></img>
+        <button>Right</button>
       </div>
     )
   }
