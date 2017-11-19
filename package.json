@@ -11,7 +11,7 @@
   "scripts": {
     "start": "node server/app.js",
     "test": "echo \"No tests specified\"",
-    "demon": "nodemon server/index.js",
+    "demon": "nodemon server/app.js",
     "dev": "webpack -d --watch",
     "babel": "babel . --out-dir compiled --presets=es2015,react --ignore=node_modules,compiled --source-maps inline --watch"
   },
