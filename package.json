@@ -16,6 +16,7 @@
     "babel": "babel . --out-dir compiled --presets=es2015,react --ignore=node_modules,compiled --source-maps inline --watch"
   },
   "dependencies": {
+    "axios": "^0.17.1",
     "express": "^4.16.2",
     "jquery": "^3.2.1",
     "react": "^16.1.1",
