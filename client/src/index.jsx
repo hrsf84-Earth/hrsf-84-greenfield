@@ -18,28 +18,31 @@ class App extends React.Component {
   }
 
 
-  componentDidMount() {
-    $.ajax({
-      url: '/',
-      success: (data) => {
-        if (data) {
-          this.setState({
-            currentPhoto: data.body || ''
-          })
-        }
-        console.log('setState for displaying a photo');
-      },
-      error: (err) => {
-        console.log('err', err);
-      }
-    });
-  }
+  // componentDidMount() {
+  //   $.ajax({
+  //     url: '/',
+  //     success: (data) => {
+  //       if (data) {
+  //         this.setState({
+  //           currentPhoto: data.body || ''
+  //         })
+  //       }
+  //       console.log('setState for displaying a photo');
+  //     },
+  //     error: (err) => {
+  //       console.log('err', err);
+  //     }
+  //   });
+  // }
 
 
   render () {
-    return (<div>
-      <h1 className='header' text-align="left">IMPULSE</h1>
-      <Login className='login' loginStatus={this.state.loginStatus}
+    return (
+    <div>
+      <h1 className='header'>IMPULSE</h1>
+      <Login 
+        className='login' 
+        loginStatus={this.state.loginStatus}
         />
       <Carousel className='carousel' currentPhoto={this.state.currentPhoto} />
     </div>)
