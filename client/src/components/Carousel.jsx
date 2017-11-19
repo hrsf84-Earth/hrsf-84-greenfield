@@ -8,6 +8,9 @@ class Carousel extends React.Component {
   render () {
     return (
       <div>
+        carousel
+        {console.log('src',this.props.currentPhoto.src)}
+        <img src={this.props.currentPhoto.src} ></img>
       </div>
     )
   }
