@@ -1,0 +1,34 @@
+.login {
+  float:right;
+  vertical-align: middle;
+  height: 100%
+}
+
+img {
+  width: 50%;
+  margin: auto;
+  display: table-column
+}
+
+button {
+
+  /* margin: auto; */
+  display: table-column
+}
+
+.header {
+  float: left;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.header-bar {
+  background: grey;
+  margin: auto;
+  width: 100%;
+}
+
+.carousel {
+  display: inline-block;
+  float: center;
+}
