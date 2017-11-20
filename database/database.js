@@ -3,6 +3,7 @@ try {
   //try to find config file, if doesn't exist then assume that 
   //server is live and will retrieve variables from enviromental variables on server
   var config = require('../config.js');
+} catch (err) {
 } finally {
   var mySQL_username = process.env.mySQL_username ||  config.mySQL_username ;
   var mySQL_password = process.env.mySQL_password || config.mySQL_password;
