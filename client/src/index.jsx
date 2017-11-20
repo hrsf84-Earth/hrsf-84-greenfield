@@ -41,7 +41,6 @@ class App extends React.Component {
     });
   }
 
-
   nextPhoto() {
     let context = this;
     return new Promise ((resolve, reject) => {
@@ -84,7 +83,6 @@ class App extends React.Component {
       });
     })
   }
-
 
   render () {
     return (

@@ -24,6 +24,7 @@ app.get('/photos', function(req, res){
       return element.urls.full;
     })
     // console.log(data);
+
     res.send(data);
   });
 });
