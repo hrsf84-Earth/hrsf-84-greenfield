@@ -7,8 +7,8 @@ class Login extends React.Component {
   }
   render () {
     return (
-      <div className="login">
-        login
+      <div className="header-right">
+        Sign In | Login
       </div>
     )
   }

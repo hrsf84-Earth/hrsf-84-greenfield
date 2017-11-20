@@ -1,34 +1,113 @@
-.login {
-  float:right;
-  vertical-align: middle;
-  height: 100%
+/* http://meyerweb.com/eric/tools/css/reset/ 2. v2.0 | 20110126
+  License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 5px;
+  border: 0;
+  font-size: 100%;
+  font-family: 'Baloo Thambi', cursive;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
 }
 
-img {
-  width: 50%;
-  margin: auto;
-  display: table-column
+body {
+  background-color: #F5F5F5;
+  margin: 0 5%;
+  line-height: 1;
 }
 
-button {
+/*
+  ========================================
+  Grid
+  ========================================
+*/
 
-  /* margin: auto; */
-  display: table-column
-}
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-rows: 1fr 3fr 1fr;
+    grid-template-areas:
+      "header-left header-right"
+      "left carousel right"
+      "footer"
+  }
 
-.header {
-  float: left;
-  font-size: 30px;
-  font-weight: bold;
-}
+  .header-left {
+    float: left;
+    font-size: 150px;
+    grid-area: "header-left";
+    grid-column: 1/3;
+    grid-row: 1/2;
+  }
 
-.header-bar {
-  background: grey;
-  margin: auto;
-  width: 100%;
-}
+  .header-right {
+    align-items: end;
+    float: right;
+    font-size: 45px;
+    grid-area: "header-right";
+    grid-column: 3/4;
+    grid-row: 1/2;
+  }
 
-.carousel {
-  display: inline-block;
-  float: center;
-}
+  .left {
+    /*background-color: #6C7378;*/
+    display: grid;
+    grid-area: left;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-template-rows: 2fr 1fr 2fr;
+  }
+
+  .left-middle {
+    grid-row-start: 2;
+    grid-row-end: 3;
+  }
+
+  .right {
+    /*background-color: #750CE8;*/
+    display: grid;
+    grid-area: right;
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    grid-template-rows: 2fr 1fr 2fr;
+  }
+
+  .right-middle {
+    grid-row-start: 2;
+    grid-row-end: 3;
+  }
+
+  .carousel {
+    grid-area: carousel;
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    align-items: center;
+  }
+
+  .footer {
+    grid-area: footer;
+  }
