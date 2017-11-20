@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import Login from './components/Login.jsx'
 import Carousel from './components/Carousel.jsx'
+import Search from './components/search.jsx'
 
 
 class App extends React.Component {
@@ -106,10 +107,34 @@ class App extends React.Component {
     })
   }
 
+  onSearch(term) {
+    $.ajax({
+      url: '/photos',
+      method: 'GET',
+      data: {
+        query: term
+      },
+      contentType: 'application/json',
+      success: (photoData) => {
+        if(photoData){
+          console.log('ON SUCCESS', photoData)
+          this.src = photoData;
+          this.forceUpdate();
+
+        }
+      },
+      error: (xhr, status, error) => {
+        console.log('err', xhr, status, error);
+      }
+    });
+  }
+
   render () {
     return (
     <div className="grid">
       <div className="header-left">Impulse</div>
+
+      <Search onSearch={this.onSearch.bind(this)} />
 
       <div>
         <Login className="header-right" loginStatus={this.state.loginStatus} />
