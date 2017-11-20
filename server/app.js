@@ -2,7 +2,7 @@ var express = require ('express')
 var app = express();
 var unsplash = require('../helpers/unsplash.js');
 var bodyParser = require('body-parser')
-
+var db = require ('../database/database.js')
 
 var port = process.env.PORT || 8080;
 app.listen(port, () => {console.log ('listening to port: ', port)})
