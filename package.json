@@ -23,6 +23,7 @@
     "jquery": "^3.2.1",
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
+    "sync-exec": "^0.6.2",
     "underscore": "^1.8.3",
     "webpack": "^3.8.1"
   },
