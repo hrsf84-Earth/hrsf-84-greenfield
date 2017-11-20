@@ -2,8 +2,4 @@ language: node_js
 rvm:
  - 2.2
  - jruby
-<<<<<<< 759e526904a41d08e40ccbf0aaca32c9c2249285
  - rbx-3
-=======
- - rbx-3
->>>>>>> (bug) Travis CI added some more info
