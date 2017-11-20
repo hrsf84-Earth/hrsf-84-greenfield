@@ -12,7 +12,8 @@ class App extends React.Component {
 // Adding three states. Definitely using currentPhoto
 // Putting placeholders for loggedIn and favoritesView for now
     // this.src = ['http://images2.fanpop.com/image/photos/13300000/Cute-Puppy-puppies-13379766-1280-800.jpg'],
-    this.src = []
+    // this.src = [{urls:''}]
+    this.src = [];
 
     this.state = {
       // currentPhotoURL: src[0],

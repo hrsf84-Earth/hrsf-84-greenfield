@@ -17,15 +17,16 @@ app.get('/photos', function(req, res){
   console.log('REQ QUERY', req.query);
   unsplash.getPhotos('tigers', function(err, data){
     if(err){
-      res.status(404).send('ERROR RETRIEVING PHOTOS');
+      res.status(404).send('ERROR RETRIEVING PHOTOS' + err);
+    } else {
+      res.send(data);
     }
 
-    data = data.map(function(element) {
-      return element.urls.regular;
-    })
+    // data = data.map(function(element) {
+    //   return element.urls.regular;
+    // })
     // console.log(data);
 
-    res.send(data);
   });
 });
 

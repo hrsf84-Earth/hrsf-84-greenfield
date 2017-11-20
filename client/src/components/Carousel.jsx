@@ -5,12 +5,17 @@ class Carousel extends React.Component {
   constructor(props) {
     super(props);
   }
+
   render () {
-    return (
-      <div className="carousel">
-        <img src={this.props.currentPhoto} ></img>
-      </div>
-    )
+    if (!!this.props.currentPhoto) {
+      return (
+        <div className="carousel">
+          <img src={this.props.currentPhoto.urls.regular} ></img>
+        </div>
+      )
+    } else {
+      return (null) ;
+    }
   }
 }
 
