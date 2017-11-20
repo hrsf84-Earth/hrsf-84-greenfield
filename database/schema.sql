@@ -1,4 +1,4 @@
-DROP DATABASE IF EXISTS impulse;
+-- DROP DATABASE IF EXISTS impulse; --lets NOT drop out table we want to keep our user data!
 
 CREATE DATABASE impulse;
 

@@ -2,7 +2,7 @@ var express = require ('express')
 var app = express();
 var unsplash = require('../helpers/unsplash.js');
 var bodyParser = require('body-parser')
-
+var db = require ('../database/database.js')
 
 var port = process.env.PORT || 8080;
 app.listen(port, () => {console.log ('listening to port: ', port)})
@@ -17,15 +17,16 @@ app.get('/photos', function(req, res){
   console.log('REQ QUERY', req.query);
   unsplash.getPhotos('tigers', function(err, data){
     if(err){
-      res.status(404).send('ERROR RETRIEVING PHOTOS');
+      res.status(404).send('ERROR RETRIEVING PHOTOS' + err);
+    } else {
+      res.send(data);
     }
 
-    data = data.map(function(element) {
-      return element.urls.full;
-    })
+    // data = data.map(function(element) {
+    //   return element.urls.regular;
+    // })
     // console.log(data);
 
-    res.send(data);
   });
 });
 

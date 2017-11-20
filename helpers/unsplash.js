@@ -1,5 +1,15 @@
 const axios = require('axios');
-const api = require('../config.js');
+try { 
+  //try to find config file, if doesn't exist then assume that 
+  //server is live and will retrieve variables from enviromental variables on server
+  var api = require('../config.js');
+} finally {
+  var unsplash_applicationId = process.env.unsplash_applicationId || api.unsplash_applicationId;
+  var unsplash_secret = process.env.unsplash_secret || api.unsplash_secret;
+
+  //From jeff - what is the unsplash_secret used for??
+}
+
 
 const getPhotos = (input, callback) => {
   //PARAMETERS FOR UNSPLASH API
