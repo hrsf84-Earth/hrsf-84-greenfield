@@ -21,7 +21,7 @@ app.get('/photos', function(req, res){
     }
 
     data = data.map(function(element) {
-      return element.urls.full;
+      return element.urls.regular;
     })
     // console.log(data);
 
