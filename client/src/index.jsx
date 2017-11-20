@@ -12,6 +12,7 @@ class App extends React.Component {
 // Adding three states. Definitely using currentPhoto
 // Putting placeholders for loggedIn and favoritesView for now
     this.state = {
+      src: [],
       currentPhoto: {},
       loginStatus: '',
       favoritesView: ''
@@ -27,7 +28,8 @@ class App extends React.Component {
         if (data) {
           console.log(data)
           this.setState({
-            currentPhoto: {src: data} || {src: 'http://images2.fanpop.com/image/photos/13300000/Cute-Puppy-puppies-13379766-1280-800.jpg'}
+            src: data,
+            currentPhoto: {src: data[0]} || {src: 'http://images2.fanpop.com/image/photos/13300000/Cute-Puppy-puppies-13379766-1280-800.jpg'}
           })
         }
         console.log('setState for displaying a photo');
@@ -38,6 +40,13 @@ class App extends React.Component {
     });
   }
 
+
+  handleClickRight() {
+    console.log('Clicked');
+    this.setState({
+      currentPhoto: this.state.src[1]
+    })
+  }
 
   render () {
     return (
@@ -52,7 +61,7 @@ class App extends React.Component {
       </div>
       <Carousel currentPhoto={this.state.currentPhoto} />
       <div className="right">
-        <button className="right-middle">Right</button>
+        <button className="right-middle" onClick={this.handleClickRight.bind(this)}>Right</button>
       </div>
     </div>
     )

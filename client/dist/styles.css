@@ -34,6 +34,12 @@ body {
   line-height: 1;
 }
 
+img {
+  border: none;
+  width: 90%;
+  height: auto;
+}
+
 /*
   ========================================
   Grid
