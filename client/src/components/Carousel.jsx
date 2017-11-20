@@ -8,7 +8,7 @@ class Carousel extends React.Component {
   render () {
     return (
       <div className="carousel">
-        <img src={this.props.currentPhoto.src} ></img>
+        <img src={this.props.currentPhoto} ></img>
       </div>
     )
   }
