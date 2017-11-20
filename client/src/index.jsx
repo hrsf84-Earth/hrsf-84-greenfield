@@ -41,20 +41,21 @@ class App extends React.Component {
 
   render () {
     return (
-    <div>
-      <div className='header-bar'>
-        <div className='header'>IMPULSE </div>
-        <Login 
-          className='login' 
-          loginStatus={this.state.loginStatus}
-        />
+    <div className="grid">
+      <div className="header-left">Impulse</div>
+
+      <div>
+        <Login className="header-right" loginStatus={this.state.loginStatus} />
       </div>
-        
-      <Carousel 
-        className='carousel' 
-        currentPhoto={this.state.currentPhoto} 
-      />
-    </div>)
+      <div className="left">
+          <button className="left-middle">Left</button>
+      </div>
+      <Carousel currentPhoto={this.state.currentPhoto} />
+      <div className="right">
+        <button className="right-middle">Right</button>
+      </div>
+    </div>
+    )
   }
 }
 
