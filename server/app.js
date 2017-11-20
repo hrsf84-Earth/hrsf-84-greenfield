@@ -19,6 +19,7 @@ app.get('/photos', function(req, res){
     if(err){
       res.status(404).send('ERROR RETRIEVING PHOTOS' + err);
     } else {
+      console.log('data sent via get photos')
       res.send(data);
     }
 
@@ -35,8 +36,9 @@ app.get('/photos', function(req, res){
   unsplash.getPhotos(req, function(err, data){
     if(err){
       res.status(404).send('ERROR RETRIEVING PHOTOS');
+    } else {
+      console.log("data send via get search")
+      res.send(data[0].urls.full);
     }
-    res.send(data[0].urls.full);
-
   });
 });
