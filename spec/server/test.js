@@ -1,6 +1,6 @@
 var assert = require('assert');
-var chai = require('chai')
-  , chaiHttp = require('chai-http');
+var chai = require('chai');
+var chaiHttp = require('chai-http');
 var expect = require('chai').expect;
 var server = require('../../server/app.js');
 
