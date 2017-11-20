@@ -19,11 +19,12 @@ app.get('/photos', function(req, res){
     if(err){
       res.status(404).send('ERROR RETRIEVING PHOTOS');
     }
-    console.log(data);
+
     data = data.map(function(element) {
       return element.urls.full;
     })
-    console.log(data);
+    // console.log(data);
+
     res.send(data);
   });
 });
