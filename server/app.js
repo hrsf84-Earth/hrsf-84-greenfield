@@ -14,6 +14,7 @@ app.use(express.static('./client/dist'))
 
 
 app.get('/photos', function(req, res){
+
   console.log('REQ QUERY', req.query);
 
   var term = req.query.query || 'tigers';
