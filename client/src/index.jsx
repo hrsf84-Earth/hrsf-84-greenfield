@@ -13,7 +13,7 @@ class App extends React.Component {
 // Putting placeholders for loggedIn and favoritesView for now
     this.state = {
       src: [],
-      currentPhotoURL: src[0],
+      // currentPhotoURL: src[0],
       currentPhotoIndex: 0,
       loginStatus: '',
       favoritesView: ''
