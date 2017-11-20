@@ -25,8 +25,7 @@
     "react-dom": "^16.1.1",
     "sync-exec": "^0.6.2",
     "underscore": "^1.8.3",
-    "webpack": "^3.8.1",
-    "npm": "^5.5.1"
+    "webpack": "^3.8.1"
   },
   "devDependencies": {
     "babel-cli": "^6.7.5",
