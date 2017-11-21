@@ -34,11 +34,7 @@ class App extends React.Component {
           console.log(data)
           context.src = data;
           this.forceUpdate();
-          // context.setState({
-          //   src: data
-          // })
         }
-        console.log('setState for displaying a photo');
       },
       error: (err) => {
         context.src = ['http://images2.fanpop.com/image/photos/13300000/Cute-Puppy-puppies-13379766-1280-800.jpg'];
