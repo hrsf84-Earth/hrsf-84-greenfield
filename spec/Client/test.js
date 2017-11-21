@@ -1,7 +1,7 @@
 var assert = require('assert');
 var chai = require('chai')
 var expect = require('chai').expect;
-var client = require('../../client/src/index.jsx');
+// var client = require('../../client/src/index.jsx');
 
 
 // describe('Client', function() {
