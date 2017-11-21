@@ -1,6 +1,5 @@
 var bodyParser = require('body-parser');
 var express = require ('express');
-var session = require('express-session');
 
 var db = require ('../database/database.js');
 var unsplash = require('../helpers/unsplash.js');

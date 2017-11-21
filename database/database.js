@@ -35,7 +35,7 @@ module.exports.con = con;
 
 
 ////////////// sessions ///////////////////////
-
+var session = require('express-session');
 var MySQLStore = require('express-mysql-session')(session);
 var crypto = require('../helpers/authentication.js');
 
