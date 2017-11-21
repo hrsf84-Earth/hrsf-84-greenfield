@@ -9,19 +9,15 @@ import Search from './components/search.jsx'
 class App extends React.Component {
   constructor(props) {
     super(props);
-
-// Adding three states. Definitely using currentPhoto
-// Putting placeholders for loggedIn and favoritesView for now
-    // this.src = ['http://images2.fanpop.com/image/photos/13300000/Cute-Puppy-puppies-13379766-1280-800.jpg'],
-    // this.src = [{urls:''}]
     this.src = [];
-
     this.state = {
-      // currentPhotoURL: src[0],
       currentPhotoIndex: 0,
       loginStatus: '',
-      favoritesView: ''
+      favoritesView: '',
+      searchTerm: '',
+      searchPagination: 1
     }
+
     this.handlePhotoNavigationClick = this.handlePhotoNavigationClick.bind(this);
   }
 
@@ -53,26 +49,38 @@ class App extends React.Component {
     } else if ( newIndex >= numberOfPhotos ) {
       newIndex = newIndex - numberOfPhotos ;
     }
-    console.log("Photo index", newIndex)
+    console.log("Photo index", newIndex);
     this.setState({
       currentPhotoIndex: newIndex
-    })
+    });
+
+    // if we are going to paginate and need more photos, we should get it when modulo
+    if (this.state.currentPhotoIndex === this.src.length - 1) {
+    // fetch the next page of photos
+      this.onSearch();
+    }
+
   }
 
-  onSearch(term) {
+  onSearch() {
     $.ajax({
       url: '/photos',
       method: 'GET',
       data: {
-        query: term
+        query: this.state.searchTerm,
+        page: this.state.searchPagination
       },
       contentType: 'application/json',
       success: (photoData) => {
         if(photoData){
-          console.log('ON SUCCESS', photoData)
-          this.src = photoData;
+          // console.log('ON SUCCESS', photoData);
+          this.src.push(...photoData);
           this.forceUpdate();
-
+          this.setState({
+            searchPagination: this.state.searchPagination + 1
+          });
+          console.log('THIS.SRC STATE',this.src);
+          console.log('PAGINATION STATE',this.state.searchPagination);
         }
       },
       error: (xhr, status, error) => {
@@ -81,20 +89,26 @@ class App extends React.Component {
     });
   }
 
+  onSearchInput(e) {
+    this.setState({
+      searchTerm: e.target.value
+    });
+  }
+
   render () {
     return (
     <div className="grid">
       <div className="header-left">Impulse</div>
-      <Search onSearch={this.onSearch.bind(this)} />
+        <Search onSearch={this.onSearch.bind(this)} onSearchInput={this.onSearchInput.bind(this)} />
       <div>
         <Login className="header-right" loginStatus={this.state.loginStatus} />
       </div>
       <div className="left auto-center">
-          <button><i className="fa fa-5x fa-angle-left left-middle" aria-hidden="true" onClick={() => this.handlePhotoNavigationClick(-1)}></i></button>
+        <button><i className="fa fa-5x fa-angle-left left-middle" aria-hidden="true" onClick={() => this.handlePhotoNavigationClick(-1)}></i></button>
       </div>
-      <Carousel currentPhoto={this.src[this.state.currentPhotoIndex]} />
+        <Carousel currentPhoto={this.src[this.state.currentPhotoIndex]} />
       <div className="right auto-center">
-      <button className=""><i className="fa fa-5x fa-angle-right right-middle" aria-hidden="true" onClick={() => this.handlePhotoNavigationClick(1)} > </i></button>
+        <button><i className="fa fa-5x fa-angle-right right-middle" aria-hidden="true" onClick={() => this.handlePhotoNavigationClick(1)} > </i></button>
       </div>
     </div>
     )
