@@ -46,18 +46,8 @@ app.use(session({
 
 // Access the session as req.session
 app.use(function(req, res, next) {
-  console.log('INSIDE THE APP.GET FOR A SLASH PAGE REQUEST');
-  // if (req.session.views) {
-  //   req.session.views++;
-  //   res.setHeader('Content-Type', 'text/html');
-  //   res.write('<p>views: ' + req.session.views + '</p>');
-  //   res.write('<p>expires in: ' + (req.session.cookie.maxAge / 1000) + 's</p>');
-  //   res.end();
-  // } else {
-  //   req.session.views = 1;
     res.cookie('impulse_cookie_ID', crypto.createRandom32String())
     next();
-  // }
 });
 
 app.use(express.static('./client/dist'));
@@ -76,23 +66,17 @@ app.get('/photos', function(req, res){
       console.log('data sent via get photos')
       res.send(data);
     }
-
-    // data = data.map(function(element) {
-    //   return element.urls.regular;
-    // })
-    // console.log(data);
-
   });
 });
 
-//  app.get('/search', function(req, res) {
-//   //need to update req so it posts the right data in getPhotos
-//   unsplash.getPhotos(req, function(err, data){
-//     if(err){
-//       res.status(404).send('ERROR RETRIEVING PHOTOS');
-//     } else {
-//       console.log("data send via get search")
-//       res.send(data[0].urls.full);
-//     }
-//   });
-// });
+ app.get('/search', function(req, res) {
+  //need to update req so it posts the right data in getPhotos
+  unsplash.getPhotos(req, function(err, data){
+    if(err){
+      res.status(404).send('ERROR RETRIEVING PHOTOS');
+    } else {
+      console.log("data send via get search")
+      res.send(data[0].urls.full);
+    }
+  });
+});
