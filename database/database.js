@@ -8,7 +8,7 @@ try {
   var mySQL_username = process.env.mySQL_username ||  config.mySQL_username ;
   var mySQL_password = process.env.mySQL_password || config.mySQL_password;
   var mySQL_port = process.env.mySQL_port || config.mySQL_port;
-  var JAWSDB_URL = process.env.JAWSDB_URL || config.JAWSDB_URL;
+  // var JAWSDB_URL = process.env.JAWSDB_URL || config.JAWSDB_URL;
 }
 
 // Create a database connection and export it from this file.
