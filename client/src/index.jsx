@@ -91,10 +91,12 @@ class App extends React.Component {
       </div>
       <div className="left">
           <i className="fa fa-5x fa-angle-left left-middle" aria-hidden="true" onClick={() => this.handlePhotoNavigationClick(-1)}></i>
+          {/* <button className="left-middle" onClick={() => this.handlePhotoNavigationClick(-1)}>Previous</button> */}
       </div>
       <Carousel currentPhoto={this.src[this.state.currentPhotoIndex]} />
       <div className="right">
       <i className="fa fa-5x fa-angle-right right-middle" aria-hidden="true" onClick={() => this.handlePhotoNavigationClick(1)} > </i>
+        {/* <button className="right-middle" onClick={() => this.handlePhotoNavigationClick(1)}>Next</button> */}
       </div>
     </div>
     )
