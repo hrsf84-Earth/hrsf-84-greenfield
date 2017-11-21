@@ -7,6 +7,7 @@ try {
 } finally {
   var mySQL_username = process.env.mySQL_username ||  config.mySQL_username ;
   var mySQL_password = process.env.mySQL_password || config.mySQL_password;
+  var mySQL_DBName = process.env.JAWSDB_URL || config.JAWSDB_URL;
   var mySQL_port = process.env.mySQL_port || config.mySQL_port;
   var JAWSDB_URL = process.env.JAWSDB_URL || config.JAWSDB_URL;
 }
@@ -39,22 +40,13 @@ var session = require('express-session');
 var MySQLStore = require('express-mysql-session')(session);
 var crypto = require('../helpers/authentication.js');
 
-
-// Sets variables for use with cookie persistence
-// var mySQL_username = process.env.mySQL_username ||  config.mySQL_username ;
-// var mySQL_password = process.env.mySQL_password || config.mySQL_password;
-// var mySQL_port = process.env.mySQL_port || config.mySQL_port;
-// var mySQL_DBName = process.env.mySQL_DBName || config.mySQL_DBName;
-// var JAWSDB_URL = process.env.JAWSDB_URL || config.JAWSDB_URL;
-
-
 // Creates session options for express-session with MySQLStore
 var options = {
   host: JAWSDB_URL,
   port: mySQL_port,
   user: mySQL_username,
   password: mySQL_password,
-  // database: mySQL_DBName,
+  database: mySQL_DBName,
   expiration: 600000,
   // Whether or not to create the sessions database table, if one does not already exist:
   createDatabaseTable: false
