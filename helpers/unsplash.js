@@ -1,6 +1,6 @@
 const axios = require('axios');
-try { 
-  //try to find config file, if doesn't exist then assume that 
+try {
+  //try to find config file, if doesn't exist then assume that
   //server is live and will retrieve variables from enviromental variables on server
   var api = require('../config.js');
 } catch (err) {
@@ -19,11 +19,9 @@ const getPhotos = (input, callback) => {
 // per_page:	Number of items per page. (Optional; default: 10)
 // collections:	Collection ID(‘s) to narrow search. If multiple, comma-separated.
   axios.get('https://api.unsplash.com/search/photos', {
-    params: {query: input}, headers: {'Authorization': 'Client-ID 9c7f8bd9c717a9fb38a8cf1c8f5bfa39372aa246790420c14659c31c4d1261fe'}
-
+    params: {query: input, per_page: "30"}, headers: {'Authorization': 'Client-ID 9c7f8bd9c717a9fb38a8cf1c8f5bfa39372aa246790420c14659c31c4d1261fe'}
   })
   .then(photosFromAPI => {
-
     console.log('THE LENGTH BRUH', photosFromAPI.data.results.length)
     callback(null, photosFromAPI.data.results);
 
