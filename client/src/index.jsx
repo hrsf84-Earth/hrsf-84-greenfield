@@ -89,12 +89,12 @@ class App extends React.Component {
       <div>
         <Login className="header-right" loginStatus={this.state.loginStatus} />
       </div>
-      <div className="left">
-          <i className="fa fa-5x fa-angle-left left-middle" aria-hidden="true" onClick={() => this.handlePhotoNavigationClick(-1)}></i>
+      <div className="left auto-center">
+          <button><i className="fa fa-5x fa-angle-left left-middle" aria-hidden="true" onClick={() => this.handlePhotoNavigationClick(-1)}></i></button>
       </div>
       <Carousel currentPhoto={this.src[this.state.currentPhotoIndex]} />
-      <div className="right">
-      <i className="fa fa-5x fa-angle-right right-middle" aria-hidden="true" onClick={() => this.handlePhotoNavigationClick(1)} > </i>
+      <div className="right auto-center">
+      <button className=""><i className="fa fa-5x fa-angle-right right-middle" aria-hidden="true" onClick={() => this.handlePhotoNavigationClick(1)} > </i></button>
       </div>
     </div>
     )

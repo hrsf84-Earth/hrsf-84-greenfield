@@ -123,4 +123,7 @@ img {
 .auto-center {
   margin: auto;
   /* align-items: center; */
+  background:transparent; 
+  border:none; 
+  color:transparent;
 }
