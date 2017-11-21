@@ -1,4 +1,8 @@
 var mysql = require('mysql');
+var session = require('express-session');
+var MySQLStore = require('express-mysql-session')(session);
+var crypto = require('../helpers/authentication.js');
+
 try { 
   //try to find config file, if doesn't exist then assume that 
   //server is live and will retrieve variables from enviromental variables on server
@@ -15,7 +19,6 @@ try {
 // Create a database connection and export it from this file.
 // You will need to connect with the user "root", no password,
 // and to the database "chat".
-
 var con = mysql.createConnection({
   host: 'kavfu5f7pido12mr.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
   user: mySQL_username,
@@ -31,17 +34,10 @@ con.connect(function(err) {
   }
 });
 
-
-module.exports.con = con;
-
-
 ////////////// sessions ///////////////////////
-var session = require('express-session');
-var MySQLStore = require('express-mysql-session')(session);
-var crypto = require('../helpers/authentication.js');
 
 // Creates session options for express-session with MySQLStore
-var options = {
+var mySQLStoreOptions = {
   host: JAWSDB_URL,
   port: mySQL_port,
   user: mySQL_username,
@@ -53,8 +49,8 @@ var options = {
 };
 
 // Need to uncomment this for connecting to mySQL
-// var connection = mysql.createConnection(options); // or mysql.createPool(options);
-var sessionStore = new MySQLStore(options);
+// var connection = mysql.createConnection(options); // or mysql.createPool(options); /js: this one does not work, one above does
+var sessionStore = new MySQLStore(mySQLStoreOptions);
 
 // Creates the session information and makes function for issuing a cookie.
 session({
@@ -70,3 +66,5 @@ module.exports.createCookie = ((req, res, next) => {
   res.cookie('impulse_cookie_ID', crypto.createRandom32String())
   next();
 })
+
+module.exports.con = con;
