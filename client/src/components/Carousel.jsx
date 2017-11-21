@@ -25,23 +25,3 @@ class Carousel extends React.Component {
 }
 
 export default Carousel;
-/* 
-if (!this.props.currentPhoto) {
-  return (
-    <div className="carousel">
-      <img src={this.props.currentPhoto.urls.regular} ></img>
-    </div>
-  )
-} else {
-  return (<i className="fa fa-spinner fa-pulse fa-3x fa-fw"></i>) ;
-}
-
-
-    return (
-      <div className="auto-center">
-        <i className="carousel fa fa-spinner fa-pulse fa-3x fa-fw auto-center">
-        </i>
-      </div>
-      );
-
- */
