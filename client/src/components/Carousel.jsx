@@ -10,7 +10,7 @@ class Carousel extends React.Component {
     if (!!this.props.currentPhoto) {
       return (
         <div className="carousel">
-          <img src={this.props.currentPhoto.urls.regular} ></img>
+          <img id="carousel_img" src={this.props.currentPhoto.urls.regular} ></img>
         </div>
       )
     } else {

@@ -123,7 +123,14 @@ img {
 .auto-center {
   margin: auto;
   /* align-items: center; */
-  background:transparent; 
-  border:none; 
+  background:transparent;
+  border:none;
   color:transparent;
+}
+
+#carousel_img {
+  width: 95%;
+  max-width: 100%;
+  height: auto;
+  min-width: 400px;
 }
