@@ -14,7 +14,12 @@ class Carousel extends React.Component {
         </div>
       )
     } else {
-      return (null) ;
+    return (
+      <div className="auto-center">
+        <i className="carousel fa fa-spinner fa-pulse fa-3x fa-fw auto-center">
+        </i>
+      </div>
+      );
     }
   }
 }

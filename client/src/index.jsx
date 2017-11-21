@@ -44,27 +44,6 @@ class App extends React.Component {
     });
   }
 
-  nextPhoto() {
-    let context = this;
-    return new Promise ((resolve, reject) => {
-      this.state.src.forEach(function(element) {
-        if (element === context.currentPhoto) {
-          resolve(context.src.indexOf(element) + 1);
-        }
-      });
-    });
-  }
-
-  handleClickRight() {
-    console.log('Clicked', this.nextPhoto());
-    this.nextPhoto()
-    .then(photo => {
-      this.setState({
-        currentPhoto: this.state.src[photo]
-      });
-    })
-  }
-
   handlePhotoNavigationClick(direction = 1) { //direction positive, go to next; neg then go previous index
     // Overview: When user clicks on a nagivation button, will change the centeral image to a new index of src
     var numberOfPhotos = this.src.length;
@@ -77,29 +56,6 @@ class App extends React.Component {
     console.log("Photo index", newIndex)
     this.setState({
       currentPhotoIndex: newIndex
-    })
-  }
-
-
-  prevPhoto() {
-    let context = this;
-    return new Promise ((resolve, reject) => {
-      this.state.src.forEach(function(element) {
-        if (element === context.currentPhoto) {
-          console.log(context.src.indexOf(element) - 1);
-          resolve(context.src.indexOf(element) - 1);
-        }
-      });
-    });
-  }
-
-  handleClickLeft() {
-    console.log('Clicked', this.prevPhoto());
-    this.prevPhoto()
-    .then(photo => {
-      this.setState({
-        currentPhoto: this.state.src[photo]
-      });
     })
   }
 
@@ -129,18 +85,16 @@ class App extends React.Component {
     return (
     <div className="grid">
       <div className="header-left">Impulse</div>
-
       <Search onSearch={this.onSearch.bind(this)} />
-
       <div>
         <Login className="header-right" loginStatus={this.state.loginStatus} />
       </div>
       <div className="left">
-          <button className="left-middle" onClick={() => this.handlePhotoNavigationClick(-1)}>Previous</button>
+          <i className="fa fa-5x fa-angle-left left-middle" aria-hidden="true" onClick={() => this.handlePhotoNavigationClick(-1)}></i>
       </div>
       <Carousel currentPhoto={this.src[this.state.currentPhotoIndex]} />
       <div className="right">
-        <button className="right-middle" onClick={() => this.handlePhotoNavigationClick(1)}>Next</button>
+      <i className="fa fa-5x fa-angle-right right-middle" aria-hidden="true" onClick={() => this.handlePhotoNavigationClick(1)} > </i>
       </div>
     </div>
     )
