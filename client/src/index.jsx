@@ -4,8 +4,8 @@ import $ from 'jquery';
 import Login from './components/Login.jsx'
 import Carousel from './components/Carousel.jsx'
 import Search from './components/search.jsx'
-import Signin from './components/signin.jsx'
 import $Post from './services/Post.jsx'
+import $Get from './services/Get.jsx'
 
 
 class App extends React.Component {
@@ -106,21 +106,15 @@ class App extends React.Component {
     } else {
       view = 'home'
     }
-    this.setState({view: view}, () =>  {
-      console.log ('view', this.state.view)
-    })
-    // .then (e => console.log ('view', this.state.view))
+    this.setState({view: view})
   }
-
-
-
 
   render () {
     if (this.state.view === 'login' || this.state.view === 'signup') {
       return (
         <div className="grid">
           <div className="header-left">Impulse</div>
-          <Signin               
+          <Login               
             view={this.state.view} 
             switchViews={this.viewSelect.bind(this)}
           />
