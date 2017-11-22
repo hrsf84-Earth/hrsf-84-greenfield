@@ -1,6 +1,6 @@
 import $ from 'jquery'
 
-export default GET = function (url, data) {
+Get = function (url, data) {
   return new Promise ((resolve, revoke) => {
     $.ajax({
       url: url,
@@ -18,8 +18,8 @@ export default GET = function (url, data) {
         revoke (err)
       }
     });
-
-
   })
-
 }
+
+
+export default Get
