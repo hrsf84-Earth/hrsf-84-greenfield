@@ -97,49 +97,26 @@ class App extends React.Component {
   }
 
   viewSelect (e) {
-<<<<<<< HEAD
     var selected = e.target.id.split('-');
     var view;
     if (selected.indexOf('signup') !== -1) {
-=======
-    console.log (e.target.id)
-    var selected = e.target.id.split('-');
-    console.log (selected)
-    var view; 
-    if (selected.indexOf('signup') !== -1) { 
->>>>>>> Feat: Implemented Signup page and login page
       view = 'signup';
     } else if (selected.indexOf('login') !== -1){
       view = 'login';
     } else {
       view = 'home'
     }
-<<<<<<< HEAD
     this.setState({view: view})
   }
 
-=======
-    this.setState({view: view}, () =>  {
-      console.log ('view', this.state.view)
-    })
-    // .then (e => console.log ('view', this.state.view))
 
-  }
-
-
->>>>>>> Feat: Implemented Signup page and login page
   render () {
     if (this.state.view === 'login' || this.state.view === 'signup') {
       return (
         <div className="grid">
           <div className="header-left">Impulse</div>
-<<<<<<< HEAD
           <Login
             view={this.state.view}
-=======
-          <Signin               
-            view={this.state.view} 
->>>>>>> Feat: Implemented Signup page and login page
             switchViews={this.viewSelect.bind(this)}
           />
         </div>
@@ -150,13 +127,8 @@ class App extends React.Component {
           <div className="header-left">Impulse</div>
             <Search onSearch={this.onSearch.bind(this)} onSearchInput={this.onSearchInput.bind(this)} />
           <div>
-<<<<<<< HEAD
             <Login
-              className="header-right"
-=======
-            <Login 
               className="header-right" 
->>>>>>> Feat: Implemented Signup page and login page
               click={this.viewSelect.bind(this)}
             />
           </div>
