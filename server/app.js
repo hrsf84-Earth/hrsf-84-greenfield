@@ -22,7 +22,7 @@ app.get('/photos', function(req, res) {
     if(err){
       res.status(404).send('ERROR RETRIEVING PHOTOS ' + err);
     } else {
-      console.log('data sent via get photos')
+      console.log('data sent via get photos', data);
       res.send(data);
     }
   });
@@ -47,5 +47,7 @@ app.post('/users/login', function (req, res) {
 })
 
 
-
-app.listen(port, () => {console.log ('listening to port: ', port)});
+if(!module.parent){
+  app.listen(port, () => {console.log ('listening to port: ', port)});
+    // app.listen(3000);
+}

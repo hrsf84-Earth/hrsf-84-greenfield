@@ -5,7 +5,7 @@ import Login from './components/Login.jsx'
 import Carousel from './components/Carousel.jsx'
 import Search from './components/search.jsx'
 import $Post from './services/Post.jsx'
-import $Get from './services/Get.jsx'
+// import $Get from './services/Get.jsx'
 
 
 class App extends React.Component {
@@ -98,8 +98,8 @@ class App extends React.Component {
 
   viewSelect (e) {
     var selected = e.target.id.split('-');
-    var view; 
-    if (selected.indexOf('signup') !== -1) { 
+    var view;
+    if (selected.indexOf('signup') !== -1) {
       view = 'signup';
     } else if (selected.indexOf('login') !== -1){
       view = 'login';
@@ -114,8 +114,8 @@ class App extends React.Component {
       return (
         <div className="grid">
           <div className="header-left">Impulse</div>
-          <Login               
-            view={this.state.view} 
+          <Login
+            view={this.state.view}
             switchViews={this.viewSelect.bind(this)}
           />
         </div>
@@ -126,8 +126,8 @@ class App extends React.Component {
           <div className="header-left">Impulse</div>
             <Search onSearch={this.onSearch.bind(this)} onSearchInput={this.onSearchInput.bind(this)} />
           <div>
-            <Login 
-              className="header-right" 
+            <Login
+              className="header-right"
               click={this.viewSelect.bind(this)}
             />
           </div>
