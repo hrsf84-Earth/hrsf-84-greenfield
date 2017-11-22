@@ -65,6 +65,31 @@ session({
   saveUninitialized: false
 })
 
+
+module.exports.checkUser = user => {
+  return new Promise((resolve, reject) => {
+    con.query('SELECT username from Users WHERE username = ' + user.username + '', function(err , result ) {
+      if ( err ) {
+        reject(err)
+      } else {
+        resolve(result);
+      }
+    } 
+  })
+}
+module.exports.addUser = user => {
+
+  return new Promise((resolve, reject) => {
+    resolve(con.query('INSERT INTO Users SET ?', user, function(err, res) {
+      if ( err ) {
+        reject('error adding user: ', err)
+      } else {
+        resolve(res)
+      }
+    }
+  }
+}       
+
 // Access the session as req.session
 module.exports.createCookie = ((req, res, next) => {
   res.cookie('impulse_cookie_ID', crypto.createRandom32String())
