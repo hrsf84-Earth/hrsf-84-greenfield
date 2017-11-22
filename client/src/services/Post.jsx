@@ -1,6 +1,6 @@
 import $ from 'jquery'
 
-export default PostUserInfo = function (url, data) {
+ var PostUserInfo = function (url, data) {
   return new Promise ((resolve, revoke) => {
     $.ajax({
       url: url,
@@ -17,8 +17,8 @@ export default PostUserInfo = function (url, data) {
         revoke (err)
       }
     });
-
-
   })
-
 }
+
+
+export default PostUserInfo
