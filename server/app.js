@@ -7,6 +7,9 @@ var app = express();
 
 var port = process.env.PORT || 8080;
 
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
+
+
 app.use(db.createCookie);
 app.use(express.static('./client/dist'));
 
@@ -40,10 +43,31 @@ app.get('/search', function(req, res) {
   });
 });
 
+app.post('/users/signup', urlencodedParser, function(req, res) {
+  console.log(req.body);
+  var user = req.body //need to tailor this
+  //check if user exists
+  db.query('SELECT username from Users WHERE username = ' + req.body.username + '', function(err , result ) {
+    if ( result.length === 0 ) {
+     db.query('INSERT INTO Users SET ?', user, function(err, res) {
+        if ( err ) {
+          console.log('error: ', err)
+        } else {
+          console.log('success: user signed up in db')
+        }
+      })
+    } else {
+      res.send('error, user already exists')
+    } 
+  })
+  res.send('Success, user signed up');
+})
 
-app.post('/users/login', function (req, res) {
+
+app.post('/users/login', urlencodedParser, function (req, res) {
   console.log ('recieved post');
-  res.status(201).end();
+  console.log(req.body)
+  res .end();
 })
 
 
