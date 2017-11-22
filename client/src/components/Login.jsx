@@ -17,10 +17,10 @@ export default class Signin extends React.Component {
     }
   }
 
-  componentDidMount () {
-    ///scroll to the top of the screen so the view will not be off the screen
-    window.scrollTo(0, 0)
-  }
+  // componentDidMount () {
+  //   ///scroll to the top of the screen so the view will not be off the screen
+  //   window.scrollTo(0, 0)
+  // }
 
   syncUserInput (e) {
     //saves the input from the user into the state
@@ -73,7 +73,7 @@ export default class Signin extends React.Component {
       return (
         <div>   
           <div className="table">
-            <h1>Login </h1>
+            <div className='title'>Login </div>
             <div className="table-row">
               <span className="table-cell">Username: </span> 
               <input id='username' className="table-cell" type='text' value={this.state.username} onChange={(e) => this.syncUserInput(e)} /> 
@@ -91,7 +91,7 @@ export default class Signin extends React.Component {
     } else if (this.props.view === 'signup') {
       return (
         <div> 
-          <h1>Sign Up </h1> 
+          <div className='title'> Sign Up </div> 
           <div className="table">
             <div className="table-row">
               <div className="table-cell"></div>
@@ -106,7 +106,8 @@ export default class Signin extends React.Component {
             <div className="table-row">
               <span className="table-cell">Password: </span> 
               <input id='password' className="table-cell"  type='password' value={this.state.password} onChange={(e) => this.syncUserInput(e)} />
-            </div>
+            </div> 
+            {/* className={"table-cell" + {this.state}  */}
             <div className="table-row">
               <span  className="table-cell">Confirm Password: </span> 
               <input id='passwordConfirm' className="table-cell" type='password'value={this.state.passwordConfirm} onChange={(e) => this.syncUserInput(e)} />
