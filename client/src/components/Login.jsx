@@ -1,17 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-class Login extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  render () {
-    return (
-      <div className="header-right">
-        Sign In | Login
-      </div>
-    )
-  }
+var Login = function (props) {
+  return (
+    <div className="header-right">
+      <span id='signup-link' onClick={(e) => props.click(e)}>Sign Up</span> | <span id='login-link' onClick={(e) => props.click(e)}>Login</span>
+    </div>
+  )
 }
 
 export default Login;
