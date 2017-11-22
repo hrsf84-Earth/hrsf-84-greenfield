@@ -43,6 +43,7 @@ app.get('/search', function(req, res) {
   });
 });
 
+<<<<<<< HEAD
 app.post('/users/signup', urlencodedParser, function(req, res) {
   console.log(req.body);
   var user = req.body //need to tailor this
@@ -75,3 +76,14 @@ if(!module.parent){
   app.listen(port, () => {console.log ('listening to port: ', port)});
     // app.listen(3000);
 }
+=======
+
+app.post('/users/login', function (req, res) {
+  console.log ('recieved post');
+  res.status(201).end();
+})
+
+
+
+app.listen(port, () => {console.log ('listening to port: ', port)});
+>>>>>>> ajax call to server now working
