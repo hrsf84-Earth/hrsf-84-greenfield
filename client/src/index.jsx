@@ -109,20 +109,39 @@ class App extends React.Component {
     this.setState({view: view})
   }
 
-  render () {
+  viewLogin () {
     if (this.state.view === 'login' || this.state.view === 'signup') {
       return (
-        <div className="grid">
-          <div className="header-left">Impulse</div>
-          <Login
-            view={this.state.view}
-            switchViews={this.viewSelect.bind(this)}
-          />
+        <div className="popup">
+          <div className="popup_inner">
+            {/* <div className="header-left">Impulse</div> */}
+            <Login               
+              view={this.state.view} 
+              switchViews={this.viewSelect.bind(this)}
+            />
+          </div>
         </div>
-      )
+      ) 
     } else {
+      return (null)
+    }
+}
+
+  render () {
+    // if (this.state.view === 'login' || this.state.view === 'signup') {
+    //   return (
+    //     <div className="grid popup">
+    //       <div className="header-left">Impulse</div>
+    //       <Login               
+    //         view={this.state.view} 
+    //         switchViews={this.viewSelect.bind(this)}
+    //       />
+    //     </div>
+    //   )
+    // } else {
       return (
         <div className="grid">
+        {this.viewLogin()}
           <div className="header-left">Impulse</div>
             <Search onSearch={this.onSearch.bind(this)} onSearchInput={this.onSearchInput.bind(this)} />
           <div>
@@ -140,7 +159,7 @@ class App extends React.Component {
           </div>
         </div>
       )
-    }
+    // }
   }
 }
 
