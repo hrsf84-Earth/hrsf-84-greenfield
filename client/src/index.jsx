@@ -109,7 +109,6 @@ class App extends React.Component {
     this.setState({view: view})
   }
 
-
   render () {
     if (this.state.view === 'login' || this.state.view === 'signup') {
       return (
