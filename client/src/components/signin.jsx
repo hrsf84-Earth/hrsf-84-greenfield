@@ -1,4 +1,5 @@
 import React from 'react'
+import $Post from '../services/Post.jsx'
 
 export default class Signin extends React.Component {
   constructor(props){
@@ -33,6 +34,18 @@ export default class Signin extends React.Component {
     //will be what triggers a submit
     //takes info from state, then posts it to the server
     console.log('submitInformation')
+    var userObj = {
+      username: this.state.username,
+      password: this.state.password,
+      passwordConfirm: this.state.passwordConfirm
+    }
+    $Post('/users/login/', userObj)
+    .then (response => {
+      console.log ('post request worked')
+    })
+    .catch(err => {
+      console.log ('post request failed')
+    })
   }
 
   render () {
