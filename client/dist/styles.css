@@ -14,7 +14,7 @@ table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+time, mark, audio, video, button, input {
   margin: 0;
   padding: 5px;
   border: 0;
@@ -133,4 +133,9 @@ img {
   max-width: 100%;
   height: auto;
   min-width: 400px;
+}
+
+input {
+  border: 1px grey solid;
+  font-size: 75%;
 }

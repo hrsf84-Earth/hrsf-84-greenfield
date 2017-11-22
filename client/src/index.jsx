@@ -4,6 +4,8 @@ import $ from 'jquery';
 import Login from './components/Login.jsx'
 import Carousel from './components/Carousel.jsx'
 import Search from './components/search.jsx'
+import $Post from './services/Post.jsx'
+import $Get from './services/Get.jsx'
 
 
 class App extends React.Component {
@@ -12,13 +14,14 @@ class App extends React.Component {
     this.src = [];
     this.state = {
       currentPhotoIndex: 0,
-      loginStatus: '',
+      view: 'sdfsd',
       favoritesView: '',
       searchTerm: '',
       searchPagination: 1
     }
 
     this.handlePhotoNavigationClick = this.handlePhotoNavigationClick.bind(this);
+    this.viewSelect = this.viewSelect.bind(this);
   }
 
   componentWillMount() {
@@ -33,7 +36,7 @@ class App extends React.Component {
         }
       },
       error: (err) => {
-        context.src = ['http://images2.fanpop.com/image/photos/13300000/Cute-Puppy-puppies-13379766-1280-800.jpg'];
+        context.src = [{urls:{regular:'http://images2.fanpop.com/image/photos/13300000/Cute-Puppy-puppies-13379766-1280-800.jpg'}}];
         this.forceUpdate();
         console.log('Error retrieving list of photos from server', err);
       }
@@ -59,7 +62,6 @@ class App extends React.Component {
     // fetch the next page of photos
       this.onSearch();
     }
-
   }
 
   onSearch() {
@@ -75,7 +77,6 @@ class App extends React.Component {
         if(photoData){
           // console.log('ON SUCCESS', photoData);
           this.src.push(...photoData);
-          this.forceUpdate();
           this.setState({
             searchPagination: this.state.searchPagination + 1
           });
@@ -95,23 +96,51 @@ class App extends React.Component {
     });
   }
 
+  viewSelect (e) {
+    var selected = e.target.id.split('-');
+    var view; 
+    if (selected.indexOf('signup') !== -1) { 
+      view = 'signup';
+    } else if (selected.indexOf('login') !== -1){
+      view = 'login';
+    } else {
+      view = 'home'
+    }
+    this.setState({view: view})
+  }
+
   render () {
-    return (
-    <div className="grid">
-      <div className="header-left">Impulse</div>
-        <Search onSearch={this.onSearch.bind(this)} onSearchInput={this.onSearchInput.bind(this)} />
-      <div>
-        <Login className="header-right" loginStatus={this.state.loginStatus} />
-      </div>
-      <div className="left auto-center">
-        <button><i className="fa fa-5x fa-angle-left left-middle" aria-hidden="true" onClick={() => this.handlePhotoNavigationClick(-1)}></i></button>
-      </div>
-        <Carousel currentPhoto={this.src[this.state.currentPhotoIndex]} />
-      <div className="right auto-center">
-        <button><i className="fa fa-5x fa-angle-right right-middle" aria-hidden="true" onClick={() => this.handlePhotoNavigationClick(1)} > </i></button>
-      </div>
-    </div>
-    )
+    if (this.state.view === 'login' || this.state.view === 'signup') {
+      return (
+        <div className="grid">
+          <div className="header-left">Impulse</div>
+          <Login               
+            view={this.state.view} 
+            switchViews={this.viewSelect.bind(this)}
+          />
+        </div>
+      )
+    } else {
+      return (
+        <div className="grid">
+          <div className="header-left">Impulse</div>
+            <Search onSearch={this.onSearch.bind(this)} onSearchInput={this.onSearchInput.bind(this)} />
+          <div>
+            <Login 
+              className="header-right" 
+              click={this.viewSelect.bind(this)}
+            />
+          </div>
+          <div className="left auto-center">
+            <button onClick={() => this.handlePhotoNavigationClick(-1)}><i className="fa fa-5x fa-angle-left left-middle" aria-hidden="true" ></i></button>
+          </div>
+          <Carousel currentPhoto={this.src[this.state.currentPhotoIndex]} />
+          <div className="right auto-center">
+            <button onClick={() => this.handlePhotoNavigationClick(1)}><i className="fa fa-5x fa-angle-right right-middle" aria-hidden="true"  > </i></button>
+          </div>
+        </div>
+      )
+    }
   }
 }
 

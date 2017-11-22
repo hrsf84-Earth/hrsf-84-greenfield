@@ -40,4 +40,12 @@ app.get('/search', function(req, res) {
   });
 });
 
+
+app.post('/users/login', function (req, res) {
+  console.log ('recieved post');
+  res.status(201).end();
+})
+
+
+
 app.listen(port, () => {console.log ('listening to port: ', port)});
