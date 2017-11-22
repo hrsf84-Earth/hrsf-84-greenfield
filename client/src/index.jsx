@@ -5,6 +5,7 @@ import Login from './components/Login.jsx'
 import Carousel from './components/Carousel.jsx'
 import Search from './components/search.jsx'
 import Signin from './components/signin.jsx'
+import $Post from './services/Post.jsx'
 
 
 class App extends React.Component {
@@ -96,9 +97,7 @@ class App extends React.Component {
   }
 
   viewSelect (e) {
-    console.log (e.target.id)
     var selected = e.target.id.split('-');
-    console.log (selected)
     var view; 
     if (selected.indexOf('signup') !== -1) { 
       view = 'signup';
@@ -111,8 +110,9 @@ class App extends React.Component {
       console.log ('view', this.state.view)
     })
     // .then (e => console.log ('view', this.state.view))
-
   }
+
+
 
 
   render () {

@@ -19,13 +19,19 @@ export default class Signin extends React.Component {
   }
 
   syncUserInput (e) {
-    console.log (e.target)
+    //saves the input from the user into the state
+    //needs to  save in the state so it can by in sync with the values in the inputs
+
+    // console.log (e.target)
     var obj = {};
     obj[e.target.id] = e.target.value;
     this.setState(obj)
   }
 
   submitInformation (e) {
+    //WIP 
+    //will be what triggers a submit
+    //takes info from state, then posts it to the server
     console.log('submitInformation')
   }
 
