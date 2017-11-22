@@ -162,7 +162,42 @@ input {
   background-color: #F5F5F5;
 }
 
+
+
+.table {
+  display: table;
+}
+
+.table-cell {
+  display: table-cell;
+  margin: 1px;
+}
+
+.table-row {
+  display: table-row;
+  margin: 1px;
+}
+
+h1 {
+  font-size-adjust: 1.2;
+  padding: 15px;
+}
+
+.btn-cancel {
+  float:right;
+}
+
+.float-right{
+  float:right;
+}
+
+.highlightError {
+  /* border-color: red; */
+  outline: red 1px solid;
+  background-color: rgb(223, 189, 189);
+}
+
 .passwordError {
-  /* color: red; */
-  text-decoration-color: red;
+  color: red;
+  /* text-decoration-color: red; */
 }

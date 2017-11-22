@@ -33,7 +33,7 @@ export default class Signin extends React.Component {
     // newState[e.target.id] = e.target.value;
     this.state[e.target.id] = e.target.value;
 
-    if (e.target.id === 'password' || e.target.id === 'passwordConfirm') {
+    if (this.props.view === 'signup' && (e.target.id === 'password' || e.target.id === 'passwordConfirm')) {
       if (this.state.password === this.state.passwordConfirm) {
         this.state.passwordMissmatch = false;
       } else {
@@ -55,8 +55,6 @@ export default class Signin extends React.Component {
       this.setState({passwordMissmatch: true})
       return;
     }
-
-    
     var userObj = {
       username: this.state.username,
       password: this.state.password,
@@ -74,30 +72,49 @@ export default class Signin extends React.Component {
     if (this.props.view === 'login') {
       return (
         <div>   
-          <h1>Login </h1>
-          Username: <input id='username' type='text' value={this.state.username} onChange={(e) => this.syncUserInput(e)} /> 
-          <br></br>
-          Password: <input id='password' type='password' value={this.state.password} onChange={(e) => this.syncUserInput(e)} />
-          <br></br>
-          <button id="button-signup" onClick={(e) => this.props.switchViews(e)} > Sign Up  </button>
-          <button id="button-submit" onClick={(e) => this.submitInformation(e,'login')} > Submit </button>
-          <button id="button-home" onClick={(e) => this.props.switchViews(e)} > Cancel </button>
+          <div className="table">
+            <h1>Login </h1>
+            <div className="table-row">
+              <span className="table-cell">Username: </span> 
+              <input id='username' className="table-cell" type='text' value={this.state.username} onChange={(e) => this.syncUserInput(e)} /> 
+            </div>
+            <div className="table-row">
+              <span className="table-cell">Password: </span> 
+              <input id='password' className="table-cell"  type='password' value={this.state.password} onChange={(e) => this.syncUserInput(e)} />
+          </div>
+        </div>
+            <button id="button-signup" onClick={(e) => this.props.switchViews(e)} > Sign Up  </button>
+            <button id="button-submit" onClick={(e) => this.submitInformation(e,'login')} > Submit </button>
+            <button id="button-home" className="btn-cancel" onClick={(e) => this.props.switchViews(e)} > Cancel </button>
         </div>
       )
     } else if (this.props.view === 'signup') {
       return (
         <div> 
-          <h1>Sign Up </h1>
-          Username: <input type='text' id='username' value={this.state.username} onChange={(e) => this.syncUserInput(e)} /> 
-          <br></br>
-          {this.state.passwordMissmatch === true ? <div className="passwordError">Password Do Not Match</div> : null}
-          Password: <input type='password' id='password' value={this.state.password} onChange={(e) => this.syncUserInput(e)} />
-          <br></br>
-          Confirm Password: <input type='password' id='passwordConfirm' value={this.state.passwordConfirm} onChange={(e) => this.syncUserInput(e)} />
-          <br></br>
+          <h1>Sign Up </h1> 
+          <div className="table">
+            <div className="table-row">
+              <div className="table-cell"></div>
+              {this.state.passwordMissmatch === true 
+                ? <div className="passwordError float-right table-cell">Passwords Do Not Match</div> 
+                : <div className="table-cell passwordError"> &nbsp; </div>}
+            </div>
+            <div className="table-row">
+              <span className="table-cell">Username: </span>
+              <input id='username' className="table-cell" type='text' value={this.state.username} onChange={(e) => this.syncUserInput(e)} /> 
+            </div>
+            <div className="table-row">
+              <span className="table-cell">Password: </span> 
+              <input id='password' className="table-cell"  type='password' value={this.state.password} onChange={(e) => this.syncUserInput(e)} />
+            </div>
+            <div className="table-row">
+              <span  className="table-cell">Confirm Password: </span> 
+              <input id='passwordConfirm' className="table-cell" type='password'value={this.state.passwordConfirm} onChange={(e) => this.syncUserInput(e)} />
+            </div>
+          </div>
           <button id="button-login" onClick={(e) => this.props.switchViews(e)}> Login </button>
           <button id="button-submit" onClick={(e) => this.submitInformation(e, 'signup')}> Submit </button>
-          <button id="button-home" onClick={(e) => this.props.switchViews(e)} > Cancel </button>
+          <button id="button-home" className="btn-cancel" onClick={(e) => this.props.switchViews(e)} > Cancel </button>
         </div>
       )
     } else {
