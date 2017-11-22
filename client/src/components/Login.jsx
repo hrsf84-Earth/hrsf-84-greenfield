@@ -25,12 +25,10 @@ export default class Signin extends React.Component {
   syncUserInput (e) {
     //saves the input from the user into the state
     //needs to  save in the state so it can by in sync with the values in the inputs
-
     var newState = {};
     var passwordMissmatch;
     var oldPasswordMissmatch = this.state.passwordMissmatch;
 
-    // newState[e.target.id] = e.target.value;
     this.state[e.target.id] = e.target.value;
 
     if (this.props.view === 'signup' && (e.target.id === 'password' || e.target.id === 'passwordConfirm')) {
@@ -107,7 +105,6 @@ export default class Signin extends React.Component {
               <span className="table-cell">Password: </span> 
               <input id='password' className="table-cell"  type='password' value={this.state.password} onChange={(e) => this.syncUserInput(e)} />
             </div> 
-            {/* className={"table-cell" + {this.state}  */}
             <div className="table-row">
               <span  className="table-cell">Confirm Password: </span> 
               <input id='passwordConfirm' className="table-cell" type='password'value={this.state.passwordConfirm} onChange={(e) => this.syncUserInput(e)} />
