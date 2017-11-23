@@ -75,6 +75,33 @@ export default class App extends React.Component {
       success: (photoData) => {
         if(photoData){
           // console.log('ON SUCCESS', photoData);
+          // this.src.push(...photoData);
+          this.src = photoData;
+          this.setState({
+            searchPagination: 1
+          });
+          console.log('THIS.SRC STATE',this.src);
+        }
+      },
+      error: (xhr, status, error) => {
+        console.log('err', xhr, status, error);
+      }
+    });
+  }
+
+  onSearch222() {
+    $.ajax({
+      url: '/photos',
+      method: 'GET',
+      data: {
+        query: this.state.searchTerm,
+        page: this.state.searchPagination
+      },
+      contentType: 'application/json',
+      success: (photoData) => {
+        if(photoData){
+          // console.log('ON SUCCESS', photoData);
+          // this.src.push(...photoData);
           this.src.push(...photoData);
           this.setState({
             searchPagination: this.state.searchPagination + 1
