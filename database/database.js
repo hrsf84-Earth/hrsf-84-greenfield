@@ -87,8 +87,9 @@ module.exports.addUser = user => {
         resolve(res)
       }
     })
-  })
-}       
+  )
+})
+}      
 
 // Access the session as req.session
 module.exports.createCookie = ((req, res, next) => {
