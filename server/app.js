@@ -43,9 +43,13 @@ app.get('/search', function(req, res) {
   });
 });
 
+// { '{"username":"Bob Eats a lot","password":"i am a password"}': '' } -entry info
+
 app.post('/users/signup', urlencodedParser, function(req, res) {
   console.log(req.body);
-  var user = req.body //need to tailor this
+  var start = req.body //need to tailor this
+  var keys = Object.keys(start)
+  var user = JSON.parse(keys)
   //check if user exists
   db.checkUser(user)
   .then((result) => {

@@ -74,7 +74,7 @@ module.exports.checkUser = user => {
       } else {
         resolve(result);
       }
-    } 
+    }) 
   })
 }
 module.exports.addUser = user => {
@@ -86,8 +86,8 @@ module.exports.addUser = user => {
       } else {
         resolve(res)
       }
-    }
-  }
+    })
+  })
 }       
 
 // Access the session as req.session
