@@ -7,13 +7,17 @@ try {
   //try to find config file, if doesn't exist then assume that 
   //server is live and will retrieve variables from enviromental variables on server
   var config = require('../config.js');
+  var mySQL_username = config.mySQL_username ;
+  var mySQL_password = config.mySQL_password;
+  var mySQL_DBName = config.JAWSDB_URL;
+  var mySQL_port = config.mySQL_port;
+  var JAWSDB_URL = config.JAWSDB_URL;
 } catch (err) {
-} finally {
-  var mySQL_username = process.env.mySQL_username ||  config.mySQL_username ;
-  var mySQL_password = process.env.mySQL_password || config.mySQL_password;
-  var mySQL_DBName = process.env.JAWSDB_URL || config.JAWSDB_URL;
-  var mySQL_port = process.env.mySQL_port || config.mySQL_port;
-  var JAWSDB_URL = process.env.JAWSDB_URL || config.JAWSDB_URL;
+  var mySQL_username = process.env.mySQL_username;
+  var mySQL_password = process.env.mySQL_password;
+  var mySQL_DBName = process.env.JAWSDB_URL;
+  var mySQL_port = process.env.mySQL_port;
+  var JAWSDB_URL = process.env.JAWSDB_URL;
 }
 
 // Create a database connection and export it from this file.
