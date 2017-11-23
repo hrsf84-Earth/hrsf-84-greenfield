@@ -121,12 +121,6 @@ img {
   grid-row-start: 2;
   grid-row-end: 3;
   align-items: center;
-<<<<<<< HEAD
-  height: 100%
-=======
-  /* overflow: hidden;
-  max-height: 100% */
->>>>>>> Image streching Fixed
 }
 
 .footer {
@@ -135,7 +129,7 @@ img {
 
 .auto-center {
   margin: auto;
-  /* align-items: center; */
+  align-items: center;
   background:transparent;
   border:none;
   color:transparent;
