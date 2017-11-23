@@ -5,7 +5,7 @@ import Login from './components/Login.jsx'
 import Carousel from './components/Carousel.jsx'
 import Search from './components/search.jsx'
 import $Post from './services/Post.jsx'
-// import $Get from './services/Get.jsx'
+import $Get from './services/Get.jsx'
 
 
 class App extends React.Component {
@@ -13,7 +13,7 @@ class App extends React.Component {
     super(props);
     this.src = [];
     this.state = {
-      currentPhotoIndex: 0,
+      currentPhotoIndex: 15,
       view: 'sdfsd',
       favoritesView: '',
       searchTerm: '',
@@ -47,48 +47,76 @@ class App extends React.Component {
     // Overview: When user clicks on a nagivation button, will change the centeral image to a new index of src
     var numberOfPhotos = this.src.length;
     var newIndex = this.state.currentPhotoIndex + direction;
-    if (newIndex < 0) {
-      newIndex = newIndex + numberOfPhotos ;
-    } else if ( newIndex >= numberOfPhotos ) {
-      newIndex = newIndex - numberOfPhotos ;
+    // if (newIndex < 0) {
+    //   newIndex = newIndex + numberOfPhotos ;
+    // } else if ( newIndex >= numberOfPhotos ) {
+    //   newIndex = newIndex - numberOfPhotos ;
+    // }
+    // if we are going to paginate and need more photos, we should get it when modulo
+    // if (this.state.currentPhotoIndex === this.src.length - 1) {
+    if (this.state.currentPhotoIndex > this.src.length - 6) {
+    // fetch the next page of photos
+      // this.onSearch222();
+      this.addPhotosToSrc(true)
+    } else if ((this.state.currentPhotoIndex < 6 )) {
+      this.state.currentPhotoIndex;
+      newIndex += 30;
+      this.addPhotosToSrc(false)
     }
+
     console.log("Photo index", newIndex);
     this.setState({
       currentPhotoIndex: newIndex
     });
-
-    // if we are going to paginate and need more photos, we should get it when modulo
-    if (this.state.currentPhotoIndex === this.src.length - 1) {
-    // fetch the next page of photos
-      this.onSearch();
-    }
+    this.setState(function (prevState, props) {
+        return {currentPhotoIndex: newIndex} 
+      }
+    );
   }
+
+
 
   onSearch() {
-    $.ajax({
-      url: '/photos',
-      method: 'GET',
-      data: {
-        query: this.state.searchTerm,
-        page: this.state.searchPagination
-      },
-      contentType: 'application/json',
-      success: (photoData) => {
-        if(photoData){
-          // console.log('ON SUCCESS', photoData);
-          // this.src.push(...photoData);
-          this.src = photoData;
-          this.setState({
-            searchPagination: 1
-          });
-          console.log('THIS.SRC STATE',this.src);
-        }
-      },
-      error: (xhr, status, error) => {
-        console.log('err', xhr, status, error);
-      }
-    });
+    $Get('/photos/',{
+      query: this.state.searchTerm,
+      page: 1
+    })
+    .then ((photoData) => {
+      this.src = photoData;
+      this.setState({
+        searchPagination: 1
+      });
+    })
+    .catch(err => {
+      console.err ('Error searching for photos', err)
+    })
   }
+
+  // onSearch() {
+  //   $.ajax({
+  //     url: '/photos',
+  //     method: 'GET',
+  //     data: {
+  //       query: this.state.searchTerm,
+  //       page: 1
+  //     },
+  //     contentType: 'application/json',
+  //     success: (photoData) => {
+  //       if(photoData){
+  //         // console.log('ON SUCCESS', photoData);
+  //         // this.src.push(...photoData);
+  //         this.src = photoData;
+  //         this.setState({
+  //           searchPagination: 1
+  //         });
+  //         console.log('THIS.SRC STATE',this.src);
+  //       }
+  //     },
+  //     error: (xhr, status, error) => {
+  //       console.log('err', xhr, status, error);
+  //     }
+  //   });
+  // }
 
   onSearch222() {
     $.ajax({
@@ -116,6 +144,26 @@ class App extends React.Component {
       }
     });
   }
+
+  
+  addPhotosToSrc (sendToEnd = true) {
+    $Get('/photos/',{
+      query: this.state.searchTerm,
+      page: this.state.searchPagination + 1 
+    })
+    .then ((photoData) => {
+      if (sendToEnd) { this.src.push(...photoData); }
+      else { this.src.shift(...photoData); }
+      this.setState({
+        searchPagination: this.state.searchPagination + 1
+      }, console.log (this.state.searchPagination));
+      console.log('THIS.SRC STATE',this.src);
+    })
+    .catch(err => {
+      console.err ('Error searching for photos', err)
+    })
+  }
+
 
   onSearchInput(e) {
     this.setState({
