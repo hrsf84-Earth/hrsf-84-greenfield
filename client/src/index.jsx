@@ -115,13 +115,13 @@ class App extends React.Component {
         <div className="popup">
           <div className="popup_inner">
             {/* <div className="header-left">Impulse</div> */}
-            <Login               
-              view={this.state.view} 
+            <Login
+              view={this.state.view}
               switchViews={this.viewSelect.bind(this)}
             />
           </div>
         </div>
-      ) 
+      )
     } else {
       return (null)
     }
@@ -132,8 +132,8 @@ class App extends React.Component {
     //   return (
     //     <div className="grid popup">
     //       <div className="header-left">Impulse</div>
-    //       <Login               
-    //         view={this.state.view} 
+    //       <Login
+    //         view={this.state.view}
     //         switchViews={this.viewSelect.bind(this)}
     //       />
     //     </div>
@@ -142,13 +142,12 @@ class App extends React.Component {
       return (
         <div className="grid">
         {this.viewLogin()}
-          <div className="header-left">Impulse</div>
-            <Search onSearch={this.onSearch.bind(this)} onSearchInput={this.onSearchInput.bind(this)} />
+          <div id="impulse-header">Impulse</div>
+          <Login id="login"
+            click={this.viewSelect.bind(this)}
+          />
+            <Search id="search"  onSearch={this.onSearch.bind(this)} onSearchInput={this.onSearchInput.bind(this)} />
           <div>
-            <Login
-              className="header-right" 
-              click={this.viewSelect.bind(this)}
-            />
           </div>
           <div className="left auto-center">
             <button onClick={() => this.handlePhotoNavigationClick(-1)}><i className="fa fa-5x fa-angle-left left-middle" aria-hidden="true" ></i></button>

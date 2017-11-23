@@ -51,7 +51,7 @@ img {
   grid-template-columns: 1fr 3fr 1fr;
   grid-template-rows: 1fr 3fr 1fr;
   grid-template-areas:
-    "header-left header-right"
+
     "left carousel right"
     "footer"
 }
@@ -67,10 +67,11 @@ img {
 .header-right {
   align-items: end;
   float: right;
-  font-size: 45px;
-  grid-area: "header-right";
+  position: absolute:
+  right: 10px;
+  /*grid-area: "header-right";
   grid-column: 3/4;
-  grid-row: 1/2;
+  grid-row: 1/2;*/
 }
 
 .left {
@@ -200,4 +201,32 @@ input {
 .title {
   align-items: end;
   font-size: 45px;
+}
+
+#login {
+  font-size: 14px;
+}
+#search {
+  float: right;
+  position: absolute;
+  right: 10%;
+}
+
+#signup-link {
+  float: right;
+}
+
+#login-link {
+  float: right;
+  margin-right:
+}
+
+#impulse-header {
+  font-size: 45px;
+
+  margin: 0 auto;
+}
+
+#search {
+  margin-left: 10px;
 }
