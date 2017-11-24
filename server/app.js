@@ -79,10 +79,38 @@ app.post('/users/signup', urlencodedParser, function(req, res) {
 })
 
 
+// login sent to route /users/login/
+// { '{"username":"Bob Eats a lot","password":"i am a password"}': '' }
+
+
 app.post('/users/login', urlencodedParser, function (req, res) {
-  console.log ('recieved post');
-  console.log(req.body)
-  res .end();
+  console.log('from cliet login: ', req.body);
+  let start = req.body;
+  let keys = Object.keys(start);
+  let user = JSON.parse(keys);
+  db.checkUser(user)
+  .then((result) => {
+    if ( result.length > 0 ) {
+      if ( user.password === result[0].password ) {
+        res.send({
+          'code': 200,
+          'message': 'login successful'
+        });
+      } else {
+        //we need to send back a message ('pop-up' maybe?) informing the user of a mistake
+        res.send({
+          'code': 204,
+          'message': 'incorrect password'
+        })
+      }
+    } else {
+      //we need to send back a 'pop-up' informing the user of a mistake
+      res.send({
+        'code': 204,
+        'message': 'incorrect username'
+      })
+    }
+  })
 })
 
 
