@@ -43,24 +43,39 @@ app.get('/search', function(req, res) {
   });
 });
 
+// { '{"username":"Bob Eats a lot","password":"i am a password"}': '' } -entry info
+
 app.post('/users/signup', urlencodedParser, function(req, res) {
   console.log(req.body);
-  var user = req.body //need to tailor this
+  var start = req.body //need to tailor this
+  var keys = Object.keys(start)
+  var user = JSON.parse(keys)
   //check if user exists
-  db.query('SELECT username from Users WHERE username = ' + req.body.username + '', function(err , result ) {
+  db.checkUser(user)
+  .then((result) => {
     if ( result.length === 0 ) {
-     db.query('INSERT INTO Users SET ?', user, function(err, res) {
-        if ( err ) {
-          console.log('error: ', err)
-        } else {
-          console.log('success: user signed up in db')
-        }
+      db.addUser(user)
+      .then((end) => {
+        console.log(end)
+        res.end()
       })
-    } else {
-      res.send('error, user already exists')
-    } 
+    }
   })
-  res.send('Success, user signed up');
+  // db.query('SELECT username from Users WHERE username = ' + req.body.username + '', function(err , result ) {
+  //   if ( result.length === 0 ) {
+  //    db.query('INSERT INTO Users SET ?', user, function(err, res) {
+  //       if ( err ) {
+  //         console.log('error: ', err)
+  //       } else {
+  //         console.log('success: user signed up in db')
+  //       }
+  //     })
+  //   } else {
+  //     res.send('error, user already exists')
+  //   } 
+  // })
+  // res.send('Success, user signed up');
+
 })
 
 
