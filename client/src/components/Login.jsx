@@ -6,8 +6,8 @@ export default class Signin extends React.Component {
     super (props)
     this.state = {
       signup: false,
-      username: '', 
-      password: '', 
+      username: '',
+      password: '',
       passwordConfirm: '',
       passwordMissmatch: false,
       // loginError: false
@@ -35,7 +35,7 @@ export default class Signin extends React.Component {
       if (this.state.password === this.state.passwordConfirm) {
         this.state.passwordMissmatch = false;
       } else {
-        this.state.passwordMissmatch = true; 
+        this.state.passwordMissmatch = true;
       }
     }
     this.forceUpdate(); //was forced to do this so react would stay in sync with the inputed variables
@@ -44,7 +44,7 @@ export default class Signin extends React.Component {
 
 
   submitInformation (e, route) {
-    //WIP 
+    //WIP
     //will be what triggers a submit
     //takes info from state, then posts it to the server
     // console.log('submitInformation')
@@ -69,15 +69,15 @@ export default class Signin extends React.Component {
   render () {
     if (this.props.view === 'login') {
       return (
-        <div>   
+        <div>
           <div className="table">
             <div className='title'>Login </div>
             <div className="table-row">
-              <span className="table-cell">Username: </span> 
-              <input id='username' className="table-cell" type='text' value={this.state.username} onChange={(e) => this.syncUserInput(e)} /> 
+              <span className="table-cell">Username: </span>
+              <input id='username' className="table-cell" type='text' value={this.state.username} onChange={(e) => this.syncUserInput(e)} />
             </div>
             <div className="table-row">
-              <span className="table-cell">Password: </span> 
+              <span className="table-cell">Password: </span>
               <input id='password' className="table-cell"  type='password' value={this.state.password} onChange={(e) => this.syncUserInput(e)} />
           </div>
         </div>
@@ -88,25 +88,25 @@ export default class Signin extends React.Component {
       )
     } else if (this.props.view === 'signup') {
       return (
-        <div> 
-          <div className='title'> Sign Up </div> 
+        <div>
+          <div className='title'> Sign Up </div>
           <div className="table">
             <div className="table-row">
               <div className="table-cell"></div>
-              {this.state.passwordMissmatch === true 
-                ? <div className="passwordError float-right table-cell">Passwords Do Not Match</div> 
+              {this.state.passwordMissmatch === true
+                ? <div className="passwordError float-right table-cell">Passwords Do Not Match</div>
                 : <div className="table-cell passwordError"> &nbsp; </div>}
             </div>
             <div className="table-row">
               <span className="table-cell">Username: </span>
-              <input id='username' className="table-cell" type='text' value={this.state.username} onChange={(e) => this.syncUserInput(e)} /> 
+              <input id='username' className="table-cell" type='text' value={this.state.username} onChange={(e) => this.syncUserInput(e)} />
             </div>
             <div className="table-row">
-              <span className="table-cell">Password: </span> 
+              <span className="table-cell">Password: </span>
               <input id='password' className="table-cell"  type='password' value={this.state.password} onChange={(e) => this.syncUserInput(e)} />
-            </div> 
+            </div>
             <div className="table-row">
-              <span  className="table-cell">Confirm Password: </span> 
+              <span  className="table-cell">Confirm Password: </span>
               <input id='passwordConfirm' className="table-cell" type='password'value={this.state.passwordConfirm} onChange={(e) => this.syncUserInput(e)} />
             </div>
           </div>
@@ -118,7 +118,8 @@ export default class Signin extends React.Component {
     } else {
       return (
         <div className="header-right">
-          <span id='signup-link' onClick={(e) => this.props.click(e)}>Sign Up</span> | <span id='login-link' onClick={(e) =>  this.props.click(e)}>Login</span>
+          <span id='signup-link' onClick={(e) => this.props.click(e)}>Sign Up </span> <span id='login-link' onClick={(e) =>  this.props.click(e)}>Login  |</span>
+
         </div>
       )
     }
