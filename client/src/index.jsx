@@ -28,7 +28,7 @@ export default class App extends React.Component {
     this.saveUserName = this.saveUserName.bind(this);
   }
 
-  componentWillMount() {
+    componentWillMount() {
     var context = this;
 
     Axios({
@@ -148,6 +148,7 @@ export default class App extends React.Component {
     })
   }
 
+
   onSearch() {
     var context = this;
 
@@ -167,12 +168,12 @@ export default class App extends React.Component {
     .then(function (photoData) {
       if(photoData){
         // console.log('ON SUCCESS', photoData);
-        this.src.push(...photoData.data);
-        this.setState({
-          searchPagination: this.state.searchPagination + 1
+        context.src.push(...photoData.data);
+        context.setState({
+          searchPagination: context.state.searchPagination + 1
         });
-        console.log('THIS.SRC STATE',this.src);
-        console.log('PAGINATION STATE',this.state.searchPagination);
+        console.log('THIS.SRC STATE', context.src);
+        console.log('PAGINATION STATE', context.state.searchPagination);
       }
     })
     .catch(function (err) {
@@ -182,6 +183,29 @@ export default class App extends React.Component {
       console.log('Error retrieving list of photos from server', err);
     })
   }
+
+  addPhotosToSrc (sendToEnd = true) {
+    return new Promise ((resolve, revoke) => {
+      $Get('/photos/',{
+        query: this.state.searchTerm,
+        page: this.state.searchPagination + 1
+      })
+      .then ((photoData) => {
+        if (sendToEnd) { this.src.push(...photoData); }
+        else { this.src = photoData.concat(this.src); }
+        this.setState({searchPagination: this.state.searchPagination + 1 }, () => {
+          console.log ('page', this.state.searchPagination);
+          console.log('THIS.SRC STATE',this.src);
+          resolve();
+        });
+      })
+      .catch(err => {
+        console.error ('Error searching for photos', err)
+        revoke(err)
+      })
+    })
+  }
+
 
   onSearchInput(e) {
     this.setState({
