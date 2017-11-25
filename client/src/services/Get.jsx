@@ -1,6 +1,6 @@
 import $ from 'jquery'
 
-Get = function (url, data) {
+var Get = function (url, data) {
   return new Promise ((resolve, revoke) => {
     $.ajax({
       url: url,

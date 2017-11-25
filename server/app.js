@@ -25,7 +25,7 @@ app.get('/photos', function(req, res) {
     if(err){
       res.status(404).send('ERROR RETRIEVING PHOTOS ' + err);
     } else {
-      console.log('data sent via get photos', data);
+      // console.log('data sent via get photos', data);
       res.send(data);
     }
   });
