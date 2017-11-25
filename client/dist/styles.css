@@ -36,8 +36,8 @@ body {
 
 img {
   border: none;
-  width: auto;
-  max-height: 100%;
+  width: 90%;
+  height: auto;
 }
 
 /*
@@ -47,6 +47,12 @@ img {
 */
 
 .grid {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  height: 100%;
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
   grid-template-rows: 1fr 3fr 1fr;
@@ -67,7 +73,7 @@ img {
 .header-right {
   align-items: end;
   float: right;
-  /* position: absolute: */
+  /* position: absolute; */
   right: 10px;
   /*grid-area: "header-right";
   grid-column: 3/4;
@@ -115,9 +121,7 @@ img {
   grid-row-start: 2;
   grid-row-end: 3;
   align-items: center;
-  /* margin: auto; */
-  /* overflow: hidden;
-  max-height: 100% */
+  height: 100%
 }
 
 .footer {
@@ -126,25 +130,21 @@ img {
 
 .auto-center {
   margin: auto;
-  align-items: center;
+  /* align-items: center; */
   background:transparent;
   border:none;
   color:transparent;
-  
+
 }
 
 #carousel_img {
-  min-width: 400px;
   width: auto;
-  /* height: auto; */
   max-width: 100%;
+  height: 100%;
+  min-width: 400px;
   max-height: 100%;
+  display: block;
   margin: auto;
-  /* align-items: center; */
-  /* position: absolute; */
-  /* top: 50%; */
-  /* left: 50%; */
-  /* transform: translate(-50%, -50%); */
 }
 
 
