@@ -1,6 +1,5 @@
 import React from 'react';
 import Enzyme from 'enzyme';
-<<<<<<< HEAD
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import sinon from 'sinon';
@@ -147,6 +146,13 @@ describe('Login', () => {
     console.log('Try to console an APP property', App._this.handlePhotoNavigationClick.toString());
     expect(App.handlePhotoNavigationClick).exist;
   });
+
+  xit('simulates click events', () => {
+    const handlePhotoNavigationClick = sinon.spy();
+    const wrapper = mount((<App handlePhotoNavigationClick={handlePhotoNavigationClick} />));
+    wrapper.find('button').simulate('click');
+    expect(handlePhotoNavigationClick).to.have.property('callCount', 1);
+  });
 });
 
 describe('Search', () => {
@@ -190,8 +196,14 @@ xdescribe('Login', () => {
     expect(Login).to.be.an('Function');
   });
 
-  it('should be a stateless class component', function() {
-    expect(React.Component.isPrototypeOf(Login)).to.be.false;
+  it('should be a stateful class component', function() {
+    expect(React.Component.isPrototypeOf(Login)).to.be.true;
+  });
+
+  xit('Login.submitInformation should exist', function() {
+    console.log(Login.toString());
+    console.log('Try to console an Login property', Login.submitInformation .toString());
+    expect(Login.submitInformation ).exist;
   });
 
   xit('Login.submitInformation should exist', function() {
