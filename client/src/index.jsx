@@ -6,6 +6,7 @@ import Carousel from './components/Carousel.jsx'
 import Search from './components/search.jsx'
 import $Post from './services/Post.jsx'
 // import $Get from './services/Get.jsx'
+import Axios from 'axios'
 
 export default class App extends React.Component {
   constructor() {
@@ -24,22 +25,29 @@ export default class App extends React.Component {
   }
 
   componentWillMount() {
-    let context = this;
-    $.ajax({
+    var context = this;
+
+    Axios({
       url: '/photos',
-      success: (data) => {
-        if (data) {
-          console.log(data)
-          context.src = data;
-          this.forceUpdate();
-        }
-      },
-      error: (err) => {
-        context.src = [{urls:{regular:'http://images2.fanpop.com/image/photos/13300000/Cute-Puppy-puppies-13379766-1280-800.jpg'}}];
-        this.forceUpdate();
-        console.log('Error retrieving list of photos from server', err);
+      method: 'GET',
+      header: {"Access-Control-Allow-Origin": "*"},
+      proxy: {
+        host: '127.0.0.1',
+        port: 8080
       }
-    });
+    })
+      .then(function (data) {
+        if (data) {
+          context.src = data.data;
+          context.forceUpdate();
+        }
+      })
+      .catch(function (err) {
+        context.src = [{urls:{regular:'http://images2.fanpop.com/image/photos/13300000/Cute-Puppy-puppies-13379766-1280-800.jpg'}}];
+          context.forceUpdate();
+        // console.log('Error retrieving list of photos from server');
+        console.log('Error retrieving list of photos from server', err);
+      })
   }
 
   handlePhotoNavigationClick(direction = 1) { //direction positive, go to next; neg then go previous index
@@ -64,29 +72,39 @@ export default class App extends React.Component {
   }
 
   onSearch() {
-    $.ajax({
-      url: '/photos',
-      method: 'GET',
-      data: {
-        query: this.state.searchTerm,
-        page: this.state.searchPagination
-      },
-      contentType: 'application/json',
-      success: (photoData) => {
-        if(photoData){
-          // console.log('ON SUCCESS', photoData);
-          this.src.push(...photoData);
-          this.setState({
-            searchPagination: this.state.searchPagination + 1
-          });
-          console.log('THIS.SRC STATE',this.src);
-          console.log('PAGINATION STATE',this.state.searchPagination);
-        }
-      },
-      error: (xhr, status, error) => {
-        console.log('err', xhr, status, error);
+    var context = this;
+
+    Axios({
+    url: '/photos',
+    method: 'GET',
+    header: {"Access-Control-Allow-Origin": "*"},
+    data: {
+      query: context.state.searchTerm,
+      page: context.state.searchPagination
+    },
+    proxy: {
+      host: '127.0.0.1',
+      port: 8080
       }
-    });
+    })
+    .then(function (photoData) {
+      if(photoData){
+        // console.log('ON SUCCESS', photoData);
+        this.src.push(...photoData.data);
+        this.setState({
+          searchPagination: this.state.searchPagination + 1
+        });
+        console.log('THIS.SRC STATE',this.src);
+        console.log('PAGINATION STATE',this.state.searchPagination);
+      }
+    })
+    .catch(function (err) {
+      context.src = [{urls:{regular:'http://images2.fanpop.com/image/photos/13300000/Cute-Puppy-puppies-13379766-1280-800.jpg'}}];
+      context.forceUpdate();
+      // console.log('err', xhr, status, error);
+      console.log('Error retrieving list of photos from server', err);
+    })
+
   }
 
   onSearchInput(e) {
