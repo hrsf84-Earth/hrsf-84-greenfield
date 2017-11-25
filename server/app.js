@@ -46,21 +46,29 @@ app.get('/search', function(req, res) {
 // { '{"username":"Bob Eats a lot","password":"i am a password"}': '' } -entry info
 
 app.post('/users/signup', urlencodedParser, function(req, res) {
-  console.log(req.body);
+  console.log(Object.keys(req.body));
   var start = req.body //need to tailor this
   var keys = Object.keys(start)
+  // console.log('KEYS', keys)
   var user = JSON.parse(keys)
-  //check if user exists
+  console.log(user);
+
+  // check if user exists
   db.checkUser(user)
   .then((result) => {
     if ( result.length === 0 ) {
+      console.log('RESULT LENGTH IS 0', result);
       db.addUser(user)
-      .then((end) => {
-        console.log(end)
-        res.end()
+      .then((result) => {
+        console.log('', result)
+        res.status(201).send('NEW USER ADDED');
       })
+    } else {
+      console.log('User already exists: here is the existing row entry', result)
+      res.status(400).send('USER ALREADY EXISTS');
     }
   })
+
   // db.query('SELECT username from Users WHERE username = ' + req.body.username + '', function(err , result ) {
   //   if ( result.length === 0 ) {
   //    db.query('INSERT INTO Users SET ?', user, function(err, res) {
@@ -72,7 +80,7 @@ app.post('/users/signup', urlencodedParser, function(req, res) {
   //     })
   //   } else {
   //     res.send('error, user already exists')
-  //   } 
+  //   }
   // })
   // res.send('Success, user signed up');
 
@@ -86,8 +94,11 @@ app.post('/users/signup', urlencodedParser, function(req, res) {
 app.post('/users/login', urlencodedParser, function (req, res) {
   console.log('from cliet login: ', req.body);
   let start = req.body;
+  console.log('START', start);
   let keys = Object.keys(start);
+  console.log('KEYS', keys);
   let user = JSON.parse(keys);
+  console.log('USER', user);
   db.checkUser(user)
   .then((result) => {
     if ( result.length > 0 ) {
