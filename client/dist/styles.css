@@ -36,8 +36,8 @@ body {
 
 img {
   border: none;
-  width: auto;
-  max-height: 100%;
+  width: 90%;
+  height: auto;
 }
 
 /*
@@ -129,7 +129,7 @@ img {
 
 .auto-center {
   margin: auto;
-  align-items: center;
+  /* align-items: center; */
   background:transparent;
   border:none;
   color:transparent;
