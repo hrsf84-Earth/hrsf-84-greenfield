@@ -86,7 +86,6 @@ xdescribe('<App />', () => {
 
 });
 
-
 describe('Search', () => {
   it('should properly run tests', () => {
     expect(1).equal(1);
@@ -156,7 +155,7 @@ describe('Login', () => {
     expect(App.handlePhotoNavigationClick).exist;
   });
 
-  xit('simulates click events', () => {
+  it('simulates click events', () => {
     const handlePhotoNavigationClick = sinon.spy();
     // const wrapper = mount((<App handlePhotoNavigationClick={handlePhotoNavigationClick} />));
     wrapper.find('button').simulate('click');

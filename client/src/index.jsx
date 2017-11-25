@@ -28,7 +28,7 @@ export default class App extends React.Component {
     this.saveUserName = this.saveUserName.bind(this);
   }
 
-    componentWillMount() {
+  componentWillMount() {
     var context = this;
 
     Axios({
