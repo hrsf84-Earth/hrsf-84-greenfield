@@ -13,7 +13,7 @@ export default class App extends React.Component {
     super();
     this.src = [];
     this.isRetrievingNewPage = false;
-   
+
     this.state = {
       confirmedUsername: null, //username that is used if server says user is signed in
       currentPhotoIndex: 16,
@@ -148,6 +148,41 @@ export default class App extends React.Component {
     })
   }
 
+  onSearch() {
+    var context = this;
+
+    Axios({
+    url: '/photos',
+    method: 'GET',
+    header: {"Access-Control-Allow-Origin": "*"},
+    data: {
+      query: context.state.searchTerm,
+      page: context.state.searchPagination
+    },
+    proxy: {
+      host: '127.0.0.1',
+      port: 8080
+      }
+    })
+    .then(function (photoData) {
+      if(photoData){
+        // console.log('ON SUCCESS', photoData);
+        this.src.push(...photoData.data);
+        this.setState({
+          searchPagination: this.state.searchPagination + 1
+        });
+        console.log('THIS.SRC STATE',this.src);
+        console.log('PAGINATION STATE',this.state.searchPagination);
+      }
+    })
+    .catch(function (err) {
+      context.src = [{urls:{regular:'http://images2.fanpop.com/image/photos/13300000/Cute-Puppy-puppies-13379766-1280-800.jpg'}}];
+      context.forceUpdate();
+      // console.log('err', xhr, status, error);
+      console.log('Error retrieving list of photos from server', err);
+    })
+  }
+
   onSearchInput(e) {
     this.setState({
       searchTerm: e.target.value
@@ -155,7 +190,7 @@ export default class App extends React.Component {
   }
 
   viewSelect (e) {
-    //this function will change the 'login/signup/logoff' view. 
+    //this function will change the 'login/signup/logoff' view.
     //either enter a quoted desired change of view, ie 'home' or 'login'
     // or pass in a react event variable with the id having the desired location seperated with a '-'
     //ie btn-logout or click-signup
@@ -165,7 +200,7 @@ export default class App extends React.Component {
     } catch (err) {
       selected = e;
     }
-    
+
     console.log('THE SELECTED', selected);
     var view;
     if (selected.indexOf('signup') !== -1) {
