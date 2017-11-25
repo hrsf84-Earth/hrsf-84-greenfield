@@ -120,6 +120,7 @@ img {
   grid-row-start: 2;
   grid-row-end: 3;
   align-items: center;
+  height: 100%
 }
 
 .footer {
