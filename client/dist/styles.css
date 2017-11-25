@@ -48,10 +48,10 @@ img {
 
 .grid {
   position: absolute;
-  left: 0;
-  right: 0;
   top: 0;
-  bottom: 5;
+  right: 0;
+  bottom: 0;
+  left: 0;
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
   grid-template-rows: 1fr 3fr 1fr;
@@ -127,24 +127,22 @@ img {
 }
 
 .auto-center {
-  margin: auto;
   /* align-items: center; */
   background:transparent;
   border:none;
   color:transparent;
-
-}
-
-#carousel_img {
-  width: auto;
-  max-width: 100%;
-  height: 100%;
-  min-width: 400px;
-  max-height: 100%;
-  display: block;
   margin: auto;
 }
 
+#carousel_img {
+  display: block;
+  height: 100%;
+  margin: auto;
+  max-width: 100%;
+  max-height: 100%;
+  min-width: 400px;
+  width: auto;
+}
 
 input {
   border: 1px grey solid;
@@ -156,9 +154,9 @@ input {
   width: 100%;
   height: 100%;
   top: 0;
-  left: 0;
   right: 0;
   bottom: 0;
+  left: 0;
   background-color: rgba(0,0,0, 0.5);
 }
 
