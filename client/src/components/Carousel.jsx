@@ -1,16 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-class Carousel extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+const Carousel = (props) => {
+// class Carousel extends React.Component {
+//   constructor(props) {
+//     super(props);
+//   }
 
-  render () {
-    if (!!this.props.currentPhoto) {
+  // render () {
+    if (!!props.currentPhoto) {
       return (
         <div className="carousel">
-          <img id="carousel_img" src={this.props.currentPhoto.urls.regular} ></img>
+          <img id="carousel_img" src={props.currentPhoto.urls.regular} ></img>
         </div>
       )
     } else {
@@ -21,7 +22,7 @@ class Carousel extends React.Component {
       </div>
       );
     }
-  }
+  // }
 }
 
 export default Carousel;
