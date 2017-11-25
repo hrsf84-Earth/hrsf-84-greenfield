@@ -7,10 +7,9 @@ import Search from './components/search.jsx'
 import $Post from './services/Post.jsx'
 // import $Get from './services/Get.jsx'
 
-
-class App extends React.Component {
-  constructor(props) {
-    super(props);
+export default class App extends React.Component {
+  constructor() {
+    super();
     this.src = [];
     this.state = {
       currentPhotoIndex: 0,
@@ -125,7 +124,7 @@ class App extends React.Component {
     } else {
       return (null)
     }
-}
+  }
 
   render () {
     // if (this.state.view === 'login' || this.state.view === 'signup') {
@@ -162,4 +161,6 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+if(typeof window !== 'undefined') {
+  ReactDOM.render(<App />, document.getElementById('app'));
+}
