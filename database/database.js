@@ -3,8 +3,8 @@ var session = require('express-session');
 var MySQLStore = require('express-mysql-session')(session);
 var crypto = require('../helpers/authentication.js');
 
-try { 
-  //try to find config file, if doesn't exist then assume that 
+try {
+  //try to find config file, if doesn't exist then assume that
   //server is live and will retrieve variables from enviromental variables on server
   var config = require('../config.js');
   var mySQL_username = config.mySQL_username ;
@@ -24,9 +24,10 @@ try {
 // You will need to connect with the user "root", no password,
 // and to the database "chat".
 var con = mysql.createConnection({
-  host: 'kavfu5f7pido12mr.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-  user: mySQL_username,
-  password: mySQL_password,
+  host: 'localhost',
+  user: 'root',
+  password: '',
+  database: 'impulse',
   port: mySQL_port
 });
 
@@ -68,28 +69,41 @@ session({
 
 module.exports.checkUser = user => {
   return new Promise((resolve, reject) => {
-    con.query('SELECT username from Users WHERE username = ' + user.username + '', function(err , result ) {
+    var query = 'SELECT * from Users WHERE users.username ="' + user.username + '"';
+    console.log('THE CHECK USER QUERY', query)
+    con.query(query, function(err , result ) {
       if ( err ) {
         reject(err)
       } else {
+        console.log('CHECK USER SUC RESULT', result)
         resolve(result);
       }
-    }) 
+    })
   })
 }
 module.exports.addUser = user => {
 
   return new Promise((resolve, reject) => {
-    resolve(con.query('INSERT INTO Users SET ?', user, function(err, res) {
+    var hash = crypto.createRandom32String();
+
+    var newUser = {
+      username: user.username,
+      password: user.password,
+      salt: hash
+    }
+
+
+    con.query('INSERT INTO Users SET ?', newUser, function(err, res) {
       if ( err ) {
-        reject('error adding user: ', err)
+        reject('error adding user: ')
       } else {
+        console.log('IN ADD USER, BOUT TO RESOLVE', res)
         resolve(res)
       }
     })
-  )
+
 })
-}      
+}
 
 // Access the session as req.session
 module.exports.createCookie = ((req, res, next) => {
