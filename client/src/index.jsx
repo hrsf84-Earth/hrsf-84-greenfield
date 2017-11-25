@@ -25,7 +25,7 @@ export default class App extends React.Component {
     this.viewSelect = this.viewSelect.bind(this);
   }
 
-    componentWillMount() {
+  componentWillMount() {
     var context = this;
 
     Axios({
@@ -144,25 +144,38 @@ export default class App extends React.Component {
     })
   }
 
-  addPhotosToSrc (sendToEnd = true) {
-    return new Promise ((resolve, revoke) => {
-      $Get('/photos/',{
-        query: this.state.searchTerm,
-        page: this.state.searchPagination + 1
-      })
-      .then ((photoData) => {
-        if (sendToEnd) { this.src.push(...photoData); }
-        else { this.src = photoData.concat(this.src); }
-        this.setState({searchPagination: this.state.searchPagination + 1 }, () => {
-          console.log ('page', this.state.searchPagination);
-          console.log('THIS.SRC STATE',this.src);
-          resolve();
+  onSearch() {
+    var context = this;
+
+    Axios({
+    url: '/photos',
+    method: 'GET',
+    header: {"Access-Control-Allow-Origin": "*"},
+    data: {
+      query: context.state.searchTerm,
+      page: context.state.searchPagination
+    },
+    proxy: {
+      host: '127.0.0.1',
+      port: 8080
+      }
+    })
+    .then(function (photoData) {
+      if(photoData){
+        // console.log('ON SUCCESS', photoData);
+        this.src.push(...photoData.data);
+        this.setState({
+          searchPagination: this.state.searchPagination + 1
         });
-      })
-      .catch(err => {
-        console.error ('Error searching for photos', err)
-        revoke(err)
-      })
+        console.log('THIS.SRC STATE',this.src);
+        console.log('PAGINATION STATE',this.state.searchPagination);
+      }
+    })
+    .catch(function (err) {
+      context.src = [{urls:{regular:'http://images2.fanpop.com/image/photos/13300000/Cute-Puppy-puppies-13379766-1280-800.jpg'}}];
+      context.forceUpdate();
+      // console.log('err', xhr, status, error);
+      console.log('Error retrieving list of photos from server', err);
     })
   }
 
