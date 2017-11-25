@@ -123,7 +123,7 @@ describe('Login', () => {
     expect(React.Component.isPrototypeOf(Login)).to.be.true;
   });
 
-  xit('Login.submitInformation should exist', function() {
+  it('Login.submitInformation should exist', function() {
     console.log(Login.toString());
     console.log('Try to console an Login property', Login.submitInformation .toString());
     expect(Login.submitInformation ).exist;
@@ -138,7 +138,6 @@ describe('Login', () => {
 
   it("contains everything else that gets rendered", () => {
       const wrappingDiv = appScreen().find("div");
-
       expect(wrappingDiv.children().first()).to.deep.equal(appScreen().children().first());
   });
 
@@ -147,7 +146,7 @@ describe('Login', () => {
     expect(App.handlePhotoNavigationClick).exist;
   });
 
-  xit('simulates click events', () => {
+  it('simulates click events', () => {
     const handlePhotoNavigationClick = sinon.spy();
     const wrapper = mount((<App handlePhotoNavigationClick={handlePhotoNavigationClick} />));
     wrapper.find('button').simulate('click');
