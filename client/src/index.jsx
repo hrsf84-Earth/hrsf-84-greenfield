@@ -25,7 +25,7 @@ export default class App extends React.Component {
     this.viewSelect = this.viewSelect.bind(this);
   }
 
-    componentWillMount() {
+  componentWillMount() {
     var context = this;
 
     Axios({
@@ -51,7 +51,7 @@ export default class App extends React.Component {
       })
   }
 
-  handlePhotoNavigationClick(direction = 1) { 
+  handlePhotoNavigationClick(direction = 1) {
     //direction positive, go to next; neg then go previous index
     // Overview: When user clicks on a nagivation button, will change the centeral image to a new index of src
     var numberOfPhotos = this.src.length;
@@ -119,7 +119,6 @@ export default class App extends React.Component {
       // console.log('err', xhr, status, error);
       console.log('Error retrieving list of photos from server', err);
     })
-
   }
 
   addPhotosToSrc (sendToEnd = true) {

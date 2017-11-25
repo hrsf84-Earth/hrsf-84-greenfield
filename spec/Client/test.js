@@ -28,15 +28,15 @@ describe('App', () => {
 
 sinon.spy(App.prototype, 'componentWillMount');
 
-xdescribe('<App />', () => {
-  xit('calls componentWillMount', () => {
+describe('<App />', () => {
+  it('calls componentWillMount', () => {
     const wrapper = mount(<App />);
-    expect(App.prototype.componentWillMount.calledOnce).to.equal(true);
+    expect(App.prototype.componentWillMount.call).to.equal(true);
   });
 });
 
 
-  xit('renders one <App /> component', () => {
+  it('renders one <App /> component', () => {
     const wrapper = shallow(<App />);
     expect(wrapper.find(App)).to.have.length(1);
   });
@@ -48,7 +48,7 @@ xdescribe('<App />', () => {
     expect(App.handlePhotoNavigationClick).exist;
   });
 
-  xit('simulates click events', () => {
+  it('simulates click events', () => {
     const handlePhotoNavigationClick = sinon.spy();
     const wrapper = mount((<App handlePhotoNavigationClick={handlePhotoNavigationClick} />));
     wrapper.find('button').simulate('click');
@@ -102,7 +102,7 @@ describe('Login', () => {
     expect(React.Component.isPrototypeOf(Login)).to.be.true;
   });
 
-  xit('Login.submitInformation should exist', function() {
+  it('Login.submitInformation should exist', function() {
     console.log(Login.toString());
     console.log('Try to console an Login property', Login.submitInformation .toString());
     expect(Login.submitInformation ).exist;
