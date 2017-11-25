@@ -25,7 +25,7 @@ export default class App extends React.Component {
     this.viewSelect = this.viewSelect.bind(this);
   }
 
-  componentWillMount() {
+    componentWillMount() {
     var context = this;
 
     Axios({
@@ -202,6 +202,27 @@ export default class App extends React.Component {
     })
   }
 
+  addPhotosToSrc (sendToEnd = true) {
+    return new Promise ((resolve, revoke) => {
+      $Get('/photos/',{
+        query: this.state.searchTerm,
+        page: this.state.searchPagination + 1
+      })
+      .then ((photoData) => {
+        if (sendToEnd) { this.src.push(...photoData); }
+        else { this.src = photoData.concat(this.src); }
+        this.setState({searchPagination: this.state.searchPagination + 1 }, () => {
+          console.log ('page', this.state.searchPagination);
+          console.log('THIS.SRC STATE',this.src);
+          resolve();
+        });
+      })
+      .catch(err => {
+        console.error ('Error searching for photos', err)
+        revoke(err)
+      })
+    })
+  }
 
   onSearchInput(e) {
     this.setState({
