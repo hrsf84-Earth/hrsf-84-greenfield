@@ -24,9 +24,9 @@ try {
 // You will need to connect with the user "root", no password,
 // and to the database "chat".
 var con = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '',
+  host: 'kavfu5f7pido12mr.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+  user: mySQL_username,
+  password: mySQL_password,
   database: 'impulse',
   port: mySQL_port
 });
