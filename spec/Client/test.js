@@ -146,7 +146,7 @@ describe('Login', () => {
     expect(App.handlePhotoNavigationClick).exist;
   });
 
-  xit('simulates click events', () => {
+  it('simulates click events', () => {
     const handlePhotoNavigationClick = sinon.spy();
     const wrapper = mount((<App handlePhotoNavigationClick={handlePhotoNavigationClick} />));
     wrapper.find('button').simulate('click');
@@ -199,7 +199,7 @@ xdescribe('Login', () => {
     expect(React.Component.isPrototypeOf(Login)).to.be.true;
   });
 
-  xit('Login.submitInformation should exist', function() {
+  it('Login.submitInformation should exist', function() {
     console.log(Login.toString());
     console.log('Try to console an Login property', Login.submitInformation .toString());
     expect(Login.submitInformation ).exist;
