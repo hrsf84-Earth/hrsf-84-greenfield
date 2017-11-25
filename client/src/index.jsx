@@ -25,7 +25,7 @@ export default class App extends React.Component {
     this.viewSelect = this.viewSelect.bind(this);
   }
 
-    componentWillMount() {
+  componentWillMount() {
     var context = this;
 
     Axios({
