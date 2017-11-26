@@ -166,7 +166,16 @@ export default class App extends React.Component {
   }
 
   viewSelect (e) {
-    var selected = e.target.id.split('-');
+    //this function will change the 'login/signup/logoff' view. 
+    //either enter a quoted desired change of view, ie 'home' or 'login'
+    // or pass in a react event variable with the id having the desired location seperated with a '-'
+    //ie btn-logout or click-signup
+    var selected;
+    try {
+      selected = e.target.id.split('-');
+    } catch (err) {
+      selected = e;
+    }
     console.log('THE SELECTED', selected);
     var view;
     if (selected.indexOf('signup') !== -1) {
