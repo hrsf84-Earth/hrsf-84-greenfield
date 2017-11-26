@@ -5,11 +5,13 @@ export default class Signin extends React.Component {
   constructor(props){
     super (props)
     this.state = {
+      confirmedUsername: '', //username that is used if server says user is signed in
       signup: false,
       username: '',
       password: '',
       passwordConfirm: '',
-      passwordMissmatch: false,
+      passwordMissmatch: false,  //displays error if user has password and confirmed password that don't match
+      submitError: false //displays an error if the server returns a user/password error
       // loginError: false
     }
     if (this.props.signup === true) {
@@ -60,9 +62,16 @@ export default class Signin extends React.Component {
     $Post(`/users/${route}/`, userObj)
     .then (response => {
       console.log ('post request worked')
+      this.switchViews('logout')
+      this.props.saveUserName(this.state.username)
+      this.setState({
+        password: '',
+        passwordConfirm: '',
+      })
     })
     .catch(err => {
-      console.log ('post request failed')
+      this.switchViews('signup')
+      // console.log ('post request failed')
     })
   }
 
@@ -113,6 +122,13 @@ export default class Signin extends React.Component {
           <button id="button-login" onClick={(e) => this.props.switchViews(e)}> Login </button>
           <button id="button-submit" onClick={(e) => this.submitInformation(e, 'signup')}> Submit </button>
           <button id="button-home" className="btn-cancel" onClick={(e) => this.props.switchViews(e)} > Cancel </button>
+        </div>
+      )
+    } else if (this.props.view === 'logout') {
+      return (
+        <div className="header-right float-right" >
+        <span id='btn-logout' className="float-right" onClick={(e) =>  this.props.click(e)}>Log Out</span>
+        <span id='loggedIn' className="float-right">Welcome {this.state.confirmedUsername} | </span> 
         </div>
       )
     } else {

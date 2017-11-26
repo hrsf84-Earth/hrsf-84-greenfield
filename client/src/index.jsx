@@ -13,6 +13,7 @@ export default class App extends React.Component {
     super();
     this.src = [];
     this.isRetrievingNewPage = false;
+    this.confirmedUsername= null, //username that is used if server says user is signed in
     this.state = {
       currentPhotoIndex: 16,
       view: 'sdfsd',
@@ -88,6 +89,7 @@ export default class App extends React.Component {
 
 
   onSearch() {
+<<<<<<< HEAD
     var context = this;
     console.log(this.state.searchTerm);
     Axios({
@@ -114,6 +116,18 @@ export default class App extends React.Component {
         console.log('THIS.SRC STATE', context.src);
         console.log('PAGINATION STATE', context.state.searchPagination);
       }
+=======
+    $Get('/photos/',{
+      query: this.state.searchTerm,
+      page: 1
+    })
+    .then ((photoData) => {
+      this.src = photoData;
+      this.setState({
+        searchPagination: 1,
+        currentPhotoIndex: 16
+      });
+>>>>>>> Partially implemented response to server login and signup
     })
     .catch(function (err) {
       context.src = [{urls:{regular:'http://images2.fanpop.com/image/photos/13300000/Cute-Puppy-puppies-13379766-1280-800.jpg'}}];
@@ -159,11 +173,21 @@ export default class App extends React.Component {
       view = 'signup';
     } else if (selected.indexOf('login') !== -1){
       view = 'login';
+    } else if (selected.indexOf('logout') !== -1){
+      view = 'logout';
     } else {
-      view = 'home'
+      view = 'home';
     }
     this.setState({view: view})
   }
+
+  saveUserName(username) {
+    if (!username) {
+      return
+    }
+    this.confirmedUsername = username;
+  }
+
 
   viewLogin () {
     if (this.state.view === 'login' || this.state.view === 'signup') {
@@ -174,12 +198,34 @@ export default class App extends React.Component {
             <Login
               view={this.state.view}
               switchViews={this.viewSelect.bind(this)}
+              saveUserName={this.saveUserName}
             />
           </div>
         </div>
       )
     } else {
       return (null)
+    }
+  }
+
+  viewLogoutOrHome () {
+    if (this.state.view === 'logout' ) {
+      return (
+        <Login id="login"
+        click={this.viewSelect.bind(this)}
+        switchViews={this.viewSelect.bind(this)}
+        view={this.state.view}
+      />
+      )
+    } else {
+      return (
+        <Login id="login"
+        click={this.viewSelect.bind(this)}
+        switchViews={this.viewSelect.bind(this)}
+        // view={'logout'}
+        confirmedUsername={this.confirmedUsername}
+      />
+      )
     }
   }
 
@@ -199,10 +245,8 @@ export default class App extends React.Component {
         <div className="grid">
         {this.viewLogin()}
           <div id="impulse-header">Impulse</div>
-          <Login id="login"
-            click={this.viewSelect.bind(this)}
-          />
-          <Search id="search"  onSearch={this.onSearch.bind(this)} onSearchInput={this.onSearchInput.bind(this)} />
+            {this.viewLogoutOrHome ()}
+            <Search id="search"  onSearch={this.onSearch.bind(this)} onSearchInput={this.onSearchInput.bind(this)} />
           <div>
           </div>
           <div className="left auto-center">
