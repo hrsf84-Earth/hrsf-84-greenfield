@@ -62,14 +62,12 @@ app.post('/users/signup', urlencodedParser, function(req, res) {
       .then((result) => {
         console.log('', result)
         res.status(201).send({
-          'code': 201,
           'message': 'NEW USER ADDED'
         })
       })
     } else {
       console.log('User already exists: here is the existing row entry', result)
       res.status(400).send({
-        'code': 400,
         'message': 'USER ALREADY EXISTS'
       })
     }
@@ -129,7 +127,6 @@ app.post('/users/login', urlencodedParser, function (req, res) {
         //Ultimately we're goint to have to send message to user that they inserted wrong password. Front-end has to respond appropriately
         console.log('password not verified');
         res.status(401).send({
-          'code': 401,
           'message': 'Incorrect Username/Password'
         })
       }
@@ -138,7 +135,6 @@ app.post('/users/login', urlencodedParser, function (req, res) {
       //we need to send back a 'pop-up' informing the user of a mistake
       console.log('USER DOES NOT EXIST');
       res.status(401).send({
-        'code': 401,
         'message': 'Incorrect Username/Password'
       })
     }
