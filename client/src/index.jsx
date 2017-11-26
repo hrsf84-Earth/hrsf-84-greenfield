@@ -5,7 +5,7 @@ import Login from './components/Login.jsx'
 import Carousel from './components/Carousel.jsx'
 import Search from './components/search.jsx'
 import $Post from './services/Post.jsx'
-//import $Get from './services/Get.jsx'
+import $Get from './services/Get.jsx'
 import Axios from 'axios'
 
 export default class App extends React.Component {
