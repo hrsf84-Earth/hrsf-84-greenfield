@@ -11,7 +11,7 @@ export default class Signin extends React.Component {
       password: '',
       passwordConfirm: '',
       passwordMissmatch: false,  //displays error if user has password and confirmed password that don't match
-      submitError: false //displays an error if the server returns a user/password error
+      submitError: false, //displays an error if the server returns a user/password error
       // loginError: false
     }
     if (this.props.signup === true) {
@@ -67,11 +67,13 @@ export default class Signin extends React.Component {
       this.setState({
         password: '',
         passwordConfirm: '',
+        submitError: false,
+        duplicateUserError: false
       })
     })
     .catch(err => {
-      this.switchViews('signup')
-      // console.log ('post request failed')
+      this.setState({submitError: true})
+      console.log ('post request failed', err)
     })
   }
 
@@ -81,6 +83,12 @@ export default class Signin extends React.Component {
         <div>
           <div className="table">
             <div className='title'>Login </div>
+            <div className="table-row">
+              <div className="table-cell"></div>
+              {this.state.submitError === true
+                ? <div className="passwordError float-right table-cell">Incorrect Username/Password</div>
+                : <div className="table-cell passwordError"> &nbsp; </div>}
+            </div>
             <div className="table-row">
               <span className="table-cell">Username: </span>
               <input id='username' className="table-cell" type='text' value={this.state.username} onChange={(e) => this.syncUserInput(e)} />
@@ -104,7 +112,10 @@ export default class Signin extends React.Component {
               <div className="table-cell"></div>
               {this.state.passwordMissmatch === true
                 ? <div className="passwordError float-right table-cell">Passwords Do Not Match</div>
-                : <div className="table-cell passwordError"> &nbsp; </div>}
+                : null}
+              {this.state.submitError === true
+                ? <div className="passwordError float-right table-cell">User already taken</div>
+                : null}
             </div>
             <div className="table-row">
               <span className="table-cell">Username: </span>
