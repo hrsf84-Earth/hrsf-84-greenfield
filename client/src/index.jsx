@@ -51,7 +51,7 @@ export default class App extends React.Component {
       })
   }
 
-  handlePhotoNavigationClick(direction = 1) {
+  handlePhotoNavigationClick(direction = 1) { 
     //direction positive, go to next; neg then go previous index
     // Overview: When user clicks on a nagivation button, will change the centeral image to a new index of src
     var numberOfPhotos = this.src.length;

@@ -29,9 +29,9 @@ describe('App', () => {
 sinon.spy(App.prototype, 'componentWillMount');
 
 xdescribe('<App />', () => {
-  it('calls componentWillMount', () => {
+  xit('calls componentWillMount', () => {
     const wrapper = mount(<App />);
-    expect(App.prototype.componentWillMount.call).to.equal(true);
+    expect(App.prototype.componentWillMount.calledOnce).to.equal(true);
   });
 });
 
