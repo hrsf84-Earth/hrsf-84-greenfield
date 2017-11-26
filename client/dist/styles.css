@@ -31,7 +31,7 @@ footer, header, hgroup, menu, nav, section {
 body {
   background-color: #F5F5F5;
   margin: 0 5%;
-  line-height: 1;
+  /* line-height: 1; */
 }
 
 img {
@@ -47,6 +47,11 @@ img {
 */
 
 .grid {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
   grid-template-rows: 1fr 3fr 1fr;
@@ -67,7 +72,7 @@ img {
 .header-right {
   align-items: end;
   float: right;
-  position: absolute:
+  /* position: absolute; */
   right: 10px;
   /*grid-area: "header-right";
   grid-column: 3/4;
@@ -115,6 +120,7 @@ img {
   grid-row-start: 2;
   grid-row-end: 3;
   align-items: center;
+  height: 100%
 }
 
 .footer {
@@ -122,18 +128,21 @@ img {
 }
 
 .auto-center {
-  margin: auto;
   /* align-items: center; */
   background:transparent;
   border:none;
   color:transparent;
+  margin: auto;
 }
 
 #carousel_img {
-  width: 95%;
+  display: block;
+  height: 100%;
+  margin: auto;
   max-width: 100%;
-  height: auto;
+  max-height: 100%;
   min-width: 400px;
+  width: auto;
 }
 
 input {
@@ -146,9 +155,9 @@ input {
   width: 100%;
   height: 100%;
   top: 0;
-  left: 0;
   right: 0;
   bottom: 0;
+  left: 0;
   background-color: rgba(0,0,0, 0.5);
 }
 
@@ -162,8 +171,6 @@ input {
   transform: translate(-50%, -50%);
   background-color: #F5F5F5;
 }
-
-
 
 .table {
   display: table;
@@ -218,7 +225,6 @@ input {
 
 #login-link {
   float: right;
-  margin-right:
 }
 
 #impulse-header {

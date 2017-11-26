@@ -5,15 +5,16 @@ import Login from './components/Login.jsx'
 import Carousel from './components/Carousel.jsx'
 import Search from './components/search.jsx'
 import $Post from './services/Post.jsx'
-// import $Get from './services/Get.jsx'
+import $Get from './services/Get.jsx'
+import Axios from 'axios'
 
-
-class App extends React.Component {
-  constructor(props) {
-    super(props);
+export default class App extends React.Component {
+  constructor() {
+    super();
     this.src = [];
+    this.isRetrievingNewPage = false;
     this.state = {
-      currentPhotoIndex: 0,
+      currentPhotoIndex: 16,
       view: 'sdfsd',
       favoritesView: '',
       searchTerm: '',
@@ -24,71 +25,125 @@ class App extends React.Component {
     this.viewSelect = this.viewSelect.bind(this);
   }
 
-  componentWillMount() {
-    let context = this;
-    $.ajax({
+    componentWillMount() {
+    var context = this;
+
+    Axios({
       url: '/photos',
-      success: (data) => {
-        if (data) {
-          console.log(data)
-          context.src = data;
-          this.forceUpdate();
-        }
-      },
-      error: (err) => {
-        context.src = [{urls:{regular:'http://images2.fanpop.com/image/photos/13300000/Cute-Puppy-puppies-13379766-1280-800.jpg'}}];
-        this.forceUpdate();
-        console.log('Error retrieving list of photos from server', err);
+      method: 'GET',
+      header: {"Access-Control-Allow-Origin": "*"},
+      proxy: {
+        host: '127.0.0.1',
+        port: 8080
       }
-    });
+    })
+      .then(function (data) {
+        if (data) {
+          context.src = data.data;
+          context.forceUpdate();
+        }
+      })
+      .catch(function (err) {
+        context.src = [{urls:{regular:'http://images2.fanpop.com/image/photos/13300000/Cute-Puppy-puppies-13379766-1280-800.jpg'}}];
+          context.forceUpdate();
+        // console.log('Error retrieving list of photos from server');
+        console.log('Error retrieving list of photos from server', err);
+      })
   }
 
-  handlePhotoNavigationClick(direction = 1) { //direction positive, go to next; neg then go previous index
+  handlePhotoNavigationClick(direction = 1) { 
+    //direction positive, go to next; neg then go previous index
     // Overview: When user clicks on a nagivation button, will change the centeral image to a new index of src
     var numberOfPhotos = this.src.length;
     var newIndex = this.state.currentPhotoIndex + direction;
-    if (newIndex < 0) {
-      newIndex = newIndex + numberOfPhotos ;
-    } else if ( newIndex >= numberOfPhotos ) {
-      newIndex = newIndex - numberOfPhotos ;
-    }
-    console.log("Photo index", newIndex);
-    this.setState({
-      currentPhotoIndex: newIndex
-    });
-
-    // if we are going to paginate and need more photos, we should get it when modulo
-    if (this.state.currentPhotoIndex === this.src.length - 1) {
-    // fetch the next page of photos
-      this.onSearch();
+    if (this.state.currentPhotoIndex > this.src.length - 6 && !this.isRetrievingNewPage) {
+      this.isRetrievingNewPage = true
+      this.addPhotosToSrc(true)
+        .then ( () => {
+          this.setState({currentPhotoIndex: newIndex}, () => {this.isRetrievingNewPage = false;})
+        })
+        .catch(err => {
+          this.isRetrievingNewPage = false;
+        })
+    } else if ((this.state.currentPhotoIndex < 6 ) && !this.isRetrievingNewPage) {
+      this.isRetrievingNewPage = true;
+      this.addPhotosToSrc(false)
+        .then ( () => {
+          newIndex = this.state.currentPhotoIndex += 30;
+          this.setState({currentPhotoIndex: newIndex}, () => {
+            this.isRetrievingNewPage = false;
+            console.log (this.state.currentPhotoIndex)
+          })
+        })
+        .catch(err => {
+          this.isRetrievingNewPage = false;
+        })
+    } else {
+      this.setState({
+        currentPhotoIndex: newIndex
+      }, console.log("Photo index", this.state.currentPhotoIndex));
     }
   }
+
 
   onSearch() {
-    $.ajax({
-      url: '/photos',
-      method: 'GET',
-      data: {
-        query: this.state.searchTerm,
-        page: this.state.searchPagination
-      },
-      contentType: 'application/json',
-      success: (photoData) => {
-        if(photoData){
-          // console.log('ON SUCCESS', photoData);
-          this.src.push(...photoData);
-          this.setState({
-            searchPagination: this.state.searchPagination + 1
-          });
-          console.log('THIS.SRC STATE',this.src);
-          console.log('PAGINATION STATE',this.state.searchPagination);
-        }
-      },
-      error: (xhr, status, error) => {
-        console.log('err', xhr, status, error);
+    var context = this;
+
+    Axios({
+    url: '/photos',
+    method: 'GET',
+    header: {"Access-Control-Allow-Origin": "*"},
+    data: {
+      query: context.state.searchTerm,
+      page: context.state.searchPagination
+    },
+    proxy: {
+      host: '127.0.0.1',
+      port: 8080
       }
-    });
+    })
+    .then(function (photoData) {
+      if(photoData){
+        // console.log('ON SUCCESS', photoData);
+        context.src.push(...photoData.data);
+        context.setState({
+          searchPagination: context.state.searchPagination + 1
+        });
+        console.log('THIS.SRC STATE', context.src);
+        console.log('PAGINATION STATE', context.state.searchPagination);
+      }
+    })
+    .catch(function (err) {
+      context.src = [{urls:{regular:'http://images2.fanpop.com/image/photos/13300000/Cute-Puppy-puppies-13379766-1280-800.jpg'}}];
+      context.forceUpdate();
+      // console.log('err', xhr, status, error);
+      console.log('Error retrieving list of photos from server', err);
+    })
+
   }
+
+  addPhotosToSrc (sendToEnd = true) {
+    return new Promise ((resolve, revoke) => {
+      $Get('/photos/',{
+        query: this.state.searchTerm,
+        page: this.state.searchPagination + 1
+      })
+      .then ((photoData) => {
+        if (sendToEnd) { this.src.push(...photoData); }
+        else { this.src = photoData.concat(this.src); }
+        this.setState({searchPagination: this.state.searchPagination + 1 }, () => {
+          console.log ('page', this.state.searchPagination);
+          console.log('THIS.SRC STATE',this.src);
+          resolve();
+        });
+      })
+      .catch(err => {
+        console.error ('Error searching for photos', err)
+        revoke(err)
+      })
+    })
+  }
+
 
   onSearchInput(e) {
     this.setState({
@@ -125,7 +180,7 @@ class App extends React.Component {
     } else {
       return (null)
     }
-}
+  }
 
   render () {
     // if (this.state.view === 'login' || this.state.view === 'signup') {
@@ -162,4 +217,6 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+if(typeof window !== 'undefined') {
+  ReactDOM.render(<App />, document.getElementById('app'));
+}
