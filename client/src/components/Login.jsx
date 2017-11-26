@@ -17,6 +17,7 @@ export default class Signin extends React.Component {
     if (this.props.signup === true) {
       this.state.signup = true;
     }
+    this.clickLogoutbutton = this.clickLogoutbutton.bind(this)
   }
 
   // componentDidMount () {
@@ -62,7 +63,6 @@ export default class Signin extends React.Component {
     $Post(`/users/${route}/`, userObj)
     .then (response => {
       console.log ('post request worked')
-      this.switchViews('logout')
       this.props.saveUserName(this.state.username)
       this.setState({
         password: '',
@@ -70,13 +70,23 @@ export default class Signin extends React.Component {
         submitError: false,
         duplicateUserError: false
       })
+      this.props.switchViews('logout')
     })
     .catch(err => {
       this.setState({submitError: true})
       console.log ('post request failed', err)
-      this.setState({submitError: true})
-      console.log ('post request failed', err)
     })
+  }
+
+  clickLogoutbutton () {
+    this.setState({
+      password: '',
+      passwordConfirm: '',
+      submitError: false,
+      duplicateUserError: false
+    })
+    document.cookie = "impulse_cookie_ID=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    this.props.switchViews('home')
   }
 
   render () {
@@ -140,8 +150,8 @@ export default class Signin extends React.Component {
     } else if (this.props.view === 'logout') {
       return (
         <div className="header-right float-right" >
-        <span id='btn-logout' className="float-right" onClick={(e) =>  this.props.click(e)}>Log Out</span>
-        <span id='loggedIn' className="float-right">Welcome {this.state.confirmedUsername} | </span> 
+        <span id='btn-logout' className="float-right" onClick={this.clickLogoutbutton}>Log Out</span>
+        <span id='loggedIn' className="float-right">Welcome {this.props.confirmedUsername} | </span> 
         </div>
       )
     } else {

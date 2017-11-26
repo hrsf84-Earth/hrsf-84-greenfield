@@ -13,8 +13,9 @@ export default class App extends React.Component {
     super();
     this.src = [];
     this.isRetrievingNewPage = false;
-    this.confirmedUsername= null, //username that is used if server says user is signed in
+   
     this.state = {
+      confirmedUsername: null, //username that is used if server says user is signed in
       currentPhotoIndex: 16,
       view: 'sdfsd',
       favoritesView: '',
@@ -24,6 +25,7 @@ export default class App extends React.Component {
 
     this.handlePhotoNavigationClick = this.handlePhotoNavigationClick.bind(this);
     this.viewSelect = this.viewSelect.bind(this);
+    this.saveUserName = this.saveUserName.bind(this);
   }
 
     componentWillMount() {
@@ -182,7 +184,7 @@ export default class App extends React.Component {
     if (!username) {
       return
     }
-    this.confirmedUsername = username;
+    this.setState({confirmedUsername: username})
   }
 
 
@@ -212,6 +214,7 @@ export default class App extends React.Component {
         click={this.viewSelect.bind(this)}
         switchViews={this.viewSelect.bind(this)}
         view={this.state.view}
+        confirmedUsername={this.state.confirmedUsername}
       />
       )
     } else {
@@ -220,7 +223,6 @@ export default class App extends React.Component {
         click={this.viewSelect.bind(this)}
         switchViews={this.viewSelect.bind(this)}
         // view={'logout'}
-        confirmedUsername={this.confirmedUsername}
       />
       )
     }
