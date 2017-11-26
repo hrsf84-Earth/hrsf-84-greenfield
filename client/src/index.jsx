@@ -17,7 +17,7 @@ export default class App extends React.Component {
     this.state = {
       confirmedUsername: null, //username that is used if server says user is signed in
       currentPhotoIndex: 16,
-      view: 'sdfsd',
+      view: 'home',
       favoritesView: '',
       searchTerm: '',
       searchPagination: 1
