@@ -2,7 +2,7 @@ var bodyParser = require('body-parser');
 var express = require ('express');
 var db = require ('../database/database.js');
 var unsplash = require('../helpers/unsplash.js');
-
+var crypto = require('../helpers/authentication.js');
 var app = express();
 
 var port = process.env.PORT || 8080;
@@ -101,36 +101,32 @@ app.post('/users/login', urlencodedParser, function (req, res) {
   console.log('USER', user);
   db.checkUser(user)
   .then((result) => {
-    console.log(result)
     if ( result.length > 0 ) {
-      if (  user.password === result[0].password ) {
-        res.send({
-          'code': 200,
-          'message': 'login successful'
-        });
+      var attemptedPassword = user.password;
+      console.log('THE ATTEMPTED PASSWORD', attemptedPassword, 'and result', result);
+
+      var existingPassword = result[0].password;
+      var existingUserId = result[0].id;
+      var salt = result[0].salt;
+
+      console.log('ALL 3', existingPassword, existingUserId, salt);
+
+      if (crypto.compareHash(attemptedPassword, existingPassword, salt) ){
+        console.log('User has verified password');
+        //Ultimately we're goint to have to send message to user that they are logged in. Front-end has to respond appropriately
+        res.status(200).send('You\'re logged in')
+
       } else {
-        //we need to send back a message ('pop-up' maybe?) informing the user of a mistake
-        console.log ('password was incorrect')
-        res.status(401).send({
-          'code': 401,
-          'message': 'Incorrect Username/Password'
-        })
+        //Ultimately we're goint to have to send message to user that they inserted wrong password. Front-end has to respond appropriately
+        console.log('password not verified');
+        res.status(400).send('Wrong password')
       }
+
     } else {
       //we need to send back a 'pop-up' informing the user of a mistake
-      console.log ('username was not found')
-      res.status(401).send({
-        'code': 401,
-        'message': 'Incorrect Username/Password'
-      })
+      console.log('USER DOES NOT EXIST');
+      res.status(400).send('User does not exist. Try again or sign up as a new user');
     }
-  })
-  .catch(err => {
-    console.log ('database error', err)
-    res.status(401).end({
-      'code': 401,
-      'message': 'Incorrect Username/Password'
-    })
   })
 })
 
