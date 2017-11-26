@@ -33,8 +33,8 @@ export default class App extends React.Component {
       method: 'GET',
       header: {"Access-Control-Allow-Origin": "*"},
       proxy: {
-        host: '127.0.0.1',
-        port: 8080
+        host: window.location.hostname,
+        port: window.location.port
       }
     })
       .then(function (data) {
@@ -98,16 +98,17 @@ export default class App extends React.Component {
       page: context.state.searchPagination
     },
     proxy: {
-      host: '127.0.0.1',
-      port: 8080
-      }
-    })
+      host: window.location.hostname,
+      port: window.location.port
+    }
+  })
     .then(function (photoData) {
       if(photoData){
         // console.log('ON SUCCESS', photoData);
-        context.src.push(...photoData.data);
+        context.src = photoData.data;
         context.setState({
-          searchPagination: context.state.searchPagination + 1
+          searchPagination: 1,
+          currentPhotoIndex: 16
         });
         console.log('THIS.SRC STATE', context.src);
         console.log('PAGINATION STATE', context.state.searchPagination);
