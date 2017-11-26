@@ -6,6 +6,7 @@ import Carousel from './components/Carousel.jsx'
 import Search from './components/search.jsx'
 import $Post from './services/Post.jsx'
 import $Get from './services/Get.jsx'
+import Axios from 'axios'
 
 export default class App extends React.Component {
   constructor() {
@@ -24,26 +25,33 @@ export default class App extends React.Component {
     this.viewSelect = this.viewSelect.bind(this);
   }
 
-  componentWillMount() {
-    let context = this;
-    $.ajax({
+    componentWillMount() {
+    var context = this;
+
+    Axios({
       url: '/photos',
-      success: (data) => {
-        if (data) {
-          console.log(data)
-          context.src = data;
-          this.forceUpdate();
-        }
-      },
-      error: (err) => {
-        context.src = [{urls:{regular:'http://images2.fanpop.com/image/photos/13300000/Cute-Puppy-puppies-13379766-1280-800.jpg'}}];
-        this.forceUpdate();
-        console.log('Error retrieving list of photos from server', err);
+      method: 'GET',
+      header: {"Access-Control-Allow-Origin": "*"},
+      proxy: {
+        host: window.location.hostname,
+        port: window.location.port
       }
-    });
+    })
+      .then(function (data) {
+        if (data) {
+          context.src = data.data;
+          context.forceUpdate();
+        }
+      })
+      .catch(function (err) {
+        context.src = [{urls:{regular:'http://images2.fanpop.com/image/photos/13300000/Cute-Puppy-puppies-13379766-1280-800.jpg'}}];
+          context.forceUpdate();
+        // console.log('Error retrieving list of photos from server');
+        console.log('Error retrieving list of photos from server', err);
+      })
   }
 
-  handlePhotoNavigationClick(direction = 1) { 
+  handlePhotoNavigationClick(direction = 1) {
     //direction positive, go to next; neg then go previous index
     // Overview: When user clicks on a nagivation button, will change the centeral image to a new index of src
     var numberOfPhotos = this.src.length;
@@ -79,28 +87,46 @@ export default class App extends React.Component {
 
 
   onSearch() {
-    $Get('/photos/',{
-      query: this.state.searchTerm,
-      page: 1
+    var context = this;
+    console.log(this.state.searchTerm);
+    Axios({
+    url: '/photos',
+    method: 'GET',
+    header: {"Access-Control-Allow-Origin": "*"},
+    params: {
+      query: context.state.searchTerm,
+      page: context.state.searchPagination
+    },
+    proxy: {
+      host: window.location.hostname,
+      port: window.location.port
+    }
+  })
+    .then(function (photoData) {
+      if(photoData){
+        // console.log('ON SUCCESS', photoData);
+        context.src = photoData.data;
+        context.setState({
+          searchPagination: 1,
+          currentPhotoIndex: 16
+        });
+        console.log('THIS.SRC STATE', context.src);
+        console.log('PAGINATION STATE', context.state.searchPagination);
+      }
     })
-    .then ((photoData) => {
-      this.src = photoData;
-      this.setState({
-        searchPagination: 1,
-        currentPhotoIndex: 15
-      });
-    })
-    .catch(err => {
-      console.error ('Error searching for photos', err)
+    .catch(function (err) {
+      context.src = [{urls:{regular:'http://images2.fanpop.com/image/photos/13300000/Cute-Puppy-puppies-13379766-1280-800.jpg'}}];
+      context.forceUpdate();
+      // console.log('err', xhr, status, error);
+      console.log('Error retrieving list of photos from server', err);
     })
   }
-
 
   addPhotosToSrc (sendToEnd = true) {
     return new Promise ((resolve, revoke) => {
       $Get('/photos/',{
         query: this.state.searchTerm,
-        page: this.state.searchPagination + 1 
+        page: this.state.searchPagination + 1
       })
       .then ((photoData) => {
         if (sendToEnd) { this.src.push(...photoData); }
@@ -118,6 +144,27 @@ export default class App extends React.Component {
     })
   }
 
+  addPhotosToSrc (sendToEnd = true) {
+    return new Promise ((resolve, revoke) => {
+      $Get('/photos/',{
+        query: this.state.searchTerm,
+        page: this.state.searchPagination + 1
+      })
+      .then ((photoData) => {
+        if (sendToEnd) { this.src.push(...photoData); }
+        else { this.src = photoData.concat(this.src); }
+        this.setState({searchPagination: this.state.searchPagination + 1 }, () => {
+          console.log ('page', this.state.searchPagination);
+          console.log('THIS.SRC STATE',this.src);
+          resolve();
+        });
+      })
+      .catch(err => {
+        console.error ('Error searching for photos', err)
+        revoke(err)
+      })
+    })
+  }
 
   onSearchInput(e) {
     this.setState({

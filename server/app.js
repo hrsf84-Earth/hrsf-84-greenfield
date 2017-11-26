@@ -15,7 +15,7 @@ app.use(express.static('./client/dist'));
 
 
 app.get('/photos', function(req, res) {
-  console.log('REQ QUERY', req.query);
+  console.log('REQ QUERY', req.body);
 
   var term = req.query.query || 'tigers';
   var page = req.query.page || 1;
@@ -72,7 +72,7 @@ app.post('/users/signup', urlencodedParser, function(req, res) {
   //     })
   //   } else {
   //     res.send('error, user already exists')
-  //   } 
+  //   }
   // })
   // res.send('Success, user signed up');
 

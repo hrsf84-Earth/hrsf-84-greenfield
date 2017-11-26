@@ -29,9 +29,9 @@ describe('App', () => {
 sinon.spy(App.prototype, 'componentWillMount');
 
 xdescribe('<App />', () => {
-  xit('calls componentWillMount', () => {
+  it('calls componentWillMount', () => {
     const wrapper = mount(<App />);
-    expect(App.prototype.componentWillMount.calledOnce).to.equal(true);
+    expect(App.prototype.componentWillMount.call).to.equal(true);
   });
 });
 
@@ -43,7 +43,7 @@ xdescribe('<App />', () => {
 
 
   xit('App.handlePhotoNavigationClick should exist', function() {
-    console.log(App.toString());
+    // console.log(App.toString());
     console.log('Try to console an APP property', App._this.handlePhotoNavigationClick.toString());
     expect(App.handlePhotoNavigationClick).exist;
   });
