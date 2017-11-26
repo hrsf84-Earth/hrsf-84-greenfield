@@ -25,16 +25,17 @@ export default class App extends React.Component {
     this.viewSelect = this.viewSelect.bind(this);
   }
 
-  componentWillMount() {
+    componentWillMount() {
     var context = this;
 
     Axios({
       url: '/photos',
       method: 'GET',
-      header: {"Access-Control-Allow-Origin": "*"},
+      header: {"Access-Control-Allow-Origin": "*"}
+      ,
       proxy: {
         host: window.location.hostname,
-        port: window.location.port
+        port: '8080'//window.location.port
       }
     })
       .then(function (data) {
@@ -201,7 +202,7 @@ export default class App extends React.Component {
           <Login id="login"
             click={this.viewSelect.bind(this)}
           />
-            <Search id="search"  onSearch={this.onSearch.bind(this)} onSearchInput={this.onSearchInput.bind(this)} />
+          <Search id="search"  onSearch={this.onSearch.bind(this)} onSearchInput={this.onSearchInput.bind(this)} />
           <div>
           </div>
           <div className="left auto-center">

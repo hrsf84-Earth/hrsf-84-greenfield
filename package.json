@@ -24,6 +24,7 @@
     "babel-loader": "^6.3.2",
     "babel-register": "^6.7.2",
     "babylon": "^6.18.0",
+    "blanket": "^1.2.3",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "express-mysql-session": "^1.2.3",
