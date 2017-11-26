@@ -88,7 +88,7 @@ module.exports.addUser = user => {
 
     var newUser = {
       username: user.username,
-      password: user.password,
+      password: crypto.createHash(user.password, hash),
       salt: hash
     }
 
