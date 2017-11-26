@@ -19,13 +19,13 @@ app.get('/photos', function(req, res) {
 
   var term = req.query.query || 'tigers';
   var page = req.query.page || 1;
-  console.log('THE TERM: ', term, ' PAGE: ', page)
+  // console.log('Search query: ', term, ' PAGE: ', page)
 
   unsplash.getPhotos(term, page, function(err, data){
     if(err){
       res.status(503).send('ERROR RETRIEVING PHOTOS ' + err);
     } else {
-      // console.log('data sent via get photos', data);
+      // console.log('data sent via get photos', data[0].id);
       res.send(data);
     }
   });
@@ -61,34 +61,18 @@ app.post('/users/signup', urlencodedParser, function(req, res) {
       db.addUser(user)
       .then((result) => {
         console.log('', result)
-        res.status(201).send('NEW USER ADDED');
+        res.status(201).send({
+          'message': 'NEW USER ADDED'
+        })
       })
     } else {
       console.log('User already exists: here is the existing row entry', result)
-      res.status(400).send('USER ALREADY EXISTS');
+      res.status(400).send({
+        'message': 'USER ALREADY EXISTS'
+      })
     }
   })
-
-  // db.query('SELECT username from Users WHERE username = ' + req.body.username + '', function(err , result ) {
-  //   if ( result.length === 0 ) {
-  //    db.query('INSERT INTO Users SET ?', user, function(err, res) {
-  //       if ( err ) {
-  //         console.log('error: ', err)
-  //       } else {
-  //         console.log('success: user signed up in db')
-  //       }
-  //     })
-  //   } else {
-  //     res.send('error, user already exists')
-  //   }
-  // })
-  // res.send('Success, user signed up');
-
 })
-
-
-// login sent to route /users/login/
-// { '{"username":"Bob Eats a lot","password":"i am a password"}': '' }
 
 
 app.post('/users/login', urlencodedParser, function (req, res) {
@@ -114,18 +98,25 @@ app.post('/users/login', urlencodedParser, function (req, res) {
       if (crypto.compareHash(attemptedPassword, existingPassword, salt) ){
         console.log('User has verified password');
         //Ultimately we're goint to have to send message to user that they are logged in. Front-end has to respond appropriately
-        res.status(200).send('You\'re logged in')
+        res.status(200).send({
+          'code': 200,
+          'message': 'login successful'
+        });
 
       } else {
         //Ultimately we're goint to have to send message to user that they inserted wrong password. Front-end has to respond appropriately
         console.log('password not verified');
-        res.status(400).send('Wrong password')
+        res.status(401).send({
+          'message': 'Incorrect Username/Password'
+        })
       }
 
     } else {
       //we need to send back a 'pop-up' informing the user of a mistake
       console.log('USER DOES NOT EXIST');
-      res.status(400).send('User does not exist. Try again or sign up as a new user');
+      res.status(401).send({
+        'message': 'Incorrect Username/Password'
+      })
     }
   })
 })

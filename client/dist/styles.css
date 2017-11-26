@@ -194,6 +194,11 @@ input {
   float:right;
 }
 
+.btn-sideSpacing {
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
 .highlightError {
   /* border-color: red; */
   outline: red 1px solid;
