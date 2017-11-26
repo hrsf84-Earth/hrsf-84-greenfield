@@ -88,12 +88,12 @@ export default class App extends React.Component {
 
   onSearch() {
     var context = this;
-
+    console.log(this.state.searchTerm);
     Axios({
     url: '/photos',
     method: 'GET',
     header: {"Access-Control-Allow-Origin": "*"},
-    data: {
+    params: {
       query: context.state.searchTerm,
       page: context.state.searchPagination
     },
