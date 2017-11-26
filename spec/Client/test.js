@@ -148,7 +148,7 @@ describe('Login', () => {
 
   xit('simulates click events', () => {
     const handlePhotoNavigationClick = sinon.spy();
-    const wrapper = mount((<App handlePhotoNavigationClick={handlePhotoNavigationClick} />));
+    // const wrapper = mount((<App handlePhotoNavigationClick={handlePhotoNavigationClick} />));
     wrapper.find('button').simulate('click');
     expect(handlePhotoNavigationClick).to.have.property('callCount', 1);
   });
