@@ -61,11 +61,17 @@ app.post('/users/signup', urlencodedParser, function(req, res) {
       db.addUser(user)
       .then((result) => {
         console.log('', result)
-        res.status(201).send('NEW USER ADDED');
+        res.status(201).send({
+          'code': 201,
+          'message': 'NEW USER ADDED'
+        })
       })
     } else {
       console.log('User already exists: here is the existing row entry', result)
-      res.status(400).send('USER ALREADY EXISTS');
+      res.status(400).send({
+        'code': 400,
+        'message': 'USER ALREADY EXISTS'
+      })
     }
   })
 
@@ -114,18 +120,27 @@ app.post('/users/login', urlencodedParser, function (req, res) {
       if (crypto.compareHash(attemptedPassword, existingPassword, salt) ){
         console.log('User has verified password');
         //Ultimately we're goint to have to send message to user that they are logged in. Front-end has to respond appropriately
-        res.status(200).send('You\'re logged in')
+        res.status(200).send({
+          'code': 200,
+          'message': 'login successful'
+        });
 
       } else {
         //Ultimately we're goint to have to send message to user that they inserted wrong password. Front-end has to respond appropriately
         console.log('password not verified');
-        res.status(400).send('Wrong password')
+        res.status(401).send({
+          'code': 401,
+          'message': 'Incorrect Username/Password'
+        })
       }
 
     } else {
       //we need to send back a 'pop-up' informing the user of a mistake
       console.log('USER DOES NOT EXIST');
-      res.status(400).send('User does not exist. Try again or sign up as a new user');
+      res.status(401).send({
+        'code': 401,
+        'message': 'Incorrect Username/Password'
+      })
     }
   })
 })

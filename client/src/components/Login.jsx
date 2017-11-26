@@ -111,8 +111,8 @@ export default class Signin extends React.Component {
           </div>
         </div>
             <button id="button-signup" onClick={(e) => this.props.switchViews(e)} > Sign Up  </button>
-            <button id="button-submit" onClick={(e) => this.submitInformation(e,'login')} > Submit </button>
-            <button id="button-home" className="btn-cancel" onClick={(e) => this.props.switchViews(e)} > Cancel </button>
+            <button id="button-submit" className="float-right btn-sideSpacing" onClick={(e) => this.submitInformation(e,'login')} > Submit </button>
+            <button id="button-home" className="btn-cancel btn-sideSpacing" onClick={(e) => this.props.switchViews(e)} > Cancel </button>
         </div>
       )
     } else if (this.props.view === 'signup') {
@@ -143,8 +143,8 @@ export default class Signin extends React.Component {
             </div>
           </div>
           <button id="button-login" onClick={(e) => this.props.switchViews(e)}> Login </button>
-          <button id="button-submit" onClick={(e) => this.submitInformation(e, 'signup')}> Submit </button>
-          <button id="button-home" className="btn-cancel" onClick={(e) => this.props.switchViews(e)} > Cancel </button>
+          <button id="button-submit" className="float-right btn-sideSpacing"  onClick={(e) => this.submitInformation(e, 'signup')}> Submit </button>
+          <button id="button-home" className="btn-cancel btn-sideSpacing" onClick={(e) => this.props.switchViews(e)} > Cancel </button>
         </div>
       )
     } else if (this.props.view === 'logout') {
