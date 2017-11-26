@@ -23,7 +23,7 @@ app.get('/photos', function(req, res) {
 
   unsplash.getPhotos(term, page, function(err, data){
     if(err){
-      res.status(404).send('ERROR RETRIEVING PHOTOS ' + err);
+      res.status(503).send('ERROR RETRIEVING PHOTOS ' + err);
     } else {
       // console.log('data sent via get photos', data);
       res.send(data);
@@ -121,6 +121,10 @@ app.post('/users/login', urlencodedParser, function (req, res) {
         'message': 'incorrect username'
       })
     }
+  })
+  .catch(err => {
+    console.log ('database error', err)
+    res.status(500).end()
   })
 })
 

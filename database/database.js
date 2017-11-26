@@ -9,13 +9,13 @@ try {
   var config = require('../config.js');
   var mySQL_username = config.mySQL_username ;
   var mySQL_password = config.mySQL_password;
-  var mySQL_DBName = config.JAWSDB_URL;
+  var mySQL_DBName = config.mySQL_DBName;
   var mySQL_port = config.mySQL_port;
   var JAWSDB_URL = config.JAWSDB_URL;
 } catch (err) {
   var mySQL_username = process.env.mySQL_username;
   var mySQL_password = process.env.mySQL_password;
-  var mySQL_DBName = process.env.JAWSDB_URL;
+  var mySQL_DBName = process.env.mySQL_DBName;
   var mySQL_port = process.env.mySQL_port;
   var JAWSDB_URL = process.env.JAWSDB_URL;
 }
@@ -27,7 +27,7 @@ var con = mysql.createConnection({
   host: 'kavfu5f7pido12mr.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
   user: mySQL_username,
   password: mySQL_password,
-  database: 'impulse',
+  database: mySQL_DBName,
   port: mySQL_port
 });
 
@@ -69,7 +69,7 @@ session({
 
 module.exports.checkUser = user => {
   return new Promise((resolve, reject) => {
-    var query = 'SELECT * from Users WHERE users.username ="' + user.username + '"';
+    var query = 'SELECT * from Users WHERE Users.username ="' + user.username + '"';
     console.log('THE CHECK USER QUERY', query)
     con.query(query, function(err , result ) {
       if ( err ) {
