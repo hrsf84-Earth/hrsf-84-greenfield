@@ -48,9 +48,74 @@ describe("AppScreen", () => {
     mountedAppScreen = undefined;
   });
 
-  // All tests will go here
-describe('<App />', () => {
-  sinon.spy(App.prototype, 'componentWillMount');
+describe('App', () => {
+
+  it('should properly run tests', () => {
+    expect(1).equal(1);
+  });
+
+  it('should be an Function', function() {
+    expect(App).to.be.an('Function');
+  });
+
+  it('should be a stateful class component', function() {
+    expect(React.Component.isPrototypeOf(App)).to.be.true;
+  });
+
+  it('App.handlePhotoNavigationClick should exist', function() {
+    // console.log(App.toString());
+    console.log('Try to console an APP property', App._this.handlePhotoNavigationClick.toString());
+    expect(App.handlePhotoNavigationClick).exist;
+  });
+});
+
+
+describe('Search', () => {
+  it('should properly run tests', () => {
+    expect(1).equal(1);
+  });
+
+  it('should be a Function', () => {
+    expect(Search).to.be.an('Function');
+  });
+
+  it('should be a stateless class component', function() {
+    expect(React.Component.isPrototypeOf(Search)).to.be.false;
+  });
+
+});
+
+
+describe('Carousel', () => {
+  it('should properly run tests', () => {
+    expect(1).equal(1);
+  });
+
+  it('should be a function', () => {
+    expect(Carousel).to.be.an('function');
+  });
+
+  it('should be a stateless class component', function() {
+    expect(React.Component.isPrototypeOf(Carousel)).to.be.false;
+  });
+
+});
+
+
+describe('Login', () => {
+  it('should properly run tests', () => {
+    expect(1).equal(1);
+  });
+
+  it('should be an Function', () => {
+    expect(Login).to.be.an('Function');
+  });
+
+  it('should be a stateless class component', function() {
+    expect(React.Component.isPrototypeOf(Login)).to.be.false;
+  });
+
+});
 
   it('renders 5 <div> tags', () => {
     const wrapper = shallow(<App />);
@@ -75,9 +140,6 @@ describe('<App />', () => {
     expect(handlePhotoNavigationClick).to.have.property('callCount', 1);
   });
 });
-
-});
-
 
 describe('Search', () => {
   it('should properly run tests', () => {
