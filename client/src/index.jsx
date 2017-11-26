@@ -174,6 +174,7 @@ export default class App extends React.Component {
 
   viewSelect (e) {
     var selected = e.target.id.split('-');
+    console.log('THE SELECTED', selected);
     var view;
     if (selected.indexOf('signup') !== -1) {
       view = 'signup';
