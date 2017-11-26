@@ -28,7 +28,6 @@ describe('App', () => {
   });
 });
 
-
 describe("AppScreen", () => {
   let props;
   let mountedAppScreen;
@@ -48,20 +47,6 @@ describe("AppScreen", () => {
     mountedAppScreen = undefined;
   });
 
-describe('App', () => {
-
-  it('should properly run tests', () => {
-    expect(1).equal(1);
-  });
-
-  it('should be an Function', function() {
-    expect(App).to.be.an('Function');
-  });
-
-  it('should be a stateful class component', function() {
-    expect(React.Component.isPrototypeOf(App)).to.be.true;
-  });
-
 sinon.spy(App.prototype, 'componentWillMount');
 
 xdescribe('<App />', () => {
@@ -69,8 +54,6 @@ xdescribe('<App />', () => {
     const wrapper = mount(<App />);
     expect(App.prototype.componentWillMount.call).to.equal(true);
   });
-});
-
 
   xit('renders one <App /> component', () => {
     const wrapper = shallow(<App />);
@@ -84,6 +67,12 @@ xdescribe('<App />', () => {
     expect(App.handlePhotoNavigationClick).exist;
   });
 
+  xit('simulates click events', () => {
+    const handlePhotoNavigationClick = sinon.spy();
+    // const wrapper = mount((<App handlePhotoNavigationClick={handlePhotoNavigationClick} />));
+    wrapper.find('button').simulate('click');
+    expect(handlePhotoNavigationClick).to.have.property('callCount', 1);
+  });
 });
 
 describe('Search', () => {
