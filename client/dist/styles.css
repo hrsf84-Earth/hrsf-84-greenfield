@@ -141,7 +141,7 @@ img {
   margin: auto;
   max-width: 100%;
   max-height: 100%;
-  min-width: 400px;
+  min-width: 200px;
   width: auto;
 }
 
@@ -162,14 +162,14 @@ input {
 }
 
 .popup_inner {
+  background-color: #F5F5F5;
   display: block;
-  width: 350px;
   margin: 0;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #F5F5F5;
+  width: 350px;
 }
 
 .table {
