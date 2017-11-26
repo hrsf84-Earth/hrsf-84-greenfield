@@ -25,16 +25,15 @@ describe('App', () => {
   it('should be a stateful class component', function() {
     expect(React.Component.isPrototypeOf(App)).to.be.true;
   });
+});
 
 sinon.spy(App.prototype, 'componentWillMount');
 
 xdescribe('<App />', () => {
-  it('calls componentWillMount', () => {
+  xit('calls componentWillMount', () => {
     const wrapper = mount(<App />);
     expect(App.prototype.componentWillMount.call).to.equal(true);
   });
-});
-
 
   xit('renders one <App /> component', () => {
     const wrapper = shallow(<App />);
@@ -50,12 +49,11 @@ xdescribe('<App />', () => {
 
   xit('simulates click events', () => {
     const handlePhotoNavigationClick = sinon.spy();
-    const wrapper = mount((<App handlePhotoNavigationClick={handlePhotoNavigationClick} />));
+    // const wrapper = mount((<App handlePhotoNavigationClick={handlePhotoNavigationClick} />));
     wrapper.find('button').simulate('click');
     expect(handlePhotoNavigationClick).to.have.property('callCount', 1);
   });
 });
-
 
 describe('Search', () => {
   it('should properly run tests', () => {
@@ -107,6 +105,4 @@ describe('Login', () => {
     console.log('Try to console an Login property', Login.submitInformation .toString());
     expect(Login.submitInformation ).exist;
   });
-
 });
-
