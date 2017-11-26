@@ -25,18 +25,6 @@ describe('App', () => {
   it('should be a stateful class component', function() {
     expect(React.Component.isPrototypeOf(App)).to.be.true;
   });
-<<<<<<< HEAD
-});
-
-sinon.spy(App.prototype, 'componentWillMount');
-
-xdescribe('<App />', () => {
-  xit('calls componentWillMount', () => {
-    const wrapper = mount(<App />);
-    expect(App.prototype.componentWillMount.call).to.equal(true);
-  });
-=======
->>>>>>> Refactor the merge conflicts on Client/test.js that were broken (repetitive)
 });
 
 sinon.spy(App.prototype, 'componentWillMount');
