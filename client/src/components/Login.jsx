@@ -11,7 +11,11 @@ export default class Signin extends React.Component {
       password: '',
       passwordConfirm: '',
       passwordMissmatch: false,  //displays error if user has password and confirmed password that don't match
+<<<<<<< HEAD
       submitError: false, //displays an error if the server returns a user/password error
+=======
+      submitError: false //displays an error if the server returns a user/password error
+>>>>>>> Partially implemented response to server login and signup
       // loginError: false
     }
     if (this.props.signup === true) {
