@@ -13,7 +13,9 @@ export default class App extends React.Component {
     super();
     this.src = [];
     this.isRetrievingNewPage = false;
+   
     this.state = {
+      confirmedUsername: null, //username that is used if server says user is signed in
       currentPhotoIndex: 16,
       view: 'sdfsd',
       favoritesView: '',
@@ -23,6 +25,7 @@ export default class App extends React.Component {
 
     this.handlePhotoNavigationClick = this.handlePhotoNavigationClick.bind(this);
     this.viewSelect = this.viewSelect.bind(this);
+    this.saveUserName = this.saveUserName.bind(this);
   }
 
     componentWillMount() {
@@ -152,18 +155,38 @@ export default class App extends React.Component {
   }
 
   viewSelect (e) {
-    var selected = e.target.id.split('-');
+    //this function will change the 'login/signup/logoff' view. 
+    //either enter a quoted desired change of view, ie 'home' or 'login'
+    // or pass in a react event variable with the id having the desired location seperated with a '-'
+    //ie btn-logout or click-signup
+    var selected;
+    try {
+      selected = e.target.id.split('-');
+    } catch (err) {
+      selected = e;
+    }
+    
     console.log('THE SELECTED', selected);
     var view;
     if (selected.indexOf('signup') !== -1) {
       view = 'signup';
     } else if (selected.indexOf('login') !== -1){
       view = 'login';
+    } else if (selected.indexOf('logout') !== -1){
+      view = 'logout';
     } else {
-      view = 'home'
+      view = 'home';
     }
     this.setState({view: view})
   }
+
+  saveUserName(username) {
+    if (!username) {
+      return
+    }
+    this.setState({confirmedUsername: username})
+  }
+
 
   viewLogin () {
     if (this.state.view === 'login' || this.state.view === 'signup') {
@@ -174,12 +197,34 @@ export default class App extends React.Component {
             <Login
               view={this.state.view}
               switchViews={this.viewSelect.bind(this)}
+              saveUserName={this.saveUserName}
             />
           </div>
         </div>
       )
     } else {
       return (null)
+    }
+  }
+
+  viewLogoutOrHome () {
+    if (this.state.view === 'logout' ) {
+      return (
+        <Login id="login"
+        click={this.viewSelect.bind(this)}
+        switchViews={this.viewSelect.bind(this)}
+        view={this.state.view}
+        confirmedUsername={this.state.confirmedUsername}
+      />
+      )
+    } else {
+      return (
+        <Login id="login"
+        click={this.viewSelect.bind(this)}
+        switchViews={this.viewSelect.bind(this)}
+        // view={'logout'}
+      />
+      )
     }
   }
 
@@ -199,10 +244,8 @@ export default class App extends React.Component {
         <div className="grid">
         {this.viewLogin()}
           <div id="impulse-header">Impulse</div>
-          <Login id="login"
-            click={this.viewSelect.bind(this)}
-          />
-          <Search id="search"  onSearch={this.onSearch.bind(this)} onSearchInput={this.onSearchInput.bind(this)} />
+            {this.viewLogoutOrHome ()}
+            <Search id="search"  onSearch={this.onSearch.bind(this)} onSearchInput={this.onSearchInput.bind(this)} />
           <div>
           </div>
           <div className="left auto-center">

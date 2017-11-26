@@ -101,30 +101,36 @@ app.post('/users/login', urlencodedParser, function (req, res) {
   console.log('USER', user);
   db.checkUser(user)
   .then((result) => {
+    console.log(result)
     if ( result.length > 0 ) {
-      if ( user.password === result[0].password ) {
+      if (  user.password === result[0].password ) {
         res.send({
           'code': 200,
           'message': 'login successful'
         });
       } else {
         //we need to send back a message ('pop-up' maybe?) informing the user of a mistake
-        res.send({
-          'code': 204,
-          'message': 'incorrect password'
+        console.log ('password was incorrect')
+        res.status(401).send({
+          'code': 401,
+          'message': 'Incorrect Username/Password'
         })
       }
     } else {
       //we need to send back a 'pop-up' informing the user of a mistake
-      res.send({
-        'code': 204,
-        'message': 'incorrect username'
+      console.log ('username was not found')
+      res.status(401).send({
+        'code': 401,
+        'message': 'Incorrect Username/Password'
       })
     }
   })
   .catch(err => {
     console.log ('database error', err)
-    res.status(500).end()
+    res.status(401).end({
+      'code': 401,
+      'message': 'Incorrect Username/Password'
+    })
   })
 })
 
