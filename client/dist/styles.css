@@ -223,6 +223,11 @@ input .table-cell {
   float:right;
 }
 
+.btn-sideSpacing {
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
 .title {
   align-items: end;
   font-size: 45px;
