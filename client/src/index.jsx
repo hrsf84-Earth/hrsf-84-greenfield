@@ -89,7 +89,6 @@ export default class App extends React.Component {
 
 
   onSearch() {
-<<<<<<< HEAD
     var context = this;
     console.log(this.state.searchTerm);
     Axios({
@@ -116,18 +115,6 @@ export default class App extends React.Component {
         console.log('THIS.SRC STATE', context.src);
         console.log('PAGINATION STATE', context.state.searchPagination);
       }
-=======
-    $Get('/photos/',{
-      query: this.state.searchTerm,
-      page: 1
-    })
-    .then ((photoData) => {
-      this.src = photoData;
-      this.setState({
-        searchPagination: 1,
-        currentPhotoIndex: 16
-      });
->>>>>>> Partially implemented response to server login and signup
     })
     .catch(function (err) {
       context.src = [{urls:{regular:'http://images2.fanpop.com/image/photos/13300000/Cute-Puppy-puppies-13379766-1280-800.jpg'}}];
@@ -176,6 +163,7 @@ export default class App extends React.Component {
     } catch (err) {
       selected = e;
     }
+    
     console.log('THE SELECTED', selected);
     var view;
     if (selected.indexOf('signup') !== -1) {
