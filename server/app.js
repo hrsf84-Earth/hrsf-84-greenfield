@@ -72,27 +72,7 @@ app.post('/users/signup', urlencodedParser, function(req, res) {
       })
     }
   })
-
-  // db.query('SELECT username from Users WHERE username = ' + req.body.username + '', function(err , result ) {
-  //   if ( result.length === 0 ) {
-  //    db.query('INSERT INTO Users SET ?', user, function(err, res) {
-  //       if ( err ) {
-  //         console.log('error: ', err)
-  //       } else {
-  //         console.log('success: user signed up in db')
-  //       }
-  //     })
-  //   } else {
-  //     res.send('error, user already exists')
-  //   }
-  // })
-  // res.send('Success, user signed up');
-
 })
-
-
-// login sent to route /users/login/
-// { '{"username":"Bob Eats a lot","password":"i am a password"}': '' }
 
 
 app.post('/users/login', urlencodedParser, function (req, res) {
