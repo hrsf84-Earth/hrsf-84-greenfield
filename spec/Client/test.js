@@ -25,6 +25,7 @@ describe('App', () => {
   it('should be a stateful class component', function() {
     expect(React.Component.isPrototypeOf(App)).to.be.true;
   });
+<<<<<<< HEAD
 });
 
 sinon.spy(App.prototype, 'componentWillMount');
@@ -34,21 +35,9 @@ xdescribe('<App />', () => {
     const wrapper = mount(<App />);
     expect(App.prototype.componentWillMount.call).to.equal(true);
   });
+=======
+>>>>>>> Refactor the merge conflicts on Client/test.js that were broken (repetitive)
 });
-
-describe('App', () => {
-
-  it('should properly run tests', () => {
-    expect(1).equal(1);
-  });
-
-  it('should be an Function', function() {
-    expect(App).to.be.an('Function');
-  });
-
-  it('should be a stateful class component', function() {
-    expect(React.Component.isPrototypeOf(App)).to.be.true;
-  });
 
 sinon.spy(App.prototype, 'componentWillMount');
 
@@ -57,8 +46,6 @@ xdescribe('<App />', () => {
     const wrapper = mount(<App />);
     expect(App.prototype.componentWillMount.call).to.equal(true);
   });
-});
-
 
   xit('renders one <App /> component', () => {
     const wrapper = shallow(<App />);
@@ -74,7 +61,7 @@ xdescribe('<App />', () => {
 
   xit('simulates click events', () => {
     const handlePhotoNavigationClick = sinon.spy();
-    const wrapper = mount((<App handlePhotoNavigationClick={handlePhotoNavigationClick} />));
+    // const wrapper = mount((<App handlePhotoNavigationClick={handlePhotoNavigationClick} />));
     wrapper.find('button').simulate('click');
     expect(handlePhotoNavigationClick).to.have.property('callCount', 1);
   });
@@ -130,5 +117,8 @@ describe('Login', () => {
     console.log('Try to console an Login property', Login.submitInformation .toString());
     expect(Login.submitInformation ).exist;
   });
+<<<<<<< HEAD
 
+=======
+>>>>>>> Refactor the merge conflicts on Client/test.js that were broken (repetitive)
 });
