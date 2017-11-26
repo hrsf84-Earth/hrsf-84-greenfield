@@ -135,9 +135,7 @@ export default class Signin extends React.Component {
       return (
         <div className="header-right">
           <button id='signup-link' onClick={(e) => this.props.click(e)}>Sign Up </button>
-
           <button id='login-link' onClick={(e) =>  this.props.click(e)}>Login  |</button>
-
         </div>
       )
     }
