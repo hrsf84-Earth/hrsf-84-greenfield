@@ -5,7 +5,7 @@ import Login from './components/Login.jsx'
 import Carousel from './components/Carousel.jsx'
 import Search from './components/search.jsx'
 import $Post from './services/Post.jsx'
-import $Get from './services/Get.jsx'
+//import $Get from './services/Get.jsx'
 import Axios from 'axios'
 
 export default class App extends React.Component {
@@ -31,10 +31,11 @@ export default class App extends React.Component {
     Axios({
       url: '/photos',
       method: 'GET',
-      header: {"Access-Control-Allow-Origin": "*"},
+      header: {"Access-Control-Allow-Origin": "*"}
+      ,
       proxy: {
         host: window.location.hostname,
-        port: window.location.port
+        port: '8080'//window.location.port
       }
     })
       .then(function (data) {
@@ -201,7 +202,7 @@ export default class App extends React.Component {
           <Login id="login"
             click={this.viewSelect.bind(this)}
           />
-            <Search id="search"  onSearch={this.onSearch.bind(this)} onSearchInput={this.onSearchInput.bind(this)} />
+          <Search id="search"  onSearch={this.onSearch.bind(this)} onSearchInput={this.onSearchInput.bind(this)} />
           <div>
           </div>
           <div className="left auto-center">

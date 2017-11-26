@@ -9,6 +9,7 @@ import App from '../../client/src/index.jsx';
 import Search from '../../client/src/components/search';
 import Carousel from '../../client/src/components/Carousel';
 import Login from '../../client/src/components/Login';
+import Blanket from 'blanket';
 
 configure({ adapter: new Adapter() });
 
@@ -27,22 +28,42 @@ describe('App', () => {
   });
 });
 
-sinon.spy(App.prototype, 'componentWillMount');
 
-xdescribe('<App />', () => {
-  xit('calls componentWillMount', () => {
-    const wrapper = mount(<App />);
-    expect(App.prototype.componentWillMount.call).to.equal(true);
+describe("AppScreen", () => {
+  let props;
+  let mountedAppScreen;
+  const appScreen = () => {
+    if (!mountedAppScreen) {
+      mountedAppScreen = mount(<App />);
+    }
+    return mountedAppScreen;
+  }
+
+  beforeEach(() => {
+    props = {
+      currentPhotoIndex: undefined,
+      searchTerm: undefined,
+      searchPagination: undefined,
+    };
+    mountedAppScreen = undefined;
   });
 
-  xit('renders one <App /> component', () => {
+  // All tests will go here
+describe('<App />', () => {
+  sinon.spy(App.prototype, 'componentWillMount');
+
+  it('renders 5 <div> tags', () => {
     const wrapper = shallow(<App />);
-    expect(wrapper.find(App)).to.have.length(1);
+    expect(wrapper.find('div')).to.have.length(5);
   });
 
+  it("contains everything else that gets rendered", () => {
+      const wrappingDiv = appScreen().find("div");
+
+      expect(wrappingDiv.children().first()).to.deep.equal(appScreen().children().first());
+  });
 
   xit('App.handlePhotoNavigationClick should exist', function() {
-    // console.log(App.toString());
     console.log('Try to console an APP property', App._this.handlePhotoNavigationClick.toString());
     expect(App.handlePhotoNavigationClick).exist;
   });
@@ -54,6 +75,9 @@ xdescribe('<App />', () => {
     expect(handlePhotoNavigationClick).to.have.property('callCount', 1);
   });
 });
+
+});
+
 
 describe('Search', () => {
   it('should properly run tests', () => {
@@ -71,7 +95,7 @@ describe('Search', () => {
 });
 
 
-describe('Carousel', () => {
+xdescribe('Carousel', () => {
   it('should properly run tests', () => {
     expect(1).equal(1);
   });
@@ -87,7 +111,7 @@ describe('Carousel', () => {
 });
 
 
-describe('Login', () => {
+xdescribe('Login', () => {
   it('should properly run tests', () => {
     expect(1).equal(1);
   });
@@ -100,13 +124,7 @@ describe('Login', () => {
     expect(React.Component.isPrototypeOf(Login)).to.be.true;
   });
 
-  xit('Login.submitInformation should exist', function() {
-    console.log(Login.toString());
-    console.log('Try to console an Login property', Login.submitInformation .toString());
+  it('Login.submitInformation should exist', function() {
     expect(Login.submitInformation ).exist;
   });
-<<<<<<< HEAD
-
-=======
->>>>>>> Refactor the merge conflicts on Client/test.js that were broken (repetitive)
 });
