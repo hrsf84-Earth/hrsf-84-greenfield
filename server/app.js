@@ -19,13 +19,13 @@ app.get('/photos', function(req, res) {
 
   var term = req.query.query || 'tigers';
   var page = req.query.page || 1;
-  console.log('THE TERM: ', term, ' PAGE: ', page)
+  // console.log('Search query: ', term, ' PAGE: ', page)
 
   unsplash.getPhotos(term, page, function(err, data){
     if(err){
       res.status(503).send('ERROR RETRIEVING PHOTOS ' + err);
     } else {
-      // console.log('data sent via get photos', data);
+      // console.log('data sent via get photos', data[0].id);
       res.send(data);
     }
   });
