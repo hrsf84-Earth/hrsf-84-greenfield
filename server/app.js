@@ -127,6 +127,20 @@ app.post('/users/login', urlencodedParser, function (req, res) {
   })
 })
 
+app.post('/favorites', function(req, res){
+  console.log('INSIDE SERVER', req.query.username);
+  console.log('INSIDE SERVER', req.query.photo);
+  db.addFavorite(req.query.username, req.query.photo).then( (result) => {
+    console.log('END PROMISE', result);
+    res.status(201).send(result);
+  }).catch(error => {
+      console.log('REACHED THE ERROR BLOCK', error.code);
+
+      res.status(500).send(error);
+  })
+
+})
+
 
 if(!module.parent){
   app.listen(port, () => {console.log ('listening to port: ', port)});

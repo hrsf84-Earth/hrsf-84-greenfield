@@ -75,7 +75,7 @@ img {
 
 .spacer-right {
   align-items: end;
-  grid-area: spacer-right;
+  grid-area: : spacer-right;
   text-align: right;
   vertical-align: end;
   grid-template-columns: 1fr 1fr;
@@ -123,6 +123,13 @@ img {
   grid-row-end: 4;
   align-items: center;
   height: 100%
+}
+
+.carousel span {
+  font-size: 10px;
+  font-style: italic;
+  font-weight: normal;
+
 }
 
 .footer {
@@ -223,11 +230,6 @@ input .table-cell {
   float:right;
 }
 
-.btn-sideSpacing {
-  margin-left: 3px;
-  margin-right: 3px;
-}
-
 .title {
   align-items: end;
   font-size: 45px;
@@ -241,4 +243,11 @@ input .table-cell {
 #signup-link {
   margin: 0px;
   text-align: right;
+}
+
+#heart {
+  width: 40px;
+  height:40px;
+  margin-left: 45%;
+  cursor: pointer;
 }
