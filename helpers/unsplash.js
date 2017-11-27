@@ -20,7 +20,7 @@ const getPhotos = (input, page, callback) => {
 // per_page:	Number of items per page. (Optional; default: 10)
 // collections:	Collection ID(‘s) to narrow search. If multiple, comma-separated.
   axios.get('https://api.unsplash.com/search/photos', {
-   params: {query: input, page: page, per_page: "30"}, headers: {'Authorization': 'Client-ID 9c7f8bd9c717a9fb38a8cf1c8f5bfa39372aa246790420c14659c31c4d1261fe'}
+   params: {query: input, page: page, per_page: "30"}, headers: {'Authorization': 'Client-ID ' + unsplash_applicationId}
   })
   .then(photosFromAPI => {
     console.log('THE LENGTH BRUH', photosFromAPI.data.results.length)
