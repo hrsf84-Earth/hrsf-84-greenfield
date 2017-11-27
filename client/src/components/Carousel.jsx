@@ -12,10 +12,14 @@ class Carousel extends React.Component {
   render() {
     if (!!this.props.currentPhoto) {
       return (
-        <div className="carousel">
-          <span> Photo by {this.props.currentPhoto.user.name}/Unsplash </span>
-          <img id="carousel_img" src={this.props.currentPhoto.urls.regular} ></img>
-          <img onClick={this.favorite.bind(this)}id="heart" src="./images/heart_icon.png" />
+        <div>
+          <div className="carousel">
+            <span> Photo by {this.props.currentPhoto.user.name}/Unsplash </span>
+            <img id="carousel_img" className="carousel" src={this.props.currentPhoto.urls.regular} ></img>
+          </div>
+          <div className="footer-middle">
+            <img onClick={this.favorite.bind(this)}id="heart" src="./images/heart_icon.png" />
+          </div>
         </div>
       )
     } else {

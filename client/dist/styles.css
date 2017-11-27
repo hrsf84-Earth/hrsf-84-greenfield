@@ -35,7 +35,7 @@ body {
 img {
   border: none;
   width: 100%;
-  height: auto;
+  height: 75%;
 }
 
 /*
@@ -45,6 +45,11 @@ img {
 */
 
 .grid {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   display: grid;
   grid-template-columns: .75fr 5fr .75fr;
   grid-template-rows: .5fr .5fr 4fr .25fr;
@@ -52,7 +57,7 @@ img {
     "header-left header-left header-right"
     "spacer spacer spacer-right"
     "left carousel right"
-    "footer"
+    "footer footer-middle footer"
 }
 
 .header-left {
@@ -122,7 +127,7 @@ img {
   grid-row-start: 3;
   grid-row-end: 4;
   align-items: center;
-  height: 100%
+  height: 80%
 }
 
 .carousel span {
@@ -135,6 +140,19 @@ img {
 .footer {
   grid-area: footer;
 }
+
+.footer-middle {
+  grid-area: footer-middle;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row /* works with row or column */
+  flex-direction: row;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+}
+
 
 i {
   background-color: #F5F5F5;
@@ -187,7 +205,7 @@ input .table-cell {
 
 #carousel_img {
   display: block;
-  height: auto;
+  height: 100%;
   margin: auto;
   max-width: 100%;
   max-height: 100%;
@@ -246,8 +264,8 @@ input .table-cell {
 }
 
 #heart {
-  width: 40px;
-  height:40px;
-  margin-left: 45%;
+  align-items: center;
   cursor: pointer;
+  height:40px;
+  width: 40px;
 }

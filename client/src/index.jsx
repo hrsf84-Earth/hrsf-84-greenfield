@@ -28,10 +28,6 @@ export default class App extends React.Component {
     this.saveUserName = this.saveUserName.bind(this);
   }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> Realign elements to be responsive and closer match to wireframe
   componentWillMount() {
     var context = this;
 
