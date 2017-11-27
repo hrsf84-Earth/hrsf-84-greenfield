@@ -75,7 +75,7 @@ img {
 
 .spacer-right {
   align-items: end;
-  grid-area: : spacer-right;
+  grid-area: spacer-right;
   text-align: right;
   vertical-align: end;
   grid-template-columns: 1fr 1fr;
