@@ -19,7 +19,7 @@ export default class App extends React.Component {
       currentPhotoIndex: 16,
       view: 'home',
       favoritesView: '',
-      searchTerm: '',
+      searchTerm: 'tigers',
       searchPagination: 1
     }
 
@@ -28,7 +28,8 @@ export default class App extends React.Component {
     this.saveUserName = this.saveUserName.bind(this);
   }
 
-    componentWillMount() {
+  
+  componentWillMount() {
     var context = this;
 
     Axios({
@@ -38,23 +39,24 @@ export default class App extends React.Component {
       ,
       proxy: {
         host: window.location.hostname,
-        port: '8080'//window.location.port
+        port: window.location.port
       }
     })
-      .then(function (data) {
-        if (data) {
-          context.src = data.data;
-          context.forceUpdate();
-        }
-      })
-      .catch(function (err) {
-        context.src = [{urls:{regular:'http://images2.fanpop.com/image/photos/13300000/Cute-Puppy-puppies-13379766-1280-800.jpg'}}];
-          context.forceUpdate();
-        // console.log('Error retrieving list of photos from server');
-        console.log('Error retrieving list of photos from server', err);
-      })
+    .then(function (data) {
+      if (data) {
+        context.src = data.data;
+        context.forceUpdate();
+      }
+    })
+    .catch(function (err) {
+      context.src = [{urls:{regular:'http://images2.fanpop.com/image/photos/13300000/Cute-Puppy-puppies-13379766-1280-800.jpg'}}];
+        context.forceUpdate();
+      // console.log('Error retrieving list of photos from server');
+      console.log('Error retrieving list of photos from server', err);
+    })
   }
 
+  
   handlePhotoNavigationClick(direction = 1) {
     //direction positive, go to next; neg then go previous index
     // Overview: When user clicks on a nagivation button, will change the centeral image to a new index of src
@@ -126,6 +128,7 @@ export default class App extends React.Component {
     })
   }
 
+  
   addPhotosToSrc (sendToEnd = true) {
     return new Promise ((resolve, revoke) => {
       $Get('/photos/',{
@@ -147,93 +150,15 @@ export default class App extends React.Component {
       })
     })
   }
-
-
-  onSearch() {
-    var context = this;
-
-    Axios({
-    url: '/photos',
-    method: 'GET',
-    header: {"Access-Control-Allow-Origin": "*"},
-    data: {
-      query: context.state.searchTerm,
-      page: context.state.searchPagination
-    },
-    proxy: {
-      host: '127.0.0.1',
-      port: 8080
-      }
-    })
-    .then(function (photoData) {
-      if(photoData){
-        // console.log('ON SUCCESS', photoData);
-        context.src.push(...photoData.data);
-        context.setState({
-          searchPagination: context.state.searchPagination + 1
-        });
-        console.log('THIS.SRC STATE', context.src);
-        console.log('PAGINATION STATE', context.state.searchPagination);
-      }
-    })
-    .catch(function (err) {
-      context.src = [{urls:{regular:'http://images2.fanpop.com/image/photos/13300000/Cute-Puppy-puppies-13379766-1280-800.jpg'}}];
-      context.forceUpdate();
-      // console.log('err', xhr, status, error);
-      console.log('Error retrieving list of photos from server', err);
-    })
-  }
-
-  addPhotosToSrc (sendToEnd = true) {
-    return new Promise ((resolve, revoke) => {
-      $Get('/photos/',{
-        query: this.state.searchTerm,
-        page: this.state.searchPagination + 1
-      })
-      .then ((photoData) => {
-        if (sendToEnd) { this.src.push(...photoData); }
-        else { this.src = photoData.concat(this.src); }
-        this.setState({searchPagination: this.state.searchPagination + 1 }, () => {
-          console.log ('page', this.state.searchPagination);
-          console.log('THIS.SRC STATE',this.src);
-          resolve();
-        });
-      })
-      .catch(err => {
-        console.error ('Error searching for photos', err)
-        revoke(err)
-      })
-    })
-  }
-
-  addPhotosToSrc (sendToEnd = true) {
-    return new Promise ((resolve, revoke) => {
-      $Get('/photos/',{
-        query: this.state.searchTerm,
-        page: this.state.searchPagination + 1
-      })
-      .then ((photoData) => {
-        if (sendToEnd) { this.src.push(...photoData); }
-        else { this.src = photoData.concat(this.src); }
-        this.setState({searchPagination: this.state.searchPagination + 1 }, () => {
-          console.log ('page', this.state.searchPagination);
-          console.log('THIS.SRC STATE',this.src);
-          resolve();
-        });
-      })
-      .catch(err => {
-        console.error ('Error searching for photos', err)
-        revoke(err)
-      })
-    })
-  }
-
+  
+  
   onSearchInput(e) {
     this.setState({
       searchTerm: e.target.value
     });
   }
 
+  
   viewSelect (e) {
     //this function will change the 'login/signup/logoff' view.
     //either enter a quoted desired change of view, ie 'home' or 'login'
