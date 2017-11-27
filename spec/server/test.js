@@ -14,7 +14,7 @@ var waitForThen = function (test, cb) {
 
 xdescribe('Server', function() {
 
-  xdescribe('server has GET /photos', function() {
+  describe('server has GET /photos', function() {
     it('should return true', function() {
     	chai.request('http://localhost:8080')
     		.get('/photos')
@@ -48,7 +48,7 @@ xdescribe('Server', function() {
     });
   })
 
-  xdescribe('server has GET /search', function() {
+  describe('server has GET /search', function() {
     it('should return true', function() {
     	chai.request('http://localhost:8080')
     		.get('/search')
@@ -72,7 +72,7 @@ xdescribe('Server', function() {
   })
 
 
-  xdescribe('server has POST /users/login', function() {
+  describe('server has POST /users/login', function() {
     it('should return true', function() {
       chai.request('http://localhost:8080')
         .post('//users/login')

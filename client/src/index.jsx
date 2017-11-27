@@ -13,13 +13,13 @@ export default class App extends React.Component {
     super();
     this.src = [];
     this.isRetrievingNewPage = false;
-   
+
     this.state = {
       confirmedUsername: null, //username that is used if server says user is signed in
       currentPhotoIndex: 16,
       view: 'home',
       favoritesView: '',
-      searchTerm: '',
+      searchTerm: 'tigers',
       searchPagination: 1
     }
 
@@ -28,6 +28,7 @@ export default class App extends React.Component {
     this.saveUserName = this.saveUserName.bind(this);
   }
 
+  
   componentWillMount() {
     var context = this;
 
@@ -38,23 +39,24 @@ export default class App extends React.Component {
       ,
       proxy: {
         host: window.location.hostname,
-        port: '8080'//window.location.port
+        port: window.location.port
       }
     })
-      .then(function (data) {
-        if (data) {
-          context.src = data.data;
-          context.forceUpdate();
-        }
-      })
-      .catch(function (err) {
-        context.src = [{urls:{regular:'http://images2.fanpop.com/image/photos/13300000/Cute-Puppy-puppies-13379766-1280-800.jpg'}}];
-          context.forceUpdate();
-        // console.log('Error retrieving list of photos from server');
-        console.log('Error retrieving list of photos from server', err);
-      })
+    .then(function (data) {
+      if (data) {
+        context.src = data.data;
+        context.forceUpdate();
+      }
+    })
+    .catch(function (err) {
+      context.src = [{urls:{regular:'http://images2.fanpop.com/image/photos/13300000/Cute-Puppy-puppies-13379766-1280-800.jpg'}}];
+        context.forceUpdate();
+      // console.log('Error retrieving list of photos from server');
+      console.log('Error retrieving list of photos from server', err);
+    })
   }
 
+  
   handlePhotoNavigationClick(direction = 1) {
     //direction positive, go to next; neg then go previous index
     // Overview: When user clicks on a nagivation button, will change the centeral image to a new index of src
@@ -126,6 +128,7 @@ export default class App extends React.Component {
     })
   }
 
+  
   addPhotosToSrc (sendToEnd = true) {
     return new Promise ((resolve, revoke) => {
       $Get('/photos/',{
@@ -147,15 +150,17 @@ export default class App extends React.Component {
       })
     })
   }
-
+  
+  
   onSearchInput(e) {
     this.setState({
       searchTerm: e.target.value
     });
   }
 
+  
   viewSelect (e) {
-    //this function will change the 'login/signup/logoff' view. 
+    //this function will change the 'login/signup/logoff' view.
     //either enter a quoted desired change of view, ie 'home' or 'login'
     // or pass in a react event variable with the id having the desired location seperated with a '-'
     //ie btn-logout or click-signup
@@ -165,7 +170,7 @@ export default class App extends React.Component {
     } catch (err) {
       selected = e;
     }
-    
+
     console.log('THE SELECTED', selected);
     var view;
     if (selected.indexOf('signup') !== -1) {
