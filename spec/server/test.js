@@ -32,71 +32,54 @@ var waitForThen = function (test, cb) {
   }, 5);
 };
 
-describe('Server', function() {
-  var response;
-  chai.request('http://localhost:8080')
-  .get('/photos')
-  .send()
-  .end(function(err, res){
-    response = res;
-    // res.should.have.status(200);
-    // // console.log ('body', res.body)
-    // res.body.should.be.an('array');
-    // res.body.length.should.equal(30);
-    // res.body[0].should.be.a('object');
-    // res.body[0].id.should.be.a('string');
-    // res.body[0].id.should.not.be.equal(res.body[1].id)
-    // res.body[0].urls.should.be.a('object')
-    done()
-  });
+describe('Server', function(done) {
+  ////works commented out but because it uses a api call
+  // describe('server has GET /photos which returns information from api', function() {
+  //   it('api request should return a properly formated array ', function(done) {
+  //     console.log ('here')
 
+  //     chai.request('http://localhost:8080')
+  //     .get('/photos')
+  //     .send()
+  //     .end(function(err, res){
+  //       res.should.have.status(200);
+  //       // console.log ('body', res.body)
+  //       res.body.should.be.an('array');
+  //       res.body.length.should.equal(30);
+  //       res.body[0].should.be.a('object');
+  //       res.body[0].id.should.be.a('string');
+  //       res.body[0].id.should.not.be.equal(res.body[1].id)
+  //       res.body[0].urls.should.be.a('object')
+  //       done()
+  //     });
+  //   });
+  //   describe('test', function (done) {
+  //     console.log('responsexx', response);
+  //   })
+  // })
 
-  xdescribe('server has GET /photos which returns information from api', function() {
-    it('api request should return a properly formated array ', function(done) {
-      console.log ('here')
-
-      chai.request('http://localhost:8080')
-      .get('/photos')
-      .send()
-      .end(function(err, res){
-        res.should.have.status(200);
-        // console.log ('body', res.body)
-        res.body.should.be.an('array');
-        res.body.length.should.equal(30);
-        res.body[0].should.be.a('object');
-        res.body[0].id.should.be.a('string');
-        res.body[0].id.should.not.be.equal(res.body[1].id)
-        res.body[0].urls.should.be.a('object')
-        done()
-      });
-    });
-    describe('test', function (done) {
-      console.log('responsexx', response);
-    })
-  })
-
-
-  xdescribe('server has GET /search', function() {
-    it('should return results from api search', function() {
-    	chai.request('http://localhost:8080')
-        .get('/search')
-        .send()
-    		.end(function(err, res){
-          res.should.have.status(200);
-          res.body.should.be.an('array');
-          res.body.length.should.equal(30);
-          res.body[0].should.be.a('object');
-          res.body[0].id.should.be.a('string');
-          res.body[0].id.should.not.be.equal(res.body[1].id)
-          res.body[0].urls.should.be.a('object')
-		      done();
-	  		});
-    });
-  })
+  ////works commented out but because it uses a api call
+  // xdescribe('server has GET /search', function() {
+  //   it('should return results from api search', function() {
+  //   	chai.request('http://localhost:8080')
+  //       .get('/search')
+  //       .send()
+  //   		.end(function(err, res){
+  //         res.should.have.status(200);
+  //         res.body.should.be.an('array');
+  //         res.body.length.should.equal(30);
+  //         res.body[0].should.be.a('object');
+  //         res.body[0].id.should.be.a('string');
+  //         res.body[0].id.should.not.be.equal(res.body[1].id)
+  //         res.body[0].urls.should.be.a('object')
+	// 	      done();
+	//   		});
+  //   });
+  // })
 
 
   xdescribe('server has POST /users/login', function() {
-    it('should return true', function() {
+    it('should return true', function(done) {
       chai.request('http://localhost:8080')
         .post('//users/login')
         .end(function(err, res){
@@ -148,3 +131,8 @@ describe('Server', function() {
 //     server.close();
 //   })
 // })
+
+
+describe('', function () {
+
+})
