@@ -3,6 +3,8 @@ var chai = require('chai');
 var chaiHttp = require('chai-http');
 var expect = require('chai').expect;
 var server = require('../../server/app.js');
+var should = chai.should();
+
 
 chai.use(chaiHttp);
 
@@ -12,7 +14,7 @@ var waitForThen = function (test, cb) {
   }, 5);
 };
 
-xdescribe('Server', function() {
+describe('Server', function() {
 
   describe('server has GET /photos', function() {
     it('should return true', function() {
@@ -32,11 +34,11 @@ xdescribe('Server', function() {
           expect(parsedBody).to.have.property('results');
           expect(parsedBody.results).to.be.an('array');
           expect(response._ended).to.equal(true);
-          done();
+          // done();
         });
     });
 
-    it('Should 404 when asked for a nonexistent file', function() {
+    xit('Should 404 when asked for a nonexistent file', function() {
       chai.request('http://localhost:8080')
         .get('/arglebargle')
       // Wait for response to return and then check status code
@@ -44,8 +46,30 @@ xdescribe('Server', function() {
           function() { return res._ended; },
           function() {
             expect(res._responseCode).to.equal(404);
+          }
+        );
+        done();
+    });
+
+    it('should return an array of photos from /photo', function(done) {
+      chai.request('http://localhost:8080')
+        .get('/photos')
+        .send()
+        .end(function(err, res){
+          // console.log (res)?
+          res.should.have.status(200);
+          res.should.be.json;
+          res.body.should.be.an('array');
+          res.body.length.should.be.an(30);
+          res.body[0].should.be.a('object');
+          res.body[0].id.should.be.a('string');
+          // res.body[0].should.be.a('object');
+          // res.body[0].should.be.a('object');
+
+          done();
         });
     });
+
   })
 
   describe('server has GET /search', function() {
@@ -82,5 +106,4 @@ xdescribe('Server', function() {
         });
     });
   })
-
 });
