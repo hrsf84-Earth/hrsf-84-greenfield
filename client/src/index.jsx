@@ -28,7 +28,7 @@ export default class App extends React.Component {
     this.saveUserName = this.saveUserName.bind(this);
   }
 
-  
+
   componentWillMount() {
     var context = this;
 
@@ -56,7 +56,7 @@ export default class App extends React.Component {
     })
   }
 
-  
+
   handlePhotoNavigationClick(direction = 1) {
     //direction positive, go to next; neg then go previous index
     // Overview: When user clicks on a nagivation button, will change the centeral image to a new index of src
@@ -128,7 +128,7 @@ export default class App extends React.Component {
     })
   }
 
-  
+
   addPhotosToSrc (sendToEnd = true) {
     return new Promise ((resolve, revoke) => {
       $Get('/photos/',{
@@ -150,15 +150,15 @@ export default class App extends React.Component {
       })
     })
   }
-  
-  
+
+
   onSearchInput(e) {
     this.setState({
       searchTerm: e.target.value
     });
   }
 
-  
+
   viewSelect (e) {
     //this function will change the 'login/signup/logoff' view.
     //either enter a quoted desired change of view, ie 'home' or 'login'
@@ -248,11 +248,9 @@ export default class App extends React.Component {
       return (
         <div className="grid">
         {this.viewLogin()}
-          <div id="impulse-header">Impulse</div>
+          <div id="impulse-header" className="header-left">Impulse</div>
             {this.viewLogoutOrHome ()}
             <Search id="search"  onSearch={this.onSearch.bind(this)} onSearchInput={this.onSearchInput.bind(this)} />
-          <div>
-          </div>
           <div className="left auto-center">
             <button onClick={() => this.handlePhotoNavigationClick(-1)}><i className="fa fa-5x fa-angle-left left-middle" aria-hidden="true" ></i></button>
           </div>

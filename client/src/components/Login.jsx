@@ -151,14 +151,14 @@ export default class Signin extends React.Component {
       return (
         <div className="header-right float-right" >
         <span id='btn-logout' className="float-right" onClick={this.clickLogoutbutton}>Log Out</span>
-        <span id='loggedIn' className="float-right">Welcome {this.props.confirmedUsername} | </span> 
+        <span id='loggedIn' className="float-right">Welcome {this.props.confirmedUsername} | </span>
         </div>
       )
     } else {
       return (
         <div className="header-right">
-          <button id='signup-link' onClick={(e) => this.props.click(e)}>Sign Up </button>
-          <button id='login-link' onClick={(e) =>  this.props.click(e)}>Login  |</button>
+          <button id='login-link' className="float-right" onClick={(e) =>  this.props.click(e)}>Login |</button>
+          <button id='signup-link' className="float-right" onClick={(e) => this.props.click(e)}>&nbsp;Sign Up</button>
         </div>
       )
     }
