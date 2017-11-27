@@ -35,19 +35,20 @@ describe('AppView', function() {
   });
 });
 
-  it('should render itself', function() {
+  xit('should render itself', function() {
+    // expect(App.prototype.render).spy.should.have.callCount(1);
     expect(App.prototype.render).to.have.callCount(1);
   });
 
-  it('should render a Carousel view', function() {
+  xit('should render a Carousel view', function() {
     expect(Carousel.prototype.render).to.have.callCount(1);
   });
 
-  it('should render a Search view', function() {
+  xit('should render a Search view', function() {
     expect(Search.prototype.render).to.have.callCount(1);
   });
 
-  it('should render a Login view', function() {
+  xit('should render a Login view', function() {
     expect(Login.prototype.render).to.have.callCount(1);
   });
 
@@ -74,14 +75,14 @@ describe('AppView', function() {
       describe('<App />', () => {
         sinon.spy(App.prototype, 'componentWillMount');
 
-        it('renders 5 <div> tags for major components on shallow', () => {
+        it('renders 4 <div> tags for major components on shallow', () => {
           const wrapper = shallow(<App />);
-          expect(wrapper.find('div')).to.have.length(5);
+          expect(wrapper.find('div')).to.have.length(4);
         });
 
         it("contains everything else on mount with strict equal", () => {
           const wrapper = appScreen();
-          expect(wrapper.find('div').children()).to.have.length(14);
+          expect(wrapper.find('div').children()).to.have.length(13);
         });
 
         it("contains everything else on mount with deep equal", () => {
@@ -138,34 +139,29 @@ describe('AppView', function() {
       expect(Carousel).to.be.an('function');
     });
 
-    it('should be a stateless class component', function() {
-      expect(React.Component.isPrototypeOf(Carousel)).to.be.false;
+    it('should be a stateful class component', function() {
+      expect(React.Component.isPrototypeOf(Carousel)).to.be.true;
     });
 
   });
 
   describe('Login', () => {
-    xit('should properly run tests', () => {
+    it('should properly run tests', () => {
       expect(1).equal(1);
     });
 
-    xit('should be an Function', () => {
+    it('should be an Function', () => {
       expect(Login).to.be.an('Function');
     });
 
-    xit('should be a stateful class component', function() {
+    it('should be a stateful class component', function() {
       expect(React.Component.isPrototypeOf(Login)).to.be.true;
     });
 
-    it('Login.submitInformation should exist', function() {
-      console.log(Login.toString());
-      console.log('Try to console an Login property', Login.submitInformation.toString());
+    xit('Login.submitInformation should exist', function() {
+      // console.log(Login.toString());
+      // console.log('Try to console an Login property', Login.submitInformation.toString());
       expect(Login.submitInformation).exist;
     });
 
-    xit('Login.submitInformation should exist', function() {
-      console.log(Login.toString());
-      console.log('Try to console an Login property', Login.submitInformation .toString());
-      expect(Login.submitInformation ).exist;
-    });
   });

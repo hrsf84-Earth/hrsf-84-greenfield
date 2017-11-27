@@ -26,22 +26,39 @@
 
 ## Requirements
 
-- Node 8.9.1
+These are the major requirements. Please view the package.json file for full dependencies.
 
+- Node 8.9.1
+- React 16.1.1
+- ReactDOM 16.1.1
+- npm 5.3.0
 
 
 ## Development
-Native React with Webpack, Express, Babel, Axios. Testing was done with Jest, Enzyme, Mocha, Chai and Sinon. Deployment is on Heroku with Travis CI integration.
+Native React with Webpack, Express, Babel, Axios. Testing was done with Jest, Enzyme, Mocha, Chai and Sinon. Deployment is on Heroku with Travis CI integration. Backed by a MySQL DB hosted by JawsDB on AWS.
+
 
 ### Installing Dependencies
 
 From within the root directory:
 
 ```sh
-npm install -g bower
+npm install -g nodemon
 npm install
-bower install
 ```
+
+### To Launch
+To launch the product live:
+```
+npm run start
+```
+
+For dev development in two different terminal windows:
+```
+npm run dev
+npm run demon
+```
+
 
 ### Roadmap
 
@@ -79,6 +96,25 @@ Index.jsx is the main rendering component that connects to Carousel, Login, sear
 
 Login.jsx controls the login and signup for users. It is a stateful component that tracks the signed in users and their authentication state. These were designed as interstitials/modals that popup and overlay upon the photo carousel.
 
-Carousel.jsx controls the photo carousel in the center of the page. It is a stateless component that serves up hotlinks to Unsplash's API. Index.jsx holds the current cache of photos in the carousel and maintains the state of the current photo served in the carousel.
+Carousel.jsx controls the photo carousel in the center of the page. It is a stateless component that serves up hotlinks to Unsplash's API. Index.jsx holds the current cache of photos in the carousel and maintains the state of the current photo served in the carousel. Carousel contains the favorites heart button for favoriting.
 
 Search.jsx is a stateless component that renders the search box and button. It inherits methods from index.jsx.
+
+
+### TO DO ITEMS
+- Sessions: Persist the users between refreshes and on login
+- Favorites display (page of thumbnails) for a user that is logged in
+- Facebook/Google login integration
+- Facebook/Google posting of content
+- Sign up for Unsplash full API access in production (Dev API is limited to 50 calls an hour)
+- More Client side testing
+- Force mocha disconnect from the DB when it completes testing
+- Dev Port testing issue. (window.location.port goes to 80 by default vs the 8080 for the product)
+- Fix Firefox compatibility
+- Fix Vertical image sizing (Mostly a problem on Firefox)
+- On Search and Login, hitting Enter button submits information
+- When a Visitor clicks favorite button, needs a prompt to sign up (warning on server log only right now)
+- Favorites icon needs to signal that it has been favorited already
+- Small CSS fixes: add margin to the elements that are too close to the edge
+
+
