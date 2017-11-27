@@ -18,9 +18,14 @@ CREATE TABLE Sessions (
 );
 CREATE TABLE Photos (
   id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  photo_Url varchar(120) UNIQUE,
+  userId INT,
+  url varchar(400),
+  thumbnail varchar(400),
+  author varchar(60),
   shared_count integer,
-  category varchar(64)
+  category varchar(64),
+  CONSTRAINT uniquePhotoPerUser UNIQUE (userId, url),
+  FOREIGN KEY (userId) REFERENCES Users(id)
 );
 
 CREATE TABLE Favorites (
@@ -30,3 +35,8 @@ CREATE TABLE Favorites (
   FOREIGN KEY (userId) REFERENCES Users(id),
   FOREIGN KEY (photoId) REFERENCES Photos(id)
 );
+
+
+
+--
+-- //RUN THIS COMMAND TO RUN THIS FILE  mysql -u root < server/schema.sql

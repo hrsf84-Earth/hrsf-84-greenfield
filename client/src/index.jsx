@@ -232,6 +232,37 @@ export default class App extends React.Component {
     }
   }
 
+  registerFavorite(input){
+
+    if(this.state.confirmedUsername){
+      console.log('You are logged in', this.state.confirmedUsername);
+      console.log('INSIDE REGISTER FAVORITE', input);
+      var context = this;
+      Axios({
+      url: '/favorites',
+      method: 'POST',
+      header: {"Access-Control-Allow-Origin": "*"},
+      params: {
+        username: context.state.confirmedUsername,
+        photo: input
+      },
+      proxy: {
+        host: window.location.hostname,
+        port: window.location.port
+      }
+    })
+      .then(function (success) {
+        console.log('SUCCESS');
+      })
+      .catch(function (err) {
+        console.log('ERROR');
+      })
+    } else {
+      console.log('You are not logged in');
+    }
+
+  }
+
   render () {
     // if (this.state.view === 'login' || this.state.view === 'signup') {
     //   return (
@@ -253,8 +284,10 @@ export default class App extends React.Component {
           <div className="left auto-center">
             <button onClick={() => this.handlePhotoNavigationClick(-1)}><i className="fa fa-5x fa-angle-left left-middle" aria-hidden="true" ></i></button>
           </div>
-          <Carousel currentPhoto={this.src[this.state.currentPhotoIndex]} />
+          <Carousel registerFavorite={this.registerFavorite.bind(this)} currentPhoto={this.src[this.state.currentPhotoIndex]} />
+
           <div className="right auto-center">
+
             <button onClick={() => this.handlePhotoNavigationClick(1)}><i className="fa fa-5x fa-angle-right right-middle" aria-hidden="true"  > </i></button>
           </div>
         </div>
